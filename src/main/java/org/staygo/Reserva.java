@@ -1,6 +1,7 @@
 package org.staygo;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Reserva {
 
@@ -8,27 +9,39 @@ public class Reserva {
     private Alojamiento alojamiento;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
-    private String estadoReserva;
+    private EstadoReserva estadoReserva;
 
     public Reserva(Usuario usuario, Alojamiento alojamiento, LocalDate fechaInicio, LocalDate fechaFin) {
+        Objects.requireNonNull(usuario, "usuario no puede ser null");
+        Objects.requireNonNull(alojamiento, "alojamiento no puede ser null");
+        Objects.requireNonNull(fechaInicio, "fecha de inicio no puede ser null");
+        Objects.requireNonNull(fechaFin, "fecha de fin no puede ser null");
+
+        if (!fechaFin.isAfter(fechaInicio)) {
+            throw new IllegalArgumentException("la fecha de fin debe ser posterior a la fecha de inicio");
+        }
+
+        if (fechaInicio.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de inicio no puede estar en el pasado");
+        }
         this.usuario = usuario;
         this.alojamiento = alojamiento;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.estadoReserva = "pendiente";
+        this.estadoReserva = EstadoReserva.PENDIENTE;
     }
 
     public boolean confirmarReserva() {
-        if ("pendiente".equals(estadoReserva)) {
-            estadoReserva = "confirmada";
+        if (estadoReserva == EstadoReserva.PENDIENTE) {
+            estadoReserva = EstadoReserva.CONFIRMADO;
             return true;
         }
         return false;
     }
 
     public boolean cancelarReserva() {
-        if (!"cancelada".equals(estadoReserva)) {
-            estadoReserva = "cancelada";
+        if (estadoReserva != EstadoReserva.CANCELADA) {
+            estadoReserva = EstadoReserva.CANCELADA;
             return true;
         }
         return false;
@@ -44,7 +57,7 @@ public class Reserva {
                 alojamiento.verDetalles(),
                 fechaInicio,
                 fechaFin,
-                estadoReserva
+                estadoReserva.name().toLowerCase()
         );
     }
     public Usuario getUsuario() {
@@ -64,6 +77,6 @@ public class Reserva {
     }
 
     public String getEstadoReserva() {
-        return estadoReserva;
+        return estadoReserva.name().toLowerCase();
     }
 }
