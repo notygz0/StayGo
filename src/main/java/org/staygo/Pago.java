@@ -35,6 +35,38 @@ public class Pago {
         return false;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public boolean isEstadoPago() {
+        return estadoPago;
+    }
+
+    public void setEstadoPago(boolean estadoPago) {
+        this.estadoPago = estadoPago;
+    }
+
+    public LocalDateTime getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDateTime fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
     public String obtenerDetallesPago() {
         return String.format(
                 "usuario: %s%n" +
