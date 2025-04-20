@@ -1,10 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.staygo.Reserva;
-import org.staygo.Alojamiento;
-import org.staygo.Departamento;
-import org.staygo.Usuario;
-import org.staygo.Roles;
+import org.staygo.*;
 import java.time.LocalDate;
 import java.util.List;
 

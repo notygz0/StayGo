@@ -1,7 +1,5 @@
 import org.junit.jupiter.api.Test;
-import org.staygo.Pago;
-import org.staygo.Roles;
-import org.staygo.Usuario;
+import org.staygo.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
