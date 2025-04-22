@@ -9,49 +9,57 @@ public class MenuTerminal {
 
     private List<Alojamiento> alojamientos;
     private List<Usuario> usuarios;
+    private Scanner sc;
 
     public MenuTerminal() {
         alojamientos = new ArrayList<>();
         usuarios = new ArrayList<>();
+        sc = new Scanner(System.in);
         cargarDatosIniciales();
     }
 
-    private void cargarDatosIniciales() { //para testear el menu unicamente, despues borrar
+    private void cargarDatosIniciales() {
+        // Datos iniciales para pruebas
         Departamento dep1 = new Departamento("Av. Central 123", 45000f, "Depto moderno", 3, true);
         Hotel hotel1 = new Hotel("Calle Real 456", 80000f, "Hotel con spa", 5, 20);
         hotel1.setServicios(List.of("WiFi", "Piscina", "Spa", "Desayuno"));
 
         alojamientos.add(dep1);
         alojamientos.add(hotel1);
-
-        Usuario user1 = new Usuario(1L, "juan", "1234", Roles.CLIENTE);
-        usuarios.add(user1);
     }
 
     public void mostrarMenu() {
-        Scanner sc = new Scanner(System.in);
         int opcion;
-
         do {
             System.out.println("\n==== Menú Principal ====");
             System.out.println("1. Ver alojamientos disponibles");
             System.out.println("2. Realizar una reserva");
             System.out.println("3. Ver reservas de un usuario");
-            System.out.println("4. Salir");
+            System.out.println("4. Agregar alojamiento");
+            System.out.println("5. Eliminar alojamiento");
+            System.out.println("6. Salir");
             System.out.print("Seleccione una opción: ");
 
-            opcion = sc.nextInt();
-            sc.nextLine(); //sin esto se salta una linea y la siguiente variable recibe una cadena vacia
-
+            opcion = obtenerEntradaNumerica();
             switch (opcion) {
                 case 1 -> mostrarAlojamientos();
-                case 2 -> realizarReserva(sc);
-                case 3 -> verReservas(sc);
-                case 4 -> System.out.println("Saliendo del sistema...");
+                case 2 -> realizarReserva();
+                case 3 -> verReservas();
+                case 4 -> agregarAlojamiento();
+                case 5 -> eliminarAlojamiento();
+                case 6 -> System.out.println("Saliendo del sistema...");
                 default -> System.out.println("Opción inválida. Intente nuevamente.");
             }
 
-        } while (opcion != 4);
+        } while (opcion != 6);
+    }
+
+    private int obtenerEntradaNumerica() {
+        while (!sc.hasNextInt()) {
+            sc.nextLine(); // Limpiar el buffer
+            System.out.print("Por favor, ingrese un número válido: ");
+        }
+        return sc.nextInt();
     }
 
     private void mostrarAlojamientos() {
@@ -61,7 +69,7 @@ public class MenuTerminal {
         }
     }
 
-    private void realizarReserva(Scanner sc) {
+    private void realizarReserva() {
         System.out.print("\nNombre de usuario: ");
         String nombre = sc.nextLine();
         Usuario usuario = buscarUsuario(nombre);
@@ -73,7 +81,7 @@ public class MenuTerminal {
 
         mostrarAlojamientos();
         System.out.print("\nSeleccione el número del alojamiento a reservar: ");
-        int index = sc.nextInt() - 1;
+        int index = obtenerEntradaNumerica() - 1;
         sc.nextLine();
 
         if (index < 0 || index >= alojamientos.size()) {
@@ -97,7 +105,7 @@ public class MenuTerminal {
         }
     }
 
-    private void verReservas(Scanner sc) {
+    private void verReservas() {
         System.out.print("\nNombre de usuario: ");
         String nombre = sc.nextLine();
         Usuario usuario = buscarUsuario(nombre);
@@ -128,5 +136,90 @@ public class MenuTerminal {
         }
         return null;
     }
+
+    private void agregarAlojamiento() {
+        System.out.println("\n¿Desea agregar un Departamento o un Hotel?");
+        System.out.println("1. Departamento");
+        System.out.println("2. Hotel");
+        System.out.print("Seleccione una opción: ");
+        int opcion = obtenerEntradaNumerica();
+
+        if (opcion == 1) {
+            agregarDepartamento();
+        } else if (opcion == 2) {
+            agregarHotel();
+        } else {
+            System.out.println("Opción inválida.");
+        }
+    }
+
+    private void agregarDepartamento() {
+        System.out.print("\nDirección del departamento: ");
+        String direccion = sc.nextLine();
+
+        System.out.print("Precio por noche: ");
+        float precio = sc.nextFloat();
+        sc.nextLine(); // Limpiar el buffer
+
+        System.out.print("Descripción del departamento: ");
+        String descripcion = sc.nextLine();
+
+        System.out.print("Número de habitaciones: ");
+        int numHabitaciones = sc.nextInt();
+
+        System.out.print("¿Es el departamento moderno (true/false)? ");
+        boolean moderno = sc.nextBoolean();
+        sc.nextLine(); // Limpiar el buffer
+
+        Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, moderno);
+        alojamientos.add(nuevoDepartamento);
+        System.out.println("Departamento agregado con éxito.");
+    }
+
+    private void agregarHotel() {
+        System.out.print("\nDirección del hotel: ");
+        String direccion = sc.nextLine();
+
+        System.out.print("Precio por noche: ");
+        float precio = sc.nextFloat();
+        sc.nextLine(); // Limpiar el buffer
+
+        System.out.print("Descripción del hotel: ");
+        String descripcion = sc.nextLine();
+
+        System.out.print("Número de estrellas: ");
+        int numEstrellas = sc.nextInt();
+        sc.nextLine(); // Limpiar el buffer
+
+        System.out.print("Número de habitaciones: ");
+        int numHabitaciones = sc.nextInt();
+        sc.nextLine(); // Limpiar el buffer
+
+        System.out.print("Servicios disponibles (separados por coma): ");
+        String serviciosInput = sc.nextLine();
+        List<String> servicios = List.of(serviciosInput.split(","));
+
+        Hotel nuevoHotel = new Hotel(direccion, precio, descripcion, numEstrellas, numHabitaciones);
+        nuevoHotel.setServicios(servicios);
+        alojamientos.add(nuevoHotel);
+        System.out.println("Hotel agregado con éxito.");
+    }
+
+    private void eliminarAlojamiento() {
+        System.out.println("\nSeleccione el alojamiento que desea eliminar:");
+        mostrarAlojamientos();
+
+        System.out.print("\nSeleccione el número del alojamiento a eliminar: ");
+        int index = obtenerEntradaNumerica() - 1;
+
+        if (index < 0 || index >= alojamientos.size()) {
+            System.out.println("Alojamiento inválido.");
+            return;
+        }
+
+        alojamientos.remove(index);
+        System.out.println("Alojamiento eliminado con éxito.");
+    }
 }
+
 
