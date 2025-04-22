@@ -2,42 +2,38 @@ package org.staygo;
 
 public class Departamento extends Alojamiento {
 
-    private int numeroHabitaciones;
-    private boolean amoblado;
+    private int numHabitaciones;
+    private boolean moderno;
 
-    public Departamento(String direccion, float precio, String descripcion, int numeroHabitaciones, boolean amoblado) {
-        super(direccion, precio, descripcion);
-        this.numeroHabitaciones = numeroHabitaciones;
-        this.amoblado = amoblado;
-    }
-    public boolean verificarAmoblado() {
-        return amoblado;
-    }
-    public int getNumeroHabitaciones() {
-        return numeroHabitaciones;
+    public Departamento() {
+        super();
     }
 
-    public void setNumeroHabitaciones(int numeroHabitaciones) {
-        this.numeroHabitaciones = numeroHabitaciones;
+    public Departamento(String direccion, float precio, String descripcion, int numHabitaciones, boolean moderno) {
+        super(direccion, precio, descripcion); // Llamar al constructor de la clase base
+        this.numHabitaciones = numHabitaciones;
+        this.moderno = moderno;
     }
 
-    public void setAmoblado(boolean amoblado) {
-        this.amoblado = amoblado;
+    public int getNumHabitaciones() {
+        return numHabitaciones;
+    }
+
+    public void setNumHabitaciones(int numHabitaciones) {
+        this.numHabitaciones = numHabitaciones;
+    }
+
+    public boolean isModerno() {
+        return moderno;
+    }
+
+    public void setModerno(boolean moderno) {
+        this.moderno = moderno;
     }
 
     @Override
     public String verDetalles() {
-        return String.format(
-                "departamento: %s%n" +
-                        "direccion: %s%n" +
-                        "precio: %.2f%n" +
-                        "habitaciones: %d%n" +
-                        "amoblado: %s",
-                getDescripcion(),
-                getDireccion(),
-                getPrecio(),
-                numeroHabitaciones,
-                amoblado ? "si" : "no"
-        );
+        return "Departamento: " + getDireccion() + ", Precio: " + getPrecio() + ", Habitaciones: " + numHabitaciones + ", Moderno: " + moderno;
     }
 }
+

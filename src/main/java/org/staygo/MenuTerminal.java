@@ -18,7 +18,8 @@ public class MenuTerminal {
         cargarDatosIniciales();
     }
 
-    private void cargarDatosIniciales() { //todos para testeo 
+    private void cargarDatosIniciales() {
+        // Datos iniciales para pruebas
         Departamento dep1 = new Departamento("Av. Central 123", 45000f, "Depto moderno", 3, true);
         Hotel hotel1 = new Hotel("Calle Real 456", 80000f, "Hotel con spa", 5, 20);
         hotel1.setServicios(List.of("WiFi", "Piscina", "Spa", "Desayuno"));
@@ -77,9 +78,10 @@ public class MenuTerminal {
     }
 
     private void realizarReserva() {
-        System.out.print("\nNombre de usuario: ");
-        String nombre = sc.nextLine();
-        Usuario usuario = buscarUsuario(nombre);
+        System.out.print("\nIngrese su ID de usuario: ");
+        Long idUsuario = sc.nextLong();
+        sc.nextLine(); // Limpiar buffer
+        Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (usuario == null) {
             System.out.println("Usuario no encontrado.");
@@ -118,9 +120,10 @@ public class MenuTerminal {
     }
 
     private void verReservas() {
-        System.out.print("\nNombre de usuario: ");
-        String nombre = sc.nextLine();
-        Usuario usuario = buscarUsuario(nombre);
+        System.out.print("\nIngrese su ID de usuario: ");
+        Long idUsuario = sc.nextLong();
+        sc.nextLine(); // Limpiar buffer
+        Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (usuario == null) {
             System.out.println("Usuario no encontrado.");
@@ -140,9 +143,9 @@ public class MenuTerminal {
         }
     }
 
-    private Usuario buscarUsuario(String nombre) {
+    private Usuario buscarUsuarioPorId(Long idUsuario) {
         for (Usuario u : usuarios) {
-            if (u.getNombre().equalsIgnoreCase(nombre)) {
+            if (u.getId_usuario().equals(idUsuario)) {
                 return u;
             }
         }
@@ -150,9 +153,10 @@ public class MenuTerminal {
     }
 
     private void agregarAlojamiento() {
-        System.out.print("\nNombre de usuario: ");
-        String nombre = sc.nextLine();
-        Usuario usuario = buscarUsuario(nombre);
+        System.out.print("\nIngrese su ID de usuario: ");
+        Long idUsuario = sc.nextLong();
+        sc.nextLine(); // Limpiar buffer
+        Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (usuario == null) {
             System.out.println("Usuario no encontrado.");
@@ -254,13 +258,19 @@ public class MenuTerminal {
     }
 
     private void eliminarUsuario() {
-        System.out.print("\nIngrese el nombre del usuario a eliminar: ");
-        String nombre = sc.nextLine();
+        System.out.print("\nIngrese el ID del usuario a eliminar: ");
+        Long idUsuario = sc.nextLong();
+        sc.nextLine(); // Limpiar buffer
 
-        Usuario usuario = buscarUsuario(nombre);
+        Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (usuario == null) {
             System.out.println("Usuario no encontrado.");
+            return;
+        }
+
+        if (usuario.getRol() == Roles.ADMIN) {
+            System.out.println("No se puede eliminar al usuario ADMIN.");
             return;
         }
 

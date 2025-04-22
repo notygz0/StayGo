@@ -4,31 +4,34 @@ import java.util.List;
 
 public class Hotel extends Alojamiento {
 
-    private int numeroEstrellas;
-    private int numeroHabitaciones;
+    private int numEstrellas;
+    private int numHabitaciones;
     private List<String> servicios;
 
-    public Hotel(String direccion, float precio, String descripcion, int numeroEstrellas, int numeroHabitaciones) {
-        super(direccion, precio, descripcion);
-        this.numeroEstrellas = numeroEstrellas;
-        this.numeroHabitaciones = numeroHabitaciones;
-        this.servicios = servicios;
+    public Hotel() {
+        super(); // Llamar al constructor de la clase base
     }
 
-    public int getNumeroEstrellas() {
-        return numeroEstrellas;
+    public Hotel(String direccion, float precio, String descripcion, int numEstrellas, int numHabitaciones) {
+        super(direccion, precio, descripcion); // Llamar al constructor de la clase base
+        this.numEstrellas = numEstrellas;
+        this.numHabitaciones = numHabitaciones;
     }
 
-    public void setNumeroEstrellas(int numeroEstrellas) {
-        this.numeroEstrellas = numeroEstrellas;
+    public int getNumEstrellas() {
+        return numEstrellas;
     }
 
-    public int getNumeroHabitaciones() {
-        return numeroHabitaciones;
+    public void setNumEstrellas(int numEstrellas) {
+        this.numEstrellas = numEstrellas;
     }
 
-    public void setNumeroHabitaciones(int numeroHabitaciones) {
-        this.numeroHabitaciones = numeroHabitaciones;
+    public int getNumHabitaciones() {
+        return numHabitaciones;
+    }
+
+    public void setNumHabitaciones(int numHabitaciones) {
+        this.numHabitaciones = numHabitaciones;
     }
 
     public List<String> getServicios() {
@@ -41,19 +44,7 @@ public class Hotel extends Alojamiento {
 
     @Override
     public String verDetalles() {
-        return String.format(
-                "hotel: %s%n" +
-                        "direccion: %s%n" +
-                        "precio por noche: %.2f%n" +
-                        "estrellas: %d%n" +
-                        "habitaciones: %d%n" +
-                        "servicios: %s",
-                getDescripcion(),
-                getDireccion(),
-                getPrecio(),
-                numeroEstrellas,
-                numeroHabitaciones,
-                String.join(", ", servicios)
-        );
+        return "Hotel: " + getDireccion() + ", Precio: " + getPrecio() + ", Estrellas: " + numEstrellas + ", Habitaciones: " + numHabitaciones + ", Servicios: " + servicios;
     }
 }
+

@@ -1,5 +1,9 @@
 package org.staygo;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,7 +15,12 @@ public class Reserva {
     private LocalDate fechaFin;
     private EstadoReserva estadoReserva;
 
-    public Reserva(Usuario usuario, Alojamiento alojamiento, LocalDate fechaInicio, LocalDate fechaFin) {
+    @JsonCreator
+    public Reserva(@JsonProperty("usuario") Usuario usuario,
+                   @JsonProperty("alojamiento") Alojamiento alojamiento,
+                   @JsonProperty("fechaInicio") LocalDate fechaInicio,
+                   @JsonProperty("fechaFin") LocalDate fechaFin,
+                   @JsonProperty("estadoReserva") EstadoReserva estadoReserva) {
         Objects.requireNonNull(usuario, "usuario no puede ser null");
         Objects.requireNonNull(alojamiento, "alojamiento no puede ser null");
         Objects.requireNonNull(fechaInicio, "fecha de inicio no puede ser null");
@@ -28,7 +37,7 @@ public class Reserva {
         this.alojamiento = alojamiento;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.estadoReserva = EstadoReserva.PENDIENTE;
+        this.estadoReserva = (estadoReserva != null) ? estadoReserva : EstadoReserva.PENDIENTE;
     }
 
     public boolean confirmarReserva() {
@@ -60,6 +69,27 @@ public class Reserva {
                 estadoReserva.name().toLowerCase()
         );
     }
+
+    public Reserva(Usuario usuario, Alojamiento alojamiento, LocalDate fechaInicio, LocalDate fechaFin) {
+        Objects.requireNonNull(usuario, "usuario no puede ser null");
+        Objects.requireNonNull(alojamiento, "alojamiento no puede ser null");
+        Objects.requireNonNull(fechaInicio, "fecha de inicio no puede ser null");
+        Objects.requireNonNull(fechaFin, "fecha de fin no puede ser null");
+
+        if (!fechaFin.isAfter(fechaInicio)) {
+            throw new IllegalArgumentException("la fecha de fin debe ser posterior a la fecha de inicio");
+        }
+
+        if (fechaInicio.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de inicio no puede estar en el pasado");
+        }
+        this.usuario = usuario;
+        this.alojamiento = alojamiento;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.estadoReserva = EstadoReserva.PENDIENTE;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -76,7 +106,8 @@ public class Reserva {
         return fechaFin;
     }
 
-    public String getEstadoReserva() {
-        return estadoReserva.name().toLowerCase();
+    public EstadoReserva getEstadoReserva() {
+        return estadoReserva;
     }
+
 }
