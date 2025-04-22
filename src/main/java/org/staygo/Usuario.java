@@ -1,5 +1,8 @@
 package org.staygo;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +53,18 @@ public class Usuario {
 
     public Long getId_usuario() {
         return id_usuario;
+    }
+
+    @JsonCreator
+    public Usuario(@JsonProperty("id_usuario") Long id_usuario,
+                   @JsonProperty("nombre") String nombre,
+                   @JsonProperty("contrasena") String contrasena,
+                   @JsonProperty("rol") Roles rol,
+                   @JsonProperty("reservas") List<Reserva> reservas) {
+        this.id_usuario = id_usuario;
+        this.nombre = nombre;
+        this.contrasena = contrasena;
+        this.rol = rol;
+        this.reservas = reservas;
     }
 }
