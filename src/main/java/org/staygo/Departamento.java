@@ -6,7 +6,7 @@ public class Departamento extends Alojamiento {
     private boolean moderno;
 
     public Departamento() {
-        super(); // Llamar al constructor de la clase base
+        super();
     }
 
     public Departamento(String direccion, float precio, String descripcion, int numHabitaciones, boolean moderno) {
