@@ -20,7 +20,7 @@ public class MenuTerminal {
 
     private void cargarDatosIniciales() {
         // Datos iniciales para pruebas
-        Departamento dep1 = new Departamento("Av. Central 123", 45000f, "Depto moderno", 3, true);
+        Departamento dep1 = new Departamento("Av. Central 123", 45000f, "Depto moderno", 3, true,"arrendatario");
         Hotel hotel1 = new Hotel("Calle Real 456", 80000f, "Hotel con spa", 5, 20);
         hotel1.setServicios(List.of("WiFi", "Piscina", "Spa", "Desayuno"));
 

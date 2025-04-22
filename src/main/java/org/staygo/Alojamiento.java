@@ -59,5 +59,9 @@ public abstract class Alojamiento {
     }
 
     public abstract String verDetalles();
+
+    public Usuario getDueno() {
+        return null;
+    }
 }
 

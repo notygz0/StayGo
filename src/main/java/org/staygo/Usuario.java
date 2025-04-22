@@ -46,9 +46,9 @@ public class Usuario {
     }
 
     public void realizarReserva(Reserva reserva) {
-        if (rol == Roles.CLIENTE){
+        if (rol == Roles.CLIENTE) {
             reservas.add(reserva);
-        }else {
+        } else {
             throw new IllegalStateException("solo los clientes pueden realizar reservas");
         }
     }
