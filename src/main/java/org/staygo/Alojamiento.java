@@ -1,27 +1,29 @@
 package org.staygo;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipo")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Departamento.class, name = "departamento"),
+        @JsonSubTypes.Type(value = Hotel.class, name = "hotel")
+})
 public abstract class Alojamiento {
 
-    private boolean ocupado;
     private String direccion;
     private float precio;
     private String descripcion;
+    private boolean ocupado;
+
+    public Alojamiento() {
+        // Constructor vacío necesario para la deserialización
+    }
 
     public Alojamiento(String direccion, float precio, String descripcion) {
         this.direccion = direccion;
         this.precio = precio;
         this.descripcion = descripcion;
-        this.ocupado=false;
-    }
-
-    public boolean isOcupado() {
-        return ocupado;
-    }
-
-    public void setOcupado(boolean ocupado) {
-        this.ocupado = ocupado;
+        this.ocupado = false;
     }
 
     public String getDireccion() {
@@ -48,13 +50,14 @@ public abstract class Alojamiento {
         this.descripcion = descripcion;
     }
 
-    public boolean verificarDisponibilidad(LocalDate fechaInicio, LocalDate fechaFin) {
-        return !ocupado;
+    public boolean isOcupado() {
+        return ocupado;
     }
 
-    public float calcularPrecio(int totalDias) {
-        return precio*totalDias;
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
     }
 
     public abstract String verDetalles();
 }
+
