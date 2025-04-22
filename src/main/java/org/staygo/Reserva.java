@@ -70,6 +70,26 @@ public class Reserva {
         );
     }
 
+    public Reserva(Usuario usuario, Alojamiento alojamiento, LocalDate fechaInicio, LocalDate fechaFin) {
+        Objects.requireNonNull(usuario, "usuario no puede ser null");
+        Objects.requireNonNull(alojamiento, "alojamiento no puede ser null");
+        Objects.requireNonNull(fechaInicio, "fecha de inicio no puede ser null");
+        Objects.requireNonNull(fechaFin, "fecha de fin no puede ser null");
+
+        if (!fechaFin.isAfter(fechaInicio)) {
+            throw new IllegalArgumentException("la fecha de fin debe ser posterior a la fecha de inicio");
+        }
+
+        if (fechaInicio.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de inicio no puede estar en el pasado");
+        }
+        this.usuario = usuario;
+        this.alojamiento = alojamiento;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.estadoReserva = EstadoReserva.PENDIENTE;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }

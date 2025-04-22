@@ -14,27 +14,32 @@ public class ReservaTest {
 
     @BeforeEach
     void setUp() {
-        hoy=LocalDate.now();
+        hoy = LocalDate.now();
         usuario = new Usuario(4354L, "lorenzo", "lorencito1234", Roles.CLIENTE);
         alojamiento = new Departamento("av arturo prat", 25000f, "departamento amplio", 1, false);
+        // No es necesario pasar EstadoReserva ya que es asignado por defecto
         reserva = new Reserva(usuario, alojamiento, hoy, hoy.plusDays(1));
     }
+
     @Test
-    void testEstadoInicial (){
+    void testEstadoInicial() {
         assertEquals("pendiente", reserva.getEstadoReserva());
     }
+
     @Test
     void testConfirmarReserva() {
         assertTrue(reserva.confirmarReserva());
         assertEquals("confirmado", reserva.getEstadoReserva());
         assertFalse(reserva.confirmarReserva());
     }
+
     @Test
-    void cancelarReserva() {
+    void testCancelarReserva() {
         assertTrue(reserva.cancelarReserva());
         assertEquals("cancelada", reserva.getEstadoReserva());
         assertFalse(reserva.cancelarReserva());
     }
+
     @Test
     void noPermitirFechaFinAntesDeInicio() {
         LocalDate inicio = hoy.plusDays(3);
@@ -43,6 +48,7 @@ public class ReservaTest {
             new Reserva(usuario, alojamiento, inicio, fin);
         });
     }
+
     @Test
     void noPermiteFechasIguales() {
         LocalDate fecha = hoy.plusDays(1);
@@ -50,11 +56,13 @@ public class ReservaTest {
             new Reserva(usuario, alojamiento, fecha, fecha);
         });
     }
+
     @Test
-    void noPermiteFechaInicioEnElFin() {
+    void noPermiteFechaInicioEnElPasado() {
         LocalDate ayer = hoy.minusDays(1);
         assertThrows(IllegalArgumentException.class, () -> {
             new Reserva(usuario, alojamiento, ayer, hoy);
         });
     }
 }
+
