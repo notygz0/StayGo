@@ -23,20 +23,20 @@ public class ReservaTest {
 
     @Test
     void testEstadoInicial() {
-        assertEquals("pendiente", reserva.getEstadoReserva());
+        assertEquals("PENDIENTE", reserva.getEstadoReserva());
     }
 
     @Test
     void testConfirmarReserva() {
         assertTrue(reserva.confirmarReserva());
-        assertEquals("confirmado", reserva.getEstadoReserva());
+        assertEquals("CONFIRMADO", reserva.getEstadoReserva());
         assertFalse(reserva.confirmarReserva());
     }
 
     @Test
     void testCancelarReserva() {
         assertTrue(reserva.cancelarReserva());
-        assertEquals("cancelada", reserva.getEstadoReserva());
+        assertEquals("CANCELADA", reserva.getEstadoReserva());
         assertFalse(reserva.cancelarReserva());
     }
 
