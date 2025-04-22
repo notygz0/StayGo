@@ -1,13 +1,5 @@
 package org.staygo;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipo")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Departamento.class, name = "departamento"),
-        @JsonSubTypes.Type(value = Hotel.class, name = "hotel")
-})
 public abstract class Alojamiento {
 
     private String direccion;
@@ -16,7 +8,6 @@ public abstract class Alojamiento {
     private boolean ocupado;
 
     public Alojamiento() {
-        // Constructor vacío necesario para la deserialización
     }
 
     public Alojamiento(String direccion, float precio, String descripcion) {
