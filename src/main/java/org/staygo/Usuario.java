@@ -47,4 +47,8 @@ public class Usuario {
         System.out.println("rol: " + rol);
         System.out.println("numero de reservas: " + reservas.size());
     }
+
+    public Long getId_usuario() {
+        return id_usuario;
+    }
 }

@@ -140,9 +140,9 @@ public class MenuTerminal {
         }
     }
 
-    private Usuario buscarUsuario(String nombre) {
+    private Usuario buscarUsuarioPorId(Long idUsuario) {
         for (Usuario u : usuarios) {
-            if (u.getNombre().equalsIgnoreCase(nombre)) {
+            if (u.getId_usuario().equals(idUsuario)) {
                 return u;
             }
         }
