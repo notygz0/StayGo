@@ -22,21 +22,19 @@ public class ReservaTest {
 
     @Test
     void testEstadoInicial() {
-        // Si getEstadoReserva() devuelve un enum
         assertEquals("PENDIENTE", reserva.getEstadoReserva().name()); // Usar name() si es un enum !!! lorenzo
     }
 
     @Test
     void testConfirmarReserva() {
         assertTrue(reserva.confirmarReserva());
-        // Si getEstadoReserva() devuelve un enum
         assertEquals("CONFIRMADO", reserva.getEstadoReserva().name());
     }
 
     @Test
     void testCancelarReserva() {
         assertTrue(reserva.cancelarReserva());
-        assertEquals("CANCELADA", reserva.getEstadoReserva().name()); // Usar name() si es un enum
+        assertEquals("CANCELADA", reserva.getEstadoReserva().name());
         assertFalse(reserva.cancelarReserva());
     }
 

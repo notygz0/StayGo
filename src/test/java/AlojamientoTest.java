@@ -25,9 +25,9 @@ class AlojamientoTest {
     @Test
     void testCreacionAlojamiento() {
         assertEquals("Calle Falsa 123", alojamiento.getDireccion());
-        assertEquals(15000f, alojamiento.getPrecio(), 0.01f); // Comprobación con margen de error
+        assertEquals(15000f, alojamiento.getPrecio(), 0.01f);
         assertEquals("Departamento comodo", alojamiento.getDescripcion());
-        assertFalse(alojamiento.isOcupado());  // Inicialmente no ocupado
+        assertFalse(alojamiento.isOcupado());
         assertEquals("arrendatario", alojamiento.getDueno().getNombre());
     }
 

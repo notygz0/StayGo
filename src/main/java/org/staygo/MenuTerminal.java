@@ -48,9 +48,7 @@ public class MenuTerminal {
                 System.out.println("3. Ver reservas de un usuario");
                 System.out.println("4. Agregar alojamiento");
                 System.out.println("5. Eliminar alojamiento");
-                System.out.println("6. Crear usuario");
-                System.out.println("7. Eliminar usuario");
-                System.out.println("8. Cerrar sesión");
+                System.out.println("6. Cerrar Sesión");
                 System.out.print("Seleccione una opción: ");
 
                 opcion = obtenerEntradaNumerica();
@@ -60,9 +58,7 @@ public class MenuTerminal {
                     case 3 -> verReservas();
                     case 4 -> agregarAlojamiento();
                     case 5 -> eliminarAlojamiento();
-                    case 6 -> crearUsuario();
-                    case 7 -> eliminarUsuario();
-                    case 8 -> cerrarSesion();
+                    case 6 -> cerrarSesion();
                     default -> System.out.println("Opción inválida. Intente nuevamente.");
                 }
             }
@@ -199,7 +195,7 @@ public class MenuTerminal {
 
         System.out.print("Precio por noche: ");
         float precio = leer.nextFloat();
-        leer.nextLine(); // Limpiar buffer
+        leer.nextLine();
 
         System.out.print("Descripción del departamento: ");
         String descripcion = leer.nextLine();
@@ -209,9 +205,9 @@ public class MenuTerminal {
 
         System.out.print("¿Es el departamento moderno (true/false)? ");
         boolean moderno = leer.nextBoolean();
-        leer.nextLine(); // Limpiar buffer
+        leer.nextLine();
 
-        Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, moderno, usuarioActivo);  // Pasar el usuarioActivo como dueño
+        Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, moderno, usuarioActivo);
         alojamientos.add(nuevoDepartamento);
         System.out.println("Departamento agregado con éxito.");
     }
@@ -252,27 +248,7 @@ public class MenuTerminal {
         System.out.println("Alojamiento eliminado con éxito.");
     }
 
-    private void crearUsuario() {
-        if (usuarioActivo.getRol() != Roles.ADMIN) {
-            System.out.println("Solo los administradores pueden crear usuarios.");
-            return;
-        }
 
-        System.out.print("\nIngrese el nombre de usuario: ");
-        String nombre = leer.nextLine();
-
-        System.out.print("Ingrese la contraseña: ");
-        String contrasena = leer.nextLine();
-
-        System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO, 3. ADMIN): ");
-        int rolOption = obtenerEntradaNumerica();
-        Roles rol = Roles.values()[rolOption - 1];
-
-        Long idUsuario = (long) (usuarios.size() + 1);
-        Usuario nuevoUsuario = new Usuario(idUsuario, nombre, contrasena, rol);
-        usuarios.add(nuevoUsuario);
-        System.out.println("Usuario creado con éxito.");
-    }
 
     private void eliminarUsuario() {
         if (usuarioActivo.getRol() != Roles.ADMIN) {
