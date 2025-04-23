@@ -95,6 +95,7 @@ public class MenuTerminal {
 
         System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
         int rolOption = obtenerEntradaNumerica();
+        leer.nextLine();
         Roles rol = (rolOption == 1) ? Roles.CLIENTE : Roles.ARRENDATARIO;
 
         Long idUsuario = (long) (usuarios.size() + 1);
@@ -103,18 +104,22 @@ public class MenuTerminal {
         System.out.println("Usuario registrado con éxito.");
     }
 
+    private int obtenerEntradaNumerica() {
+        while (!leer.hasNextInt()) {
+            leer.nextLine();
+            System.out.print("Por favor, ingrese un número válido: ");
+        }
+        int num = leer.nextInt();
+        leer.nextLine();
+        return num;
+    }
+
     private void cerrarSesion() {
         usuarioActivo = null;
         System.out.println("Has cerrado sesión.");
     }
 
-    private int obtenerEntradaNumerica() {
-        while (!leer.hasNextInt()) {
-            leer.nextLine();  
-            System.out.print("Por favor, ingrese un número válido: ");
-        }
-        return leer.nextInt();
-    }
+
 
     private void mostrarAlojamientos() {
         System.out.println("\n--- ALOJAMIENTOS ---");
