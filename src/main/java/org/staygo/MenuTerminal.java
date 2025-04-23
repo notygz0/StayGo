@@ -9,13 +9,13 @@ public class MenuTerminal {
 
     private List<Alojamiento> alojamientos;
     private List<Usuario> usuarios;
-    private Scanner sc;
+    private Scanner leer;
     private Usuario usuarioActivo;
 
     public MenuTerminal() {
         alojamientos = new ArrayList<>();
         usuarios = new ArrayList<>();
-        sc = new Scanner(System.in);
+        leer = new Scanner(System.in);
         cargarDatosIniciales();
     }
 
@@ -71,10 +71,10 @@ public class MenuTerminal {
 
     private void iniciarSesion() {
         System.out.print("\nIngrese su nombre de usuario: ");
-        String nombre = sc.nextLine();
+        String nombre = leer.nextLine();
 
         System.out.print("Ingrese su contraseña: ");
-        String contrasena = sc.nextLine();
+        String contrasena = leer.nextLine();
 
         for (Usuario u : usuarios) {
             if (u.iniciarSesion(nombre, contrasena)) {
@@ -89,10 +89,10 @@ public class MenuTerminal {
 
     private void registrarUsuario() {
         System.out.print("\nIngrese su nombre de usuario: ");
-        String nombre = sc.nextLine();
+        String nombre = leer.nextLine();
 
         System.out.print("Ingrese la contraseña: ");
-        String contrasena = sc.nextLine();
+        String contrasena = leer.nextLine();
 
         System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
         int rolOption = obtenerEntradaNumerica();
@@ -110,11 +110,11 @@ public class MenuTerminal {
     }
 
     private int obtenerEntradaNumerica() {
-        while (!sc.hasNextInt()) {
-            sc.nextLine();
+        while (!leer.hasNextInt()) {
+            leer.nextLine();
             System.out.print("Por favor, ingrese un número válido: ");
         }
-        return sc.nextInt();
+        return leer.nextInt();
     }
 
     private void mostrarAlojamientos() {
@@ -139,10 +139,10 @@ public class MenuTerminal {
         }
 
         System.out.print("Fecha inicio (YYYY-MM-DD): ");
-        LocalDate inicio = LocalDate.parse(sc.nextLine());
+        LocalDate inicio = LocalDate.parse(leer.nextLine());
 
         System.out.print("Fecha fin (YYYY-MM-DD): ");
-        LocalDate fin = LocalDate.parse(sc.nextLine());
+        LocalDate fin = LocalDate.parse(leer.nextLine());
 
         Reserva reserva = new Reserva(usuarioActivo, alojamientos.get(index), inicio, fin);
         usuarioActivo.realizarReserva(reserva);
@@ -187,21 +187,21 @@ public class MenuTerminal {
         }
 
         System.out.print("\nDirección del departamento: ");
-        String direccion = sc.nextLine();
+        String direccion = leer.nextLine();
 
         System.out.print("Precio por noche: ");
-        float precio = sc.nextFloat();
-        sc.nextLine(); // Limpiar buffer
+        float precio = leer.nextFloat();
+        leer.nextLine(); // Limpiar buffer
 
         System.out.print("Descripción del departamento: ");
-        String descripcion = sc.nextLine();
+        String descripcion = leer.nextLine();
 
         System.out.print("Número de habitaciones: ");
-        int numHabitaciones = sc.nextInt();
+        int numHabitaciones = leer.nextInt();
 
         System.out.print("¿Es el departamento moderno (true/false)? ");
-        boolean moderno = sc.nextBoolean();
-        sc.nextLine(); // Limpiar buffer
+        boolean moderno = leer.nextBoolean();
+        leer.nextLine(); // Limpiar buffer
 
         Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, moderno, usuarioActivo);  // Pasar el usuarioActivo como dueño
         alojamientos.add(nuevoDepartamento);
@@ -210,18 +210,18 @@ public class MenuTerminal {
 
     private void agregarHotel() {
         System.out.print("\nDirección del hotel: ");
-        String direccion = sc.nextLine();
+        String direccion = leer.nextLine();
 
         System.out.print("Precio por noche: ");
-        float precio = sc.nextFloat();
-        sc.nextLine();
+        float precio = leer.nextFloat();
+        leer.nextLine();
 
         System.out.print("Descripción del hotel: ");
-        String descripcion = sc.nextLine();
+        String descripcion = leer.nextLine();
 
         System.out.print("Número de estrellas: ");
-        int numEstrellas = sc.nextInt();
-        sc.nextLine();
+        int numEstrellas = leer.nextInt();
+        leer.nextLine();
 
         Hotel nuevoHotel = new Hotel(direccion, precio, descripcion, numEstrellas, 0);
         alojamientos.add(nuevoHotel);
@@ -251,10 +251,10 @@ public class MenuTerminal {
         }
 
         System.out.print("\nIngrese el nombre de usuario: ");
-        String nombre = sc.nextLine();
+        String nombre = leer.nextLine();
 
         System.out.print("Ingrese la contraseña: ");
-        String contrasena = sc.nextLine();
+        String contrasena = leer.nextLine();
 
         System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO, 3. ADMIN): ");
         int rolOption = obtenerEntradaNumerica();
@@ -273,8 +273,8 @@ public class MenuTerminal {
         }
 
         System.out.print("\nIngrese el ID del usuario a eliminar: ");
-        Long idUsuario = sc.nextLong();
-        sc.nextLine();
+        Long idUsuario = leer.nextLong();
+        leer.nextLine();
 
         Usuario usuario = buscarUsuarioPorId(idUsuario);
 
