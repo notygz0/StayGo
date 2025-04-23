@@ -83,6 +83,14 @@ public class Reserva {
         if (fechaInicio.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("La fecha de inicio no puede estar en el pasado");
         }
+
+        for (Reserva reserva : usuario.obtenerReservas()) {
+            if (reserva.getAlojamiento().equals(alojamiento) &&
+                    (fechaInicio.isBefore(reserva.getFechaFin()) && fechaFin.isAfter(reserva.getFechaInicio()))) {
+                throw new IllegalArgumentException("Las fechas de reserva se sobreponen con una reserva existente.");
+            }
+        }
+
         this.usuario = usuario;
         this.alojamiento = alojamiento;
         this.fechaInicio = fechaInicio;
