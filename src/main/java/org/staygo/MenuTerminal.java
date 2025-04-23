@@ -48,9 +48,7 @@ public class MenuTerminal {
                 System.out.println("3. Ver reservas de un usuario");
                 System.out.println("4. Agregar alojamiento");
                 System.out.println("5. Eliminar alojamiento");
-                System.out.println("6. Crear usuario");
-                System.out.println("7. Eliminar usuario");
-                System.out.println("8. Cerrar sesión");
+                System.out.println("6. Cerrar sesión");
                 System.out.print("Seleccione una opción: ");
 
                 opcion = obtenerEntradaNumerica();
@@ -60,9 +58,7 @@ public class MenuTerminal {
                     case 3 -> verReservas();
                     case 4 -> agregarAlojamiento();
                     case 5 -> eliminarAlojamiento();
-                    case 6 -> crearUsuario();
-                    case 7 -> eliminarUsuario();
-                    case 8 -> cerrarSesion();
+                    case 6 -> cerrarSesion();
                     default -> System.out.println("Opción inválida. Intente nuevamente.");
                 }
             }
@@ -119,8 +115,6 @@ public class MenuTerminal {
         System.out.println("Has cerrado sesión.");
     }
 
-
-
     private void mostrarAlojamientos() {
         System.out.println("\n--- ALOJAMIENTOS ---");
         for (int i = 0; i < alojamientos.size(); i++) {
@@ -133,6 +127,8 @@ public class MenuTerminal {
             System.out.println("Solo los clientes pueden realizar reservas.");
             return;
         }
+
+        mostrarAlojamientos();
 
         System.out.print("\nSeleccione el número del alojamiento a reservar: ");
         int index = obtenerEntradaNumerica() - 1;
@@ -171,8 +167,6 @@ public class MenuTerminal {
             }
         }
     }
-
-
 
     private void agregarAlojamiento() {
         if (usuarioActivo.getRol() == Roles.ARRENDATARIO) {
@@ -247,64 +241,8 @@ public class MenuTerminal {
         alojamientos.remove(index);
         System.out.println("Alojamiento eliminado con éxito.");
     }
-
-    private void crearUsuario() {
-        if (usuarioActivo.getRol() != Roles.ADMIN) {
-            System.out.println("Solo los administradores pueden crear usuarios.");
-            return;
-        }
-
-        System.out.print("\nIngrese el nombre de usuario: ");
-        String nombre = leer.nextLine();
-
-        System.out.print("Ingrese la contraseña: ");
-        String contrasena = leer.nextLine();
-
-        System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO, 3. ADMIN): ");
-        int rolOption = obtenerEntradaNumerica();
-        Roles rol = Roles.values()[rolOption - 1];
-
-        Long idUsuario = (long) (usuarios.size() + 1);
-        Usuario nuevoUsuario = new Usuario(idUsuario, nombre, contrasena, rol);
-        usuarios.add(nuevoUsuario);
-        System.out.println("Usuario creado con éxito.");
-    }
-
-    private void eliminarUsuario() {
-        if (usuarioActivo.getRol() != Roles.ADMIN) {
-            System.out.println("Solo los administradores pueden eliminar usuarios.");
-            return;
-        }
-
-        System.out.print("\nIngrese el ID del usuario a eliminar: ");
-        Long idUsuario = leer.nextLong();
-        leer.nextLine();
-
-        Usuario usuario = buscarUsuarioPorId(idUsuario);
-
-        if (usuario == null) {
-            System.out.println("Usuario no encontrado.");
-            return;
-        }
-
-        if (usuario.getRol() == Roles.ADMIN) {
-            System.out.println("No se puede eliminar al usuario ADMIN.");
-            return;
-        }
-
-        usuarios.remove(usuario);
-        System.out.println("Usuario eliminado con éxito.");
-    }
-
-    private Usuario buscarUsuarioPorId(Long idUsuario) {
-        for (Usuario u : usuarios) {
-            if (u.getId_usuario().equals(idUsuario)) {
-                return u;
-            }
-        }
-        return null;
-    }
 }
+
 
 
 
