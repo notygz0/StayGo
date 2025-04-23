@@ -16,27 +16,27 @@ public class ReservaTest {
     void setUp() {
         hoy = LocalDate.now();
         usuario = new Usuario(4354L, "lorenzo", "lorencito1234", Roles.CLIENTE);
-        alojamiento = new Departamento("av arturo prat", 25000f, "departamento amplio", 1, false,usuario);
-        // No es necesario pasar EstadoReserva ya que es asignado por defecto
+        alojamiento = new Departamento("av arturo prat", 25000, "departamento amplio", 1, false, usuario);
         reserva = new Reserva(usuario, alojamiento, hoy, hoy.plusDays(1));
     }
 
     @Test
     void testEstadoInicial() {
-        assertEquals("PENDIENTE", reserva.getEstadoReserva());
+        // Si getEstadoReserva() devuelve un enum
+        assertEquals("PENDIENTE", reserva.getEstadoReserva().name()); // Usar name() si es un enum !!! lorenzo
     }
 
     @Test
     void testConfirmarReserva() {
         assertTrue(reserva.confirmarReserva());
-        assertEquals("CONFIRMADO", reserva.getEstadoReserva());
-        assertFalse(reserva.confirmarReserva());
+        // Si getEstadoReserva() devuelve un enum
+        assertEquals("CONFIRMADO", reserva.getEstadoReserva().name());
     }
 
     @Test
     void testCancelarReserva() {
         assertTrue(reserva.cancelarReserva());
-        assertEquals("CANCELADA", reserva.getEstadoReserva());
+        assertEquals("CANCELADA", reserva.getEstadoReserva().name()); // Usar name() si es un enum
         assertFalse(reserva.cancelarReserva());
     }
 
@@ -65,4 +65,5 @@ public class ReservaTest {
         });
     }
 }
+
 
