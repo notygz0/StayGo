@@ -71,9 +71,9 @@ public class MenuTerminal {
 
     public void iniciarSesion() {
         System.out.print("\nIngrese su nombre de usuario: ");
-        String nombre = leer.nextLine();  // Leer nombre de usuario
+        String nombre = leer.nextLine();
         System.out.print("Ingrese su contraseña: ");
-        String contrasena = leer.nextLine();  // Leer contraseña
+        String contrasena = leer.nextLine();
 
         for (Usuario u : usuarios) {
             if (u.iniciarSesion(nombre, contrasena)) {
@@ -88,13 +88,13 @@ public class MenuTerminal {
 
     public void registrarUsuario() {
         System.out.print("\nIngrese su nombre de usuario: ");
-        String nombre = leer.nextLine();  // Leer nombre de usuario
+        String nombre = leer.nextLine();
 
         System.out.print("Ingrese la contraseña: ");
-        String contrasena = leer.nextLine();  // Leer contraseña
+        String contrasena = leer.nextLine();
 
         System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
-        int rolOption = obtenerEntradaNumerica();  // Leer opción de rol
+        int rolOption = obtenerEntradaNumerica();
         Roles rol = (rolOption == 1) ? Roles.CLIENTE : Roles.ARRENDATARIO;
 
         Long idUsuario = (long) (usuarios.size() + 1);
@@ -110,7 +110,7 @@ public class MenuTerminal {
 
     private int obtenerEntradaNumerica() {
         while (!leer.hasNextInt()) {
-            leer.nextLine();
+            leer.nextLine();  
             System.out.print("Por favor, ingrese un número válido: ");
         }
         return leer.nextInt();
