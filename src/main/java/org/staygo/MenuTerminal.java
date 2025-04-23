@@ -69,12 +69,11 @@ public class MenuTerminal {
         } while (opcion != 3);
     }
 
-    private void iniciarSesion() {
+    public void iniciarSesion() {
         System.out.print("\nIngrese su nombre de usuario: ");
-        String nombre = leer.nextLine();
-
+        String nombre = leer.nextLine();  // Leer nombre de usuario
         System.out.print("Ingrese su contraseña: ");
-        String contrasena = leer.nextLine();
+        String contrasena = leer.nextLine();  // Leer contraseña
 
         for (Usuario u : usuarios) {
             if (u.iniciarSesion(nombre, contrasena)) {
@@ -87,15 +86,15 @@ public class MenuTerminal {
         System.out.println("Usuario o contraseña incorrectos.");
     }
 
-    private void registrarUsuario() {
+    public void registrarUsuario() {
         System.out.print("\nIngrese su nombre de usuario: ");
-        String nombre = leer.nextLine();
+        String nombre = leer.nextLine();  // Leer nombre de usuario
 
         System.out.print("Ingrese la contraseña: ");
-        String contrasena = leer.nextLine();
+        String contrasena = leer.nextLine();  // Leer contraseña
 
         System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
-        int rolOption = obtenerEntradaNumerica();
+        int rolOption = obtenerEntradaNumerica();  // Leer opción de rol
         Roles rol = (rolOption == 1) ? Roles.CLIENTE : Roles.ARRENDATARIO;
 
         Long idUsuario = (long) (usuarios.size() + 1);
