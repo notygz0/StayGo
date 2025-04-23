@@ -2,12 +2,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.staygo.Alojamiento;
 import org.staygo.Departamento;
-import org.staygo.Hotel;
+
 import org.staygo.Roles;
 import org.staygo.Usuario;
 
 import java.time.LocalDate;
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
