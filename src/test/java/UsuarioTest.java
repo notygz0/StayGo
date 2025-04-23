@@ -24,7 +24,7 @@ public class UsuarioTest {
     }
     @Test
     void testRealizarYObtenerReservas() {
-        Alojamiento depto = new Departamento("av caupolican 3622", 5000, "vip", 2, true, usuario);
+        Alojamiento depto = new Departamento("av caupolican 3622", 5000, "vip", 2, true,usuario);
         Reserva reserva = new Reserva(usuario, depto, LocalDate.now(), LocalDate.now().plusDays(1));
 
         usuario.realizarReserva(reserva);
