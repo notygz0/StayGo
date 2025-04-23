@@ -16,7 +16,7 @@ public class ReservaTest {
     void setUp() {
         hoy = LocalDate.now();
         usuario = new Usuario(4354L, "lorenzo", "lorencito1234", Roles.CLIENTE);
-        alojamiento = new Departamento("av arturo prat", 25000f, "departamento amplio", 1, false);
+        alojamiento = new Departamento("av arturo prat", 25000f, "departamento amplio", 1, false,usuario);
         // No es necesario pasar EstadoReserva ya que es asignado por defecto
         reserva = new Reserva(usuario, alojamiento, hoy, hoy.plusDays(1));
     }
