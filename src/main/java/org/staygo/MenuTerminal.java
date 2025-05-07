@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class MenuTerminal {
 
@@ -11,6 +12,7 @@ public class MenuTerminal {
     private List<Usuario> usuarios;
     private Scanner leer;
     private Usuario usuarioActivo;
+    private static final Logger logger = Logger.getLogger(MenuTerminal.class.getName());
 
     public MenuTerminal() {
         alojamientos = new ArrayList<>();
@@ -29,27 +31,27 @@ public class MenuTerminal {
         int opcion;
         do {
             if (usuarioActivo == null) {
-                System.out.println("\n==== Menú de Inicio ====");
-                System.out.println("1. Iniciar sesión");
-                System.out.println("2. Registrarse");
-                System.out.println("3. Salir");
-                System.out.print("Seleccione una opción: ");
+                logger.info("\n==== Menú de Inicio ====");
+                logger.info("1. Iniciar sesión");
+                logger.info("2. Registrarse");
+                logger.info("3. Salir");
+                logger.info("Seleccione una opción: ");
                 opcion = obtenerEntradaNumerica();
                 switch (opcion) {
                     case 1 -> iniciarSesion();
                     case 2 -> registrarUsuario();
-                    case 3 -> System.out.println("Saliendo del sistema...");
-                    default -> System.out.println("Opción inválida. Intente nuevamente.");
+                    case 3 -> logger.info("Saliendo del sistema...");
+                    default -> logger.warning("Opción inválida. Intente nuevamente.");
                 }
             } else {
-                System.out.println("\n==== Menú Principal ====");
-                System.out.println("1. Ver alojamientos disponibles");
-                System.out.println("2. Realizar una reserva");
-                System.out.println("3. Ver reservas de un usuario");
-                System.out.println("4. Agregar alojamiento");
-                System.out.println("5. Eliminar alojamiento");
-                System.out.println("6. Cerrar Sesión");
-                System.out.print("Seleccione una opción: ");
+                logger.info("\n==== Menú Principal ====");
+                logger.info("1. Ver alojamientos disponibles");
+                logger.info("2. Realizar una reserva");
+                logger.info("3. Ver reservas de un usuario");
+                logger.info("4. Agregar alojamiento");
+                logger.info("5. Eliminar alojamiento");
+                logger.info("6. Cerrar Sesión");
+                logger.info("Seleccione una opción: ");
 
                 opcion = obtenerEntradaNumerica();
                 switch (opcion) {
@@ -59,37 +61,37 @@ public class MenuTerminal {
                     case 4 -> agregarAlojamiento();
                     case 5 -> eliminarAlojamiento();
                     case 6 -> cerrarSesion();
-                    default -> System.out.println("Opción inválida. Intente nuevamente.");
+                    default -> logger.warning("Opción inválida. Intente nuevamente.");
                 }
             }
         } while (opcion != 3);
     }
 
     public void iniciarSesion() {
-        System.out.print("\nIngrese su nombre de usuario: ");
+        logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
-        System.out.print("Ingrese su contraseña: ");
+        logger.info("Ingrese su contraseña: ");
         String contrasena = leer.nextLine();
 
         for (Usuario u : usuarios) {
             if (u.iniciarSesion(nombre, contrasena)) {
                 usuarioActivo = u;
-                System.out.println("Bienvenido, " + usuarioActivo.getNombre());
+                logger.info("Bienvenido, " + usuarioActivo.getNombre());
                 return;
             }
         }
 
-        System.out.println("Usuario o contraseña incorrectos.");
+        logger.warning("Usuario o contraseña incorrectos.");
     }
 
     public void registrarUsuario() {
-        System.out.print("\nIngrese su nombre de usuario: ");
+        logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
 
-        System.out.print("Ingrese la contraseña: ");
+        logger.info("Ingrese la contraseña: ");
         String contrasena = leer.nextLine();
 
-        System.out.print("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
+        logger.info("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
         int rolOption = obtenerEntradaNumerica();
         leer.nextLine();
         Roles rol = (rolOption == 1) ? Roles.CLIENTE : Roles.ARRENDATARIO;
@@ -97,13 +99,13 @@ public class MenuTerminal {
         Long idUsuario = (long) (usuarios.size() + 1);
         Usuario nuevoUsuario = new Usuario(idUsuario, nombre, contrasena, rol);
         usuarios.add(nuevoUsuario);
-        System.out.println("Usuario registrado con éxito.");
+        logger.info("Usuario registrado con éxito.");
     }
 
     private int obtenerEntradaNumerica() {
         while (!leer.hasNextInt()) {
             leer.nextLine();
-            System.out.print("Por favor, ingrese un número válido: ");
+            logger.info("Por favor, ingrese un número válido: ");
         }
         int num = leer.nextInt();
         leer.nextLine();
@@ -112,67 +114,62 @@ public class MenuTerminal {
 
     private void cerrarSesion() {
         usuarioActivo = null;
-        System.out.println("Has cerrado sesión.");
+        logger.info("Has cerrado sesión.");
     }
 
-
-
     private void mostrarAlojamientos() {
-        System.out.println("\n--- ALOJAMIENTOS ---");
+        logger.info("\n--- ALOJAMIENTOS ---");
         for (int i = 0; i < alojamientos.size(); i++) {
-            System.out.println("\n[" + (i + 1) + "]\n" + alojamientos.get(i).verDetalles());
+            logger.info("\n[" + (i + 1) + "]\n" + alojamientos.get(i).verDetalles());
         }
     }
 
     private void realizarReserva() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
-            System.out.println("Solo los clientes pueden realizar reservas.");
+            logger.warning("Solo los clientes pueden realizar reservas.");
             return;
         }
 
         mostrarAlojamientos();
 
-        System.out.print("\nSeleccione el número del alojamiento a reservar: ");
+        logger.info("\nSeleccione el número del alojamiento a reservar: ");
 
         int index = obtenerEntradaNumerica() - 1;
 
         if (index < 0 || index >= alojamientos.size()) {
-            System.out.println("Alojamiento inválido.");
+            logger.warning("Alojamiento inválido.");
             return;
         }
 
-
-        System.out.print("Fecha inicio (YYYY-MM-DD): ");
+        logger.info("Fecha inicio (YYYY-MM-DD): ");
         LocalDate inicio = LocalDate.parse(leer.nextLine());
 
-        System.out.print("Fecha fin (YYYY-MM-DD): ");
+        logger.info("Fecha fin (YYYY-MM-DD): ");
         LocalDate fin = LocalDate.parse(leer.nextLine());
 
         Reserva reserva = new Reserva(usuarioActivo, alojamientos.get(index), inicio, fin);
         usuarioActivo.realizarReserva(reserva);
         alojamientos.get(index).setOcupado(true);
-        System.out.println("Reserva realizada con éxito.");
+        logger.info("Reserva realizada con éxito.");
     }
 
     private void verReservas() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
-            System.out.println("Solo los clientes pueden ver sus reservas.");
+            logger.warning("Solo los clientes pueden ver sus reservas.");
             return;
         }
 
         List<Reserva> reservas = usuarioActivo.obtenerReservas();
 
         if (reservas.isEmpty()) {
-            System.out.println("Este usuario no tiene reservas.");
+            logger.info("Este usuario no tiene reservas.");
         } else {
-            System.out.println("\n--- RESERVAS ---");
+            logger.info("\n--- RESERVAS ---");
             for (Reserva r : reservas) {
-                System.out.println(r.obtenerDetallesReserva());
+                logger.info(r.obtenerDetallesReserva());
             }
         }
     }
-
-
 
     private void agregarAlojamiento() {
         if (usuarioActivo.getRol() == Roles.ARRENDATARIO) {
@@ -180,100 +177,98 @@ public class MenuTerminal {
         } else if (usuarioActivo.getRol() == Roles.ADMIN) {
             agregarHotel();
         } else {
-            System.out.println("No tiene permisos para agregar alojamiento.");
+            logger.warning("No tiene permisos para agregar alojamiento.");
         }
     }
 
     private void agregarDepartamento() {
         if (usuarioActivo.getRol() != Roles.ARRENDATARIO) {
-            System.out.println("Solo los arrendatarios pueden agregar departamentos.");
+            logger.warning("Solo los arrendatarios pueden agregar departamentos.");
             return;
         }
 
-        System.out.print("\nDirección del departamento: ");
+        logger.info("\nDirección del departamento: ");
         String direccion = leer.nextLine();
 
-        System.out.print("Precio por noche: ");
+        logger.info("Precio por noche: ");
         float precio = leer.nextFloat();
         leer.nextLine();
 
-        System.out.print("Descripción del departamento: ");
+        logger.info("Descripción del departamento: ");
         String descripcion = leer.nextLine();
 
-        System.out.print("Número de habitaciones: ");
+        logger.info("Número de habitaciones: ");
         int numHabitaciones = leer.nextInt();
 
-        System.out.print("¿Es el departamento moderno (true/false)? ");
+        logger.info("¿Es el departamento moderno (true/false)? ");
         boolean moderno = leer.nextBoolean();
         leer.nextLine();
 
         Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, moderno, usuarioActivo);
         alojamientos.add(nuevoDepartamento);
-        System.out.println("Departamento agregado con éxito.");
+        logger.info("Departamento agregado con éxito.");
     }
 
     private void agregarHotel() {
-        System.out.print("\nDirección del hotel: ");
+        logger.info("\nDirección del hotel: ");
         String direccion = leer.nextLine();
 
-        System.out.print("Precio por noche: ");
+        logger.info("Precio por noche: ");
         float precio = leer.nextFloat();
         leer.nextLine();
 
-        System.out.print("Descripción del hotel: ");
+        logger.info("Descripción del hotel: ");
         String descripcion = leer.nextLine();
 
-        System.out.print("Número de estrellas: ");
+        logger.info("Número de estrellas: ");
         int numEstrellas = leer.nextInt();
         leer.nextLine();
 
         Hotel nuevoHotel = new Hotel(direccion, precio, descripcion, numEstrellas, 0);
         alojamientos.add(nuevoHotel);
-        System.out.println("Hotel agregado con éxito.");
+        logger.info("Hotel agregado con éxito.");
     }
 
     private void eliminarAlojamiento() {
-        System.out.println("\nSeleccione el alojamiento que desea eliminar:");
+        logger.info("\nSeleccione el alojamiento que desea eliminar:");
         mostrarAlojamientos();
 
-        System.out.print("\nSeleccione el número del alojamiento a eliminar: ");
+        logger.info("\nSeleccione el número del alojamiento a eliminar: ");
         int index = obtenerEntradaNumerica() - 1;
 
         if (index < 0 || index >= alojamientos.size()) {
-            System.out.println("Alojamiento inválido.");
+            logger.warning("Alojamiento inválido.");
             return;
         }
 
         alojamientos.remove(index);
-        System.out.println("Alojamiento eliminado con éxito.");
+        logger.info("Alojamiento eliminado con éxito.");
     }
-
-
 
     private void eliminarUsuario() {
         if (usuarioActivo.getRol() != Roles.ADMIN) {
-            System.out.println("Solo los administradores pueden eliminar usuarios.");
+            logger.warning("Solo los administradores pueden eliminar usuarios.");
             return;
         }
 
-        System.out.print("\nIngrese el ID del usuario a eliminar: ");
+        logger.info("\nIngrese el ID del usuario a eliminar: ");
         Long idUsuario = leer.nextLong();
         leer.nextLine();
 
         Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (usuario == null) {
-            System.out.println("Usuario no encontrado.");
+            logger.warning("Usuario no encontrado.");
             return;
         }
 
         if (usuario.getRol() == Roles.ADMIN) {
-            System.out.println("No se puede eliminar al usuario ADMIN.");
+            logger.warning("No se puede eliminar al usuario ADMIN.");
             return;
         }
 
         usuarios.remove(usuario);
-        System.out.println("Usuario eliminado con éxito.");
+        logger.info("Usuario eliminado con éxito.");
     }
 
     private Usuario buscarUsuarioPorId(Long idUsuario) {
@@ -285,6 +280,7 @@ public class MenuTerminal {
         return null;
     }
 }
+
 
 
 
