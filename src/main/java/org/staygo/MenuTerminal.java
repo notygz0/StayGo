@@ -198,11 +198,7 @@ public class MenuTerminal {
 
         logger.info("Número de habitaciones: ");
         int numHabitaciones = leer.nextInt();
-
-        logger.info("¿Es el departamento moderno (true/false)? ");
-        boolean moderno = leer.nextBoolean();
-        leer.nextLine();
-
+        
         Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, usuarioActivo);
         alojamientos.add(nuevoDepartamento);
         logger.info("Departamento agregado con éxito.");
@@ -244,5 +240,5 @@ public class MenuTerminal {
         logger.info("Alojamiento eliminado con éxito.");
     }
 
-    
+
 }
