@@ -19,7 +19,7 @@ class AlojamientoTest {
     void setUp() {
         hoy = LocalDate.now();
         arrendatario = new Usuario(1L, "arrendatario", "contraseña", Roles.ARRENDATARIO);
-        alojamiento = new Departamento("Calle Falsa 123", 15000f, "Departamento comodo", 3, true, arrendatario);
+        alojamiento = new Departamento("Calle Falsa 123", 15000f, "Departamento comodo", 3, arrendatario);
     }
 
     @Test

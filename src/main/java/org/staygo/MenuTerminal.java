@@ -203,7 +203,7 @@ public class MenuTerminal {
         boolean moderno = leer.nextBoolean();
         leer.nextLine();
 
-        Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, moderno, usuarioActivo);
+        Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, usuarioActivo);
         alojamientos.add(nuevoDepartamento);
         logger.info("Departamento agregado con éxito.");
     }
