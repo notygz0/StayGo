@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
-    private Long id_usuario;
+    private Long idUsuario;
     private String nombre;
     private String contrasena;
     private Roles rol;
     private List<Reserva> reservas;
 
-    public Usuario(Long id_usuario, String nombre, String contrasena, Roles rol) {
-        this.id_usuario = id_usuario;
+    public Usuario(Long idUsuario, String nombre, String contrasena, Roles rol) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.rol = rol;
@@ -28,7 +28,7 @@ public class Usuario {
     public Roles getRol() {
         return rol;
     }
-    
+
 
     public boolean iniciarSesion(String nombre, String contrasena) {
         return this.nombre.equals(nombre) && this.contrasena.equals(contrasena);
@@ -52,7 +52,7 @@ public class Usuario {
                    @JsonProperty("contrasena") String contrasena,
                    @JsonProperty("rol") Roles rol,
                    @JsonProperty("reservas") List<Reserva> reservas) {
-        this.id_usuario = idUsuario;
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.rol = rol;
