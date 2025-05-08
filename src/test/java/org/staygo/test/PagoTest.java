@@ -1,3 +1,5 @@
+package org.staygo.test;
+
 import org.junit.jupiter.api.Test;
 import org.staygo.*;
 
