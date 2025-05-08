@@ -18,7 +18,7 @@ public class ResenaTest {
     void setUp() {
         // Inicialización de los datos para la prueba
         usuario = new Usuario(1L, "Juan Perez", "password", Roles.CLIENTE);
-        alojamiento = new Departamento("Calle Falsa 123", 100.0f, "Departamento confortable", 2, true, usuario);
+        alojamiento = new Departamento("Calle Falsa 123", 100.0f, "Departamento confortable", 2, usuario);
         fechaCreacion = LocalDateTime.now();
 
         // Crear una reseña válida

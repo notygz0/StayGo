@@ -16,7 +16,7 @@ public class ReservaTest {
     void setUp() {
         hoy = LocalDate.now();
         usuario = new Usuario(4354L, "lorenzo", "lorencito1234", Roles.CLIENTE);
-        alojamiento = new Departamento("av arturo prat", 25000, "departamento amplio", 1, false, usuario);
+        alojamiento = new Departamento("av arturo prat", 25000, "departamento amplio", 1, usuario);
         reserva = new Reserva(usuario, alojamiento, hoy, hoy.plusDays(1));
     }
 
