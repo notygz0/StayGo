@@ -198,7 +198,7 @@ public class MenuTerminal {
 
         logger.info("Número de habitaciones: ");
         int numHabitaciones = leer.nextInt();
-        
+
         Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, usuarioActivo);
         alojamientos.add(nuevoDepartamento);
         logger.info("Departamento agregado con éxito.");
