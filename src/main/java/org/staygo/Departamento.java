@@ -1,5 +1,6 @@
-package org.staygo;
 
+
+package org.staygo;
 public class Departamento extends Alojamiento {
 
     private int numHabitaciones;

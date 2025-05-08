@@ -1,3 +1,7 @@
+/**
+ * Esta clase actua como suplente de lo que seria despues el sitio web, por lo que eventualmente quedará obsoleta
+ * todos los system.in fueron reemplazados por logger por sugerencia de sonarqube
+ */
 package org.staygo;
 
 import java.time.LocalDate;
