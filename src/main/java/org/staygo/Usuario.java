@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
-    private Long id_usuario;
+    private Long idUsuario;
     private String nombre;
     private String contrasena;
     private Roles rol;
     private List<Reserva> reservas;
 
-    public Usuario(Long id_usuario, String nombre, String contrasena, Roles rol) {
-        this.id_usuario = id_usuario;
+    public Usuario(Long idUsuario, String nombre, String contrasena, Roles rol) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.rol = rol;
@@ -29,17 +29,6 @@ public class Usuario {
         return rol;
     }
 
-    public boolean esAdmin() {
-        return rol == Roles.ADMIN;
-    }
-
-    public boolean esArrendatario() {
-        return rol == Roles.ARRENDATARIO;
-    }
-
-    public boolean esCliente() {
-        return rol == Roles.CLIENTE;
-    }
 
     public boolean iniciarSesion(String nombre, String contrasena) {
         return this.nombre.equals(nombre) && this.contrasena.equals(contrasena);
@@ -57,29 +46,7 @@ public class Usuario {
         return reservas;
     }
 
-    public void publicarAlojamiento(Alojamiento alojamiento) {
-        if (rol == Roles.ARRENDATARIO) {
-        } else {
-            throw new IllegalStateException("solo los arrendatarios pueden publicar alojamientos");
-        }
-    }
 
-    public void gestionarSistema() {
-        if (rol == Roles.ADMIN) {
-        } else {
-            throw new IllegalStateException("solo los administradores pueden gestionar el sistema");
-        }
-    }
-
-    public void mostrarDetalles() {
-        System.out.println("usuario: " + nombre + " (id: " + id_usuario + ")");
-        System.out.println("rol: " + rol);
-        System.out.println("numero de reservas: " + reservas.size());
-    }
-
-    public Long getIdUsuario() {
-        return id_usuario;
-    }
 
     @JsonCreator
     public Usuario(@JsonProperty("idUsuario") Long idUsuario,
@@ -87,7 +54,7 @@ public class Usuario {
                    @JsonProperty("contrasena") String contrasena,
                    @JsonProperty("rol") Roles rol,
                    @JsonProperty("reservas") List<Reserva> reservas) {
-        this.id_usuario = idUsuario;
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.rol = rol;
