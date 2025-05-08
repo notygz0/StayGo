@@ -1,4 +1,5 @@
 package org.staygo;
+
 /**
  * clase que representa un departamento dentro del sistema de gestion de alojamientos.
  * esta clase extiende la clase {@link Alojamiento} y agrega atributos especificos relacionados
@@ -6,12 +7,10 @@ package org.staygo;
  *
  * @author Lorenzo Lopez
  * @author Felipe Delgado
- *
  */
 public class Departamento extends Alojamiento {
 
     private int numHabitaciones;
-
     private Usuario dueno;
 
     /**
@@ -26,24 +25,29 @@ public class Departamento extends Alojamiento {
     public Departamento(String direccion, float precio, String descripcion, int numHabitaciones, Usuario dueno) {
         super(direccion, precio, descripcion);
         this.numHabitaciones = numHabitaciones;
-
         this.dueno = dueno;
     }
 
-
-
-
-
+    /**
+     * obtiene el dueno del departamento.
+     *
+     * @return el dueno del departamento.
+     */
     @Override
     public Usuario getDueno() {
         return dueno;
     }
-    
 
+    /**
+     * obtiene una descripcion detallada del departamento.
+     *
+     * @return una cadena de texto con los detalles del departamento.
+     */
     @Override
     public String verDetalles() {
         return "Departamento: " + getDireccion() + ", Precio: " + getPrecio() + ", Habitaciones: " + numHabitaciones + ", Dueño: " + (dueno != null ? dueno.getNombre() : "Desconocido");
     }
 }
+
 
 
