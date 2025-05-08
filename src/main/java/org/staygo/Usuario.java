@@ -1,10 +1,16 @@
 package org.staygo;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Clase que representa a un usuario en el sistema.
+ * Esta clase contiene los atributos y métodos necesarios para gestionar
+ * un usuario dentro de la aplicación.
+ * @author Lorenzo Lopez
+ * @author Felipe Delgado
+ */
 
 public class Usuario {
     private Long idUsuario;

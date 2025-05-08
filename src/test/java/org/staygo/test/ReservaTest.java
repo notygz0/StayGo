@@ -8,6 +8,16 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * clase de prueba para la clase Reserva.
+ * esta clase contiene pruebas unitarias para verificar el correcto funcionamiento
+ * de la clase Reserva, incluyendo la validacion del estado inicial, la confirmacion,
+ * la cancelacion de la reserva, y la validacion de las fechas de inicio y fin.
+ *
+ * @author Lorenzo Lopez
+ * @author Felipe Delgado
+ */
+
 class ReservaTest {
     private Reserva reserva;
     private Usuario usuario;

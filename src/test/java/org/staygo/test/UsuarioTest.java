@@ -8,6 +8,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * clase de prueba para la clase Usuario.
+ * esta clase contiene pruebas unitarias para verificar el correcto funcionamiento
+ * del metodo iniciarSesion, la validacion de credenciales y la gestion de reservas
+ * realizadas por el usuario.
+ *
+ * @author Lorenzo Lopez
+ * @author Felipe Delgado
+ */
+
 class UsuarioTest {
     private Usuario usuario;
 
@@ -33,6 +43,6 @@ class UsuarioTest {
         List<Reserva> reservas = usuario.obtenerReservas();
 
         assertEquals(1, reservas.size());
-        assertSame(reserva, reservas.get(0));
+        assertSame(reserva, reservas.getFirst());
     }
 }

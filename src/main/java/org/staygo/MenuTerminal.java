@@ -1,15 +1,17 @@
-/**
- * Esta clase actua como suplente de lo que seria despues el sitio web, por lo que eventualmente quedará obsoleta
- * todos los system.in fueron reemplazados por logger por sugerencia de sonarqube
- */
 package org.staygo;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
-
+/**
+ * clase que permite al usuario usar el programa mediante terminal
+ * <p>
+ *     actua como suplente de lo que seria despues el sitio web, por lo que eventualmente quedara obsoleta
+ *     todos los system.in fueron reemplazados por logger por sugerencia de sonarqube
+ * </p>
+ * @author Lorenzo Lopez
+ */
 public class MenuTerminal {
 
     private List<Alojamiento> alojamientos;

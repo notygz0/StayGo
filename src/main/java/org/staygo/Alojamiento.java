@@ -1,4 +1,13 @@
 package org.staygo;
+/**
+ * clase abstracta que representa un alojamiento en el sistema.
+ * los alojamientos pueden ser hoteles o departamentos.
+ * contiene atributos comunes para todos los tipos de alojamientos, como direccion,
+ * precio, descripcion y estado de ocupacion.
+ *
+ * @author Lorenzo Lopez
+ * @author Felipe Delgado
+ */
 
 public abstract class Alojamiento {
 

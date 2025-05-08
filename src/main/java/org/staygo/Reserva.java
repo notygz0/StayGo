@@ -5,7 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.util.Objects;
-
+/**
+ * clase que representa una reserva realizada por un usuario en un alojamiento.
+ * contiene informacion sobre el usuario que realiza la reserva, el alojamiento,
+ * las fechas de inicio y fin de la reserva y el estado de la reserva.
+ *
+ * @author Felipe Delgado
+ */
 public class Reserva {
 
     private Usuario usuario;

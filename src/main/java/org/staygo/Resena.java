@@ -1,6 +1,14 @@
 package org.staygo;
 
 import java.time.LocalDateTime;
+/**
+ * clase que representa una reseña dejada por un usuario sobre un alojamiento.
+ * contiene informacion sobre el usuario que dejo la reseña, el alojamiento
+ * sobre el que se hizo la reseña, el texto de la reseña, la fecha de creacion
+ * de la reseña y la calificacion dada al alojamiento.
+ *
+ * @author Felipe Delgado
+ */
 
 public class Resena {
 

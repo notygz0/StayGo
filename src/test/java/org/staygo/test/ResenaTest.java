@@ -8,6 +8,15 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * clase de prueba para la clase Resena.
+ * esta clase contiene pruebas unitarias para verificar el correcto funcionamiento
+ * de la clase Resena, incluyendo la validacion de calificaciones, edicion de reseñas
+ * y obtencion de detalles de la reseña.
+ *
+ * @author Lorenzo Lopez
+ */
+
 class ResenaTest {
 
     private Resena resena;

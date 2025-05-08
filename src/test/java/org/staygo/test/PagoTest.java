@@ -1,9 +1,17 @@
 package org.staygo.test;
 
+
 import org.junit.jupiter.api.Test;
 import org.staygo.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * clase de prueba para la clase Pago.
+ * esta clase contiene pruebas unitarias para verificar la correcta creacion y el correcto
+ * funcionamiento del metodo realizarPago de la clase Pago.
+ *
+ * @author Felipe Delgado
+ */
 
 class PagoTest {
 

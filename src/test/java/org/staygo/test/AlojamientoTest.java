@@ -11,7 +11,17 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * clase de prueba para la clase Alojamiento.
+ * esta clase contiene pruebas unitarias para verificar la correcta creacion,
+ * disponibilidad y detalles de los alojamientos.
+ *
+ * @author Lorenzo Lopez
+ */
+
 class AlojamientoTest {
+
+
 
     private Alojamiento alojamiento;
     private Usuario arrendatario;
@@ -36,7 +46,6 @@ class AlojamientoTest {
     void testDisponibilidad() {
         assertFalse(alojamiento.isOcupado());
 
-        // Marcar el alojamiento como ocupado
         alojamiento.setOcupado(true);
         assertTrue(alojamiento.isOcupado());
     }

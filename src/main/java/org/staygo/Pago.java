@@ -1,7 +1,13 @@
 package org.staygo;
 
 import java.time.LocalDateTime;
-
+/**
+ * clase que representa un pago realizado por un usuario en el sistema.
+ * contiene la informacion sobre el usuario, el precio del pago, la fecha del pago
+ * y el estado del pago (si ha sido realizado o no).
+ *
+ * @author Felipe Delgado
+ */
 public class Pago {
 
     private Usuario usuario;
