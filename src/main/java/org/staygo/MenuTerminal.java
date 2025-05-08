@@ -120,7 +120,7 @@ public class MenuTerminal {
     private void mostrarAlojamientos() {
         logger.info("\n--- ALOJAMIENTOS ---");
         for (int i = 0; i < alojamientos.size(); i++) {
-            logger.info("\n[" + (i + 1) + "]\n" + alojamientos.get(i).verDetalles());
+            logger.info(String.format("[%d]\n%s", i + 1, alojamientos.get(i).verDetalles()));
         }
     }
 
@@ -133,7 +133,6 @@ public class MenuTerminal {
         mostrarAlojamientos();
 
         logger.info("\nSeleccione el número del alojamiento a reservar: ");
-
         int index = obtenerEntradaNumerica() - 1;
 
         if (index < 0 || index >= alojamientos.size()) {
@@ -280,9 +279,3 @@ public class MenuTerminal {
         return null;
     }
 }
-
-
-
-
-
-
