@@ -243,33 +243,7 @@ public class MenuTerminal {
         alojamientos.remove(index);
         logger.info("Alojamiento eliminado con éxito.");
     }
-
-    private void eliminarUsuario() {
-        if (usuarioActivo.getRol() != Roles.ADMIN) {
-            logger.warning("Solo los administradores pueden eliminar usuarios.");
-            return;
-        }
-
-        logger.info("\nIngrese el ID del usuario a eliminar: ");
-        Long idUsuario = leer.nextLong();
-        leer.nextLine();
-
-        Usuario usuario = buscarUsuarioPorId(idUsuario);
-
-        if (usuario == null) {
-            logger.warning("Usuario no encontrado.");
-            return;
-        }
-
-        if (usuario.getRol() == Roles.ADMIN) {
-            logger.warning("No se puede eliminar al usuario ADMIN.");
-            return;
-        }
-
-        usuarios.remove(usuario);
-        logger.info("Usuario eliminado con éxito.");
-    }
-
+    
     private Usuario buscarUsuarioPorId(Long idUsuario) {
         for (Usuario u : usuarios) {
             if (u.getIdUsuario().equals(idUsuario)) {
