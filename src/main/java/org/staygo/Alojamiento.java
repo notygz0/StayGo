@@ -1,16 +1,16 @@
 package org.staygo;
 
-public abstract class Alojamiento {
+abstract class Alojamiento {
 
     private String direccion;
     private float precio;
     private String descripcion;
     private boolean ocupado;
 
-    public Alojamiento() {
+    protected Alojamiento() {
     }
 
-    public Alojamiento(String direccion, float precio, String descripcion) {
+    protected Alojamiento(String direccion, float precio, String descripcion) {
         this.direccion = direccion;
         this.precio = precio;
         this.descripcion = descripcion;
