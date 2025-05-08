@@ -77,17 +77,17 @@ public class Usuario {
         System.out.println("numero de reservas: " + reservas.size());
     }
 
-    public Long getId_usuario() {
+    public Long getIdUsuario() {
         return id_usuario;
     }
 
     @JsonCreator
-    public Usuario(@JsonProperty("id_usuario") Long id_usuario,
+    public Usuario(@JsonProperty("idUsuario") Long idUsuario,
                    @JsonProperty("nombre") String nombre,
                    @JsonProperty("contrasena") String contrasena,
                    @JsonProperty("rol") Roles rol,
                    @JsonProperty("reservas") List<Reserva> reservas) {
-        this.id_usuario = id_usuario;
+        this.id_usuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.rol = rol;

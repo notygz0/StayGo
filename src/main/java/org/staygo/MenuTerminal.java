@@ -272,7 +272,7 @@ public class MenuTerminal {
 
     private Usuario buscarUsuarioPorId(Long idUsuario) {
         for (Usuario u : usuarios) {
-            if (u.getId_usuario().equals(idUsuario)) {
+            if (u.getIdUsuario().equals(idUsuario)) {
                 return u;
             }
         }
