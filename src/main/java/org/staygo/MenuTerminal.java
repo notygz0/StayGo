@@ -1,15 +1,18 @@
 package org.staygo;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
+
 /**
- * clase que permite al usuario usar el programa mediante terminal
+ * clase que permite al usuario usar el programa mediante terminal.
  * <p>
- *     actua como suplente de lo que seria despues el sitio web, por lo que eventualmente quedara obsoleta
- *     todos los system.in fueron reemplazados por logger por sugerencia de sonarqube
+ *     actua como suplente de lo que seria despues el sitio web, por lo que eventualmente quedara obsoleta.
+ *     todos los system.in fueron reemplazados por logger por sugerencia de sonarqube.
  * </p>
+ *
  * @author Lorenzo Lopez
  */
 public class MenuTerminal {
@@ -20,6 +23,10 @@ public class MenuTerminal {
     private Usuario usuarioActivo;
     private static final Logger logger = Logger.getLogger(MenuTerminal.class.getName());
 
+    /**
+     * constructor que inicializa las listas de alojamientos y usuarios
+     * y carga los datos iniciales en el sistema.
+     */
     public MenuTerminal() {
         alojamientos = new ArrayList<>();
         usuarios = new ArrayList<>();
@@ -27,12 +34,20 @@ public class MenuTerminal {
         cargarDatosIniciales();
     }
 
+    /**
+     * metodo que carga los datos iniciales de usuarios al sistema.
+     * en este caso, agrega usuarios con diferentes roles como ADMIN, ARRENDATARIO y CLIENTE.
+     */
     private void cargarDatosIniciales() {
         usuarios.add(new Usuario(1L, "admin", "admin123", Roles.ADMIN));
         usuarios.add(new Usuario(2L, "arrendatario", "arrenda123", Roles.ARRENDATARIO));
         usuarios.add(new Usuario(3L, "cliente", "cliente123", Roles.CLIENTE));
     }
 
+    /**
+     * metodo que muestra el menu principal del sistema y gestiona las opciones seleccionadas.
+     * dependiendo del estado de sesion del usuario, muestra el menu de inicio o el menu principal.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -73,6 +88,10 @@ public class MenuTerminal {
         } while (opcion != 3);
     }
 
+    /**
+     * metodo que gestiona el inicio de sesion del usuario.
+     * solicita el nombre de usuario y la contraseña, y valida las credenciales.
+     */
     public void iniciarSesion() {
         logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
@@ -90,6 +109,10 @@ public class MenuTerminal {
         logger.warning("Usuario o contraseña incorrectos.");
     }
 
+    /**
+     * metodo que permite registrar un nuevo usuario.
+     * el nuevo usuario puede ser un CLIENTE o un ARRENDATARIO.
+     */
     public void registrarUsuario() {
         logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
@@ -108,6 +131,12 @@ public class MenuTerminal {
         logger.info("Usuario registrado con éxito.");
     }
 
+    /**
+     * metodo que obtiene la entrada numerica del usuario.
+     * valida que el usuario ingrese un número válido.
+     *
+     * @return el número ingresado por el usuario.
+     */
     private int obtenerEntradaNumerica() {
         while (!leer.hasNextInt()) {
             leer.nextLine();
@@ -118,11 +147,17 @@ public class MenuTerminal {
         return num;
     }
 
+    /**
+     * metodo que cierra la sesion del usuario activo.
+     */
     private void cerrarSesion() {
         usuarioActivo = null;
         logger.info("Has cerrado sesión.");
     }
 
+    /**
+     * metodo que muestra todos los alojamientos disponibles.
+     */
     private void mostrarAlojamientos() {
         logger.info("\n--- ALOJAMIENTOS ---");
         for (int i = 0; i < alojamientos.size(); i++) {
@@ -130,6 +165,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * metodo que permite al usuario realizar una reserva.
+     * solo los usuarios con rol CLIENTE pueden realizar reservas.
+     */
     private void realizarReserva() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden realizar reservas.");
@@ -158,6 +197,10 @@ public class MenuTerminal {
         logger.info("Reserva realizada con éxito.");
     }
 
+    /**
+     * metodo que muestra las reservas realizadas por el usuario activo.
+     * solo los clientes pueden ver sus reservas.
+     */
     private void verReservas() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden ver sus reservas.");
@@ -176,6 +219,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * metodo que permite agregar un nuevo alojamiento al sistema.
+     * dependiendo del rol del usuario activo, se agrega un departamento o un hotel.
+     */
     private void agregarAlojamiento() {
         if (usuarioActivo.getRol() == Roles.ARRENDATARIO) {
             agregarDepartamento();
@@ -186,6 +233,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * metodo que permite agregar un departamento al sistema.
+     * solo los arrendatarios pueden agregar departamentos.
+     */
     private void agregarDepartamento() {
         if (usuarioActivo.getRol() != Roles.ARRENDATARIO) {
             logger.warning("Solo los arrendatarios pueden agregar departamentos.");
@@ -210,6 +261,10 @@ public class MenuTerminal {
         logger.info("Departamento agregado con éxito.");
     }
 
+    /**
+     * metodo que permite agregar un hotel al sistema.
+     * solo los administradores pueden agregar hoteles.
+     */
     private void agregarHotel() {
         logger.info("\nDirección del hotel: ");
         String direccion = leer.nextLine();
@@ -230,6 +285,9 @@ public class MenuTerminal {
         logger.info("Hotel agregado con éxito.");
     }
 
+    /**
+     * metodo que permite eliminar un alojamiento del sistema.
+     */
     private void eliminarAlojamiento() {
         logger.info("\nSeleccione el alojamiento que desea eliminar:");
         mostrarAlojamientos();
@@ -245,6 +303,4 @@ public class MenuTerminal {
         alojamientos.remove(index);
         logger.info("Alojamiento eliminado con éxito.");
     }
-
-
 }
