@@ -17,7 +17,7 @@ public class Hotel extends Alojamiento {
 
     @Override
     public String verDetalles() {
-        return "Hotel: " + getDireccion() + ", Precio: " + getPrecio() + ", Estrellas: " + numEstrellas + ", Habitaciones: " + numHabitaciones + ", Servicios: " + servicios;
+        return "Hotel: " + getDireccion() + ", Precio: " + getPrecio() + ", Estrellas: " + numEstrellas + ", Habitaciones: " + numHabitaciones;
     }
 }
 
