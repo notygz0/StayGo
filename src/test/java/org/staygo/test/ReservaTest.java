@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ReservaTest {
+class ReservaTest {
     private Reserva reserva;
     private Usuario usuario;
     private Alojamiento alojamiento;

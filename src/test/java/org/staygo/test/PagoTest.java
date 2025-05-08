@@ -5,7 +5,7 @@ import org.staygo.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PagoTest {
+class PagoTest {
 
     @Test
     void testCrearPagoValido() {
