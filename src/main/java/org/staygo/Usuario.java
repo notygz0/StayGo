@@ -1,4 +1,5 @@
 package org.staygo;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
@@ -8,10 +9,10 @@ import java.util.List;
  * Clase que representa a un usuario en el sistema.
  * Esta clase contiene los atributos y métodos necesarios para gestionar
  * un usuario dentro de la aplicación.
+ *
  * @author Lorenzo Lopez
  * @author Felipe Delgado
  */
-
 public class Usuario {
     private Long idUsuario;
     private String nombre;
@@ -19,6 +20,14 @@ public class Usuario {
     private Roles rol;
     private List<Reserva> reservas;
 
+    /**
+     * Constructor que inicializa un nuevo usuario con los valores proporcionados.
+     *
+     * @param idUsuario el identificador del usuario.
+     * @param nombre el nombre del usuario.
+     * @param contrasena la contraseña del usuario.
+     * @param rol el rol asignado al usuario.
+     */
     public Usuario(Long idUsuario, String nombre, String contrasena, Roles rol) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -27,19 +36,43 @@ public class Usuario {
         this.reservas = new ArrayList<>();
     }
 
+    /**
+     * Obtiene el nombre del usuario.
+     *
+     * @return el nombre del usuario.
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Obtiene el rol del usuario.
+     *
+     * @return el rol del usuario.
+     */
     public Roles getRol() {
         return rol;
     }
 
-
+    /**
+     * Inicia sesión con el nombre de usuario y la contraseña proporcionados.
+     * Verifica si el nombre de usuario y la contraseña coinciden con los del usuario.
+     *
+     * @param nombre el nombre de usuario a verificar.
+     * @param contrasena la contraseña a verificar.
+     * @return true si las credenciales son correctas, false en caso contrario.
+     */
     public boolean iniciarSesion(String nombre, String contrasena) {
         return this.nombre.equals(nombre) && this.contrasena.equals(contrasena);
     }
 
+    /**
+     * Realiza una reserva y la agrega a la lista de reservas del usuario.
+     * Solo los usuarios con rol CLIENTE pueden realizar reservas.
+     *
+     * @param reserva la reserva a agregar.
+     * @throws IllegalStateException si el usuario no es un CLIENTE.
+     */
     public void realizarReserva(Reserva reserva) {
         if (rol == Roles.CLIENTE) {
             reservas.add(reserva);
@@ -48,10 +81,25 @@ public class Usuario {
         }
     }
 
+    /**
+     * Obtiene la lista de reservas del usuario.
+     *
+     * @return la lista de reservas del usuario.
+     */
     public List<Reserva> obtenerReservas() {
         return reservas;
     }
 
+    /**
+     * Constructor para la deserialización de un usuario desde un archivo JSON.
+     * Este constructor es utilizado por Jackson para mapear un objeto JSON a un objeto Usuario.
+     *
+     * @param idUsuario el identificador del usuario.
+     * @param nombre el nombre del usuario.
+     * @param contrasena la contraseña del usuario.
+     * @param rol el rol asignado al usuario.
+     * @param reservas la lista de reservas del usuario.
+     */
     @JsonCreator
     public Usuario(@JsonProperty("idUsuario") Long idUsuario,
                    @JsonProperty("nombre") String nombre,
@@ -65,3 +113,4 @@ public class Usuario {
         this.reservas = reservas;
     }
 }
+
