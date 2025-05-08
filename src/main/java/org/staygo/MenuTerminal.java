@@ -243,13 +243,6 @@ public class MenuTerminal {
         alojamientos.remove(index);
         logger.info("Alojamiento eliminado con éxito.");
     }
+
     
-    private Usuario buscarUsuarioPorId(Long idUsuario) {
-        for (Usuario u : usuarios) {
-            if (u.getIdUsuario().equals(idUsuario)) {
-                return u;
-            }
-        }
-        return null;
-    }
 }
