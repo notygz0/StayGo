@@ -1,6 +1,6 @@
 package org.staygo;
 
-abstract class Alojamiento {
+public abstract class Alojamiento {
 
     private String direccion;
     private float precio;
