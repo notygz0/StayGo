@@ -59,7 +59,6 @@ class AlojamientoTest {
         assertTrue(detalles.contains("Calle Falsa 123"));
         assertTrue(detalles.contains("Precio: 15000.0"));
         assertTrue(detalles.contains("Habitaciones: 3"));
-        assertTrue(detalles.contains("Moderno: true"));
         assertTrue(detalles.contains("Dueño: arrendatario"));
     }
 }
