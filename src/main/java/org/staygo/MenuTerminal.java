@@ -116,7 +116,6 @@ public class MenuTerminal {
 
         logger.info("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
         int rolOption = obtenerEntradaNumerica();
-        leer.nextLine();
         Roles rol = (rolOption == 1) ? Roles.CLIENTE : Roles.ARRENDATARIO;
 
         Long idUsuario = (long) (usuarios.size() + 1);
