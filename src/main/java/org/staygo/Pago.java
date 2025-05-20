@@ -1,6 +1,10 @@
 package org.staygo;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
+
 /**
  * clase que representa un pago realizado por un usuario en el sistema.
  * contiene la informacion sobre el usuario, el precio del pago, la fecha del pago
@@ -15,13 +19,18 @@ public class Pago {
     private LocalDateTime fechaPago;
     private boolean estadoPago;
 
-    private Pago(Usuario usuario, float precio) {
-        this.usuario   = usuario;
-        this.precio    = precio;
-        this.estadoPago = false;
-        this.fechaPago  = null;
+    @JsonCreator
+    public Pago(@JsonProperty("usuario") Usuario usuario,
+                @JsonProperty("precio") float precio,
+                @JsonProperty("fechaPago") LocalDateTime fechaPago,
+                @JsonProperty("estadoPago") boolean estadoPago) {
+        this.usuario = usuario;
+        this.precio = precio;
+        this.fechaPago = fechaPago;
+        this.estadoPago = estadoPago;
     }
 
+    // Constructor para crear pago nuevo (sin fecha ni estado realizado)
     public static Pago crearPago(Usuario usuario, float precio) {
         if (usuario == null) {
             throw new IllegalArgumentException("usuario no puede ser null");
@@ -29,48 +38,49 @@ public class Pago {
         if (precio <= 0) {
             throw new IllegalArgumentException("precio debe ser mayor que 0");
         }
-        return new Pago(usuario, precio);
+        return new Pago(usuario, precio, null, false);
     }
 
     public boolean realizarPago() {
         if (!estadoPago) {
             this.estadoPago = true;
-            this.fechaPago  = LocalDateTime.now();
+            this.fechaPago = LocalDateTime.now();
             return true;
         }
         return false;
     }
 
+    // Getters
     public Usuario getUsuario() {
         return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
-        this.precio = precio;
+    public LocalDateTime getFechaPago() {
+        return fechaPago;
     }
 
     public boolean isEstadoPago() {
         return estadoPago;
     }
 
-    public void setEstadoPago(boolean estadoPago) {
-        this.estadoPago = estadoPago;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public LocalDateTime getFechaPago() {
-        return fechaPago;
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
 
     public void setFechaPago(LocalDateTime fechaPago) {
         this.fechaPago = fechaPago;
+    }
+
+    public void setEstadoPago(boolean estadoPago) {
+        this.estadoPago = estadoPago;
     }
 
     public String obtenerDetallesPago() {
@@ -82,8 +92,7 @@ public class Pago {
                 usuario.getNombre(),
                 precio,
                 estadoPago ? "realizado" : "pendiente",
-                fechaPago != null ? fechaPago : "no realizado"
+                fechaPago != null ? fechaPago.toString() : "no realizado"
         );
     }
-
 }
