@@ -222,9 +222,13 @@ public class MenuTerminal {
 
         logger.info("Número de habitaciones: ");
         int numHabitaciones = leer.nextInt();
+        leer.nextLine();
 
         Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, usuarioActivo);
         alojamientos.add(nuevoDepartamento);
+
+        gestorDeDatos.guardarAlojamientos(alojamientos); 
+
         logger.info("Departamento agregado con éxito.");
     }
 
@@ -245,6 +249,9 @@ public class MenuTerminal {
 
         Hotel nuevoHotel = new Hotel(direccion, precio, descripcion, numEstrellas, 0);
         alojamientos.add(nuevoHotel);
+
+        gestorDeDatos.guardarAlojamientos(alojamientos);
+
         logger.info("Hotel agregado con éxito.");
     }
 
