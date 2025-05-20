@@ -21,6 +21,7 @@ public class MenuTerminal {
     private List<Usuario> usuarios;
     private Scanner leer;
     private Usuario usuarioActivo;
+    private GestorDeDatos gestorDeDatos;
     private static final Logger logger = Logger.getLogger(MenuTerminal.class.getName());
 
     /**
@@ -28,26 +29,25 @@ public class MenuTerminal {
      * y carga los datos iniciales en el sistema.
      */
     public MenuTerminal() {
-        alojamientos = new ArrayList<>();
-        usuarios = new ArrayList<>();
+        gestorDeDatos = new GestorDeDatos();
+
+        usuarios = gestorDeDatos.cargarUsuarios();
+        alojamientos = gestorDeDatos.cargarAlojamientos();
+
+        if (usuarios.isEmpty()) {
+            cargarDatosIniciales();
+            gestorDeDatos.guardarUsuarios(usuarios);
+        }
+
         leer = new Scanner(System.in);
-        cargarDatosIniciales();
     }
 
-    /**
-     * metodo que carga los datos iniciales de usuarios al sistema.
-     * en este caso, agrega usuarios con diferentes roles como ADMIN, ARRENDATARIO y CLIENTE.
-     */
     private void cargarDatosIniciales() {
         usuarios.add(new Usuario(1L, "admin", "admin123", Roles.ADMIN));
         usuarios.add(new Usuario(2L, "arrendatario", "arrenda123", Roles.ARRENDATARIO));
         usuarios.add(new Usuario(3L, "cliente", "cliente123", Roles.CLIENTE));
     }
 
-    /**
-     * metodo que muestra el menu principal del sistema y gestiona las opciones seleccionadas.
-     * dependiendo del estado de sesion del usuario, muestra el menu de inicio o el menu principal.
-     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -88,10 +88,6 @@ public class MenuTerminal {
         } while (opcion != 3);
     }
 
-    /**
-     * metodo que gestiona el inicio de sesion del usuario.
-     * solicita el nombre de usuario y la contraseña, y valida las credenciales.
-     */
     public void iniciarSesion() {
         logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
@@ -109,10 +105,6 @@ public class MenuTerminal {
         logger.warning("Usuario o contraseña incorrectos.");
     }
 
-    /**
-     * metodo que permite registrar un nuevo usuario.
-     * el nuevo usuario puede ser un CLIENTE o un ARRENDATARIO.
-     */
     public void registrarUsuario() {
         logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
@@ -128,15 +120,12 @@ public class MenuTerminal {
         Long idUsuario = (long) (usuarios.size() + 1);
         Usuario nuevoUsuario = new Usuario(idUsuario, nombre, contrasena, rol);
         usuarios.add(nuevoUsuario);
+
+        gestorDeDatos.guardarUsuarios(usuarios);
+
         logger.info("Usuario registrado con éxito.");
     }
 
-    /**
-     * metodo que obtiene la entrada numerica del usuario.
-     * valida que el usuario ingrese un número válido.
-     *
-     * @return el número ingresado por el usuario.
-     */
     private int obtenerEntradaNumerica() {
         while (!leer.hasNextInt()) {
             leer.nextLine();
@@ -147,17 +136,11 @@ public class MenuTerminal {
         return num;
     }
 
-    /**
-     * metodo que cierra la sesion del usuario activo.
-     */
     private void cerrarSesion() {
         usuarioActivo = null;
         logger.info("Has cerrado sesión.");
     }
 
-    /**
-     * metodo que muestra todos los alojamientos disponibles.
-     */
     private void mostrarAlojamientos() {
         logger.info("\n--- ALOJAMIENTOS ---");
         for (int i = 0; i < alojamientos.size(); i++) {
@@ -165,10 +148,6 @@ public class MenuTerminal {
         }
     }
 
-    /**
-     * metodo que permite al usuario realizar una reserva.
-     * solo los usuarios con rol CLIENTE pueden realizar reservas.
-     */
     private void realizarReserva() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden realizar reservas.");
@@ -197,10 +176,6 @@ public class MenuTerminal {
         logger.info("Reserva realizada con éxito.");
     }
 
-    /**
-     * metodo que muestra las reservas realizadas por el usuario activo.
-     * solo los clientes pueden ver sus reservas.
-     */
     private void verReservas() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden ver sus reservas.");
@@ -219,10 +194,6 @@ public class MenuTerminal {
         }
     }
 
-    /**
-     * metodo que permite agregar un nuevo alojamiento al sistema.
-     * dependiendo del rol del usuario activo, se agrega un departamento o un hotel.
-     */
     private void agregarAlojamiento() {
         if (usuarioActivo.getRol() == Roles.ARRENDATARIO) {
             agregarDepartamento();
@@ -233,10 +204,6 @@ public class MenuTerminal {
         }
     }
 
-    /**
-     * metodo que permite agregar un departamento al sistema.
-     * solo los arrendatarios pueden agregar departamentos.
-     */
     private void agregarDepartamento() {
         if (usuarioActivo.getRol() != Roles.ARRENDATARIO) {
             logger.warning("Solo los arrendatarios pueden agregar departamentos.");
@@ -261,10 +228,6 @@ public class MenuTerminal {
         logger.info("Departamento agregado con éxito.");
     }
 
-    /**
-     * metodo que permite agregar un hotel al sistema.
-     * solo los administradores pueden agregar hoteles.
-     */
     private void agregarHotel() {
         logger.info("\nDirección del hotel: ");
         String direccion = leer.nextLine();
@@ -285,9 +248,6 @@ public class MenuTerminal {
         logger.info("Hotel agregado con éxito.");
     }
 
-    /**
-     * metodo que permite eliminar un alojamiento del sistema.
-     */
     private void eliminarAlojamiento() {
         logger.info("\nSeleccione el alojamiento que desea eliminar:");
         mostrarAlojamientos();
