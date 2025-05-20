@@ -164,16 +164,24 @@ public class MenuTerminal {
             return;
         }
 
-        logger.info("Fecha inicio (YYYY-MM-DD): ");
-        LocalDate inicio = LocalDate.parse(leer.nextLine());
+        try {
+            logger.info("Fecha inicio (YYYY-MM-DD): ");
+            LocalDate inicio = LocalDate.parse(leer.nextLine());
 
-        logger.info("Fecha fin (YYYY-MM-DD): ");
-        LocalDate fin = LocalDate.parse(leer.nextLine());
+            logger.info("Fecha fin (YYYY-MM-DD): ");
+            LocalDate fin = LocalDate.parse(leer.nextLine());
 
-        Reserva reserva = new Reserva(usuarioActivo, alojamientos.get(index), inicio, fin);
-        usuarioActivo.realizarReserva(reserva);
-        alojamientos.get(index).setOcupado(true);
-        logger.info("Reserva realizada con éxito.");
+            Reserva reserva = new Reserva(usuarioActivo, alojamientos.get(index), inicio, fin);
+            usuarioActivo.realizarReserva(reserva);
+            alojamientos.get(index).setOcupado(true);
+
+            gestorDeDatos.guardarUsuarios(usuarios);     // Commit recomendado aquí
+            gestorDeDatos.guardarAlojamientos(alojamientos);
+
+            logger.info("Reserva realizada con éxito.");
+        } catch (Exception e) {
+            logger.warning("Error al realizar la reserva: " + e.getMessage());
+        }
     }
 
     private void verReservas() {
