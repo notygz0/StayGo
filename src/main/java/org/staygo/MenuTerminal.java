@@ -6,15 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-/**
- * clase que permite al usuario usar el programa mediante terminal.
- * <p>
- *     actua como suplente de lo que seria despues el sitio web, por lo que eventualmente quedara obsoleta.
- *     todos los system.in fueron reemplazados por logger por sugerencia de sonarqube.
- * </p>
- *
- * @author Lorenzo Lopez
- */
 public class MenuTerminal {
 
     private List<Alojamiento> alojamientos;
@@ -24,10 +15,6 @@ public class MenuTerminal {
     private GestorDeDatos gestorDeDatos;
     private static final Logger logger = Logger.getLogger(MenuTerminal.class.getName());
 
-    /**
-     * constructor que inicializa las listas de alojamientos y usuarios
-     * y carga los datos iniciales en el sistema.
-     */
     public MenuTerminal() {
         gestorDeDatos = new GestorDeDatos();
 
@@ -70,24 +57,29 @@ public class MenuTerminal {
                 logger.info("2. Buscar alojamientos (por tipo y precio)");
                 logger.info("3. Realizar una reserva");
                 logger.info("4. Ver reservas de un usuario");
-                logger.info("5. Agregar alojamiento");
-                logger.info("6. Eliminar alojamiento");
-                logger.info("7. Cerrar Sesion");
-                logger.info("Seleccione una opcion: ");
+                logger.info("5. Realizar pago");
+                logger.info("6. Ver pagos realizados");
+                logger.info("7. Agregar alojamiento");
+                logger.info("8. Eliminar alojamiento");
+                logger.info("9. Cerrar Sesión");
+                logger.info("Seleccione una opción: ");
 
                 opcion = obtenerEntradaNumerica();
+
                 switch (opcion) {
                     case 1 -> mostrarAlojamientos();
                     case 2 -> buscarAlojamientosFiltrados();
                     case 3 -> realizarReserva();
                     case 4 -> verReservas();
-                    case 5 -> agregarAlojamiento();
-                    case 6 -> eliminarAlojamiento();
-                    case 7 -> cerrarSesion();
-                    default -> logger.warning("Opcion invalida. Intente de nuevo");
+                    case 5 -> realizarPago();
+                    case 6 -> verPagos();
+                    case 7 -> agregarAlojamiento();
+                    case 8 -> eliminarAlojamiento();
+                    case 9 -> cerrarSesion();
+                    default -> logger.warning("Opción inválida. Intente nuevamente.");
                 }
             }
-        } while (opcion != 3 && !(usuarioActivo != null && opcion == 7));
+        } while (opcion != 3 && !(usuarioActivo != null && opcion == 9));
     }
 
     public void iniciarSesion() {
@@ -157,9 +149,9 @@ public class MenuTerminal {
         logger.info("3. Departamento");
         int tipo = obtenerEntradaNumerica();
 
-        logger.info("Ingrese precio minimo: ");
+        logger.info("Ingrese precio mínimo (0 para sin mínimo): ");
         float precioMin = leer.nextFloat();
-        logger.info("Ingrese precio maximo: ");
+        logger.info("Ingrese precio máximo (0 para sin máximo): ");
         float precioMax = leer.nextFloat();
         leer.nextLine();
 
@@ -171,7 +163,7 @@ public class MenuTerminal {
                 case 1 -> tipoOk = true;
                 case 2 -> tipoOk = alojamiento instanceof Hotel;
                 case 3 -> tipoOk = alojamiento instanceof Departamento;
-                default -> logger.warning("Tipo invalido, mostrando todos");
+                default -> logger.warning("Tipo inválido, mostrando todos.");
             }
 
             boolean precioOk = true;
@@ -190,7 +182,7 @@ public class MenuTerminal {
         if (resultados.isEmpty()) {
             logger.info("No se encontraron alojamientos que coincidan con los criterios.");
         } else {
-            logger.info("\n--- RESULTADOS DE LA BUSQUEDA ---");
+            logger.info("\n--- RESULTADOS DE LA BÚSQUEDA ---");
             for (int i = 0; i < resultados.size(); i++) {
                 logger.info(String.format("[%d]\n%s", i + 1, resultados.get(i).verDetalles()));
             }
@@ -248,6 +240,69 @@ public class MenuTerminal {
             for (Reserva r : reservas) {
                 logger.info(r.obtenerDetallesReserva());
             }
+        }
+    }
+
+    private void realizarPago() {
+        if (usuarioActivo.getRol() != Roles.CLIENTE) {
+            logger.warning("Solo los clientes pueden realizar pagos");
+            return;
+        }
+
+        List<Reserva> reservasPendientes = new ArrayList<>();
+        for (Reserva r : usuarioActivo.obtenerReservas()) {
+            if (r.getEstadoReserva() == EstadoReserva.CONFIRMADO) {
+                reservasPendientes.add(r);
+            }
+        }
+
+        if (reservasPendientes.isEmpty()) {
+            logger.info("No tienes reservas confirmadas pendientes de pago");
+            return;
+        }
+
+        logger.info("\nSeleccione la reserva que desea pagar:");
+        for (int i = 0; i < reservasPendientes.size(); i++) {
+            logger.info(String.format("[%d]\n%s", i + 1, reservasPendientes.get(i).obtenerDetallesReserva()));
+        }
+
+        int opcionPago = obtenerEntradaNumerica() - 1;
+        if (opcionPago < 0 || opcionPago >= reservasPendientes.size()) {
+            logger.warning("Opción inválida.");
+            return;
+        }
+
+        Reserva reservaSeleccionada = reservasPendientes.get(opcionPago);
+        float monto = reservaSeleccionada.getAlojamiento().getPrecio();
+
+        Pago pago = Pago.crearPago(usuarioActivo, monto);
+        boolean exito = pago.realizarPago();
+
+        if (exito) {
+            usuarioActivo.agregarPago(pago);
+            gestorDeDatos.guardarUsuarios(usuarios);
+            logger.info("Pago realizado con exito. Monto: $" + monto);
+        } else {
+            logger.warning("El pago ya fue realizado anteriormente");
+        }
+    }
+
+    private void verPagos() {
+        if (usuarioActivo.getRol() != Roles.CLIENTE) {
+            logger.warning("Solo los clientes pueden ver sus pagos");
+            return;
+        }
+
+        List<Pago> pagos = usuarioActivo.getPagos();
+
+        if (pagos.isEmpty()) {
+            logger.info("No se encontraron pagos realizados");
+            return;
+        }
+
+        logger.info("\n--- PAGOS REALIZADOS ---");
+        for (Pago p : pagos) {
+            logger.info(p.obtenerDetallesPago());
         }
     }
 
