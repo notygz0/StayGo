@@ -6,15 +6,52 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+/**
+ * clase que permite al usuario usar el programa mediante terminal.
+ * <p>
+ * actua como suplente de lo que seria despues el sitio web,
+ * por lo que eventualmente quedara obsoleta.
+ * todos los system.in fueron reemplazados por logger por sugerencia de sonarqube.
+ * </p>
+ *
+ * @author lorenzo lopez
+ */
 public class MenuTerminal {
 
+    /**
+     * lista que contiene los alojamientos disponibles en el sistema.
+     */
     private List<Alojamiento> alojamientos;
+
+    /**
+     * lista que contiene los usuarios registrados en el sistema.
+     */
     private List<Usuario> usuarios;
+
+    /**
+     * scanner para leer entradas de usuario desde la terminal.
+     */
     private Scanner leer;
+
+    /**
+     * usuario que esta actualmente activo (logueado).
+     */
     private Usuario usuarioActivo;
+
+    /**
+     * gestor de datos para cargar y guardar usuarios y alojamientos.
+     */
     private GestorDeDatos gestorDeDatos;
+
+    /**
+     * logger para mostrar mensajes informativos y de error en la consola.
+     */
     private static final Logger logger = Logger.getLogger(MenuTerminal.class.getName());
 
+    /**
+     * constructor que inicializa las listas de alojamientos y usuarios
+     * y carga los datos iniciales en el sistema.
+     */
     public MenuTerminal() {
         gestorDeDatos = new GestorDeDatos();
 
@@ -29,30 +66,38 @@ public class MenuTerminal {
         leer = new Scanner(System.in);
     }
 
+    /**
+     * carga usuarios iniciales por defecto (admin, arrendatario y cliente)
+     * en caso de que la lista de usuarios este vacia.
+     */
     private void cargarDatosIniciales() {
         usuarios.add(new Usuario(1L, "admin", "admin123", Roles.ADMIN));
         usuarios.add(new Usuario(2L, "arrendatario", "arrenda123", Roles.ARRENDATARIO));
         usuarios.add(new Usuario(3L, "cliente", "cliente123", Roles.CLIENTE));
     }
 
+    /**
+     * muestra el menu principal o el menu de inicio dependiendo
+     * de si hay un usuario activo o no, y maneja la navegacion del menu.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
             if (usuarioActivo == null) {
-                logger.info("\n==== Menú de Inicio ====");
-                logger.info("1. Iniciar sesión");
+                logger.info("\n==== Menu de Inicio ====");
+                logger.info("1. Iniciar sesion");
                 logger.info("2. Registrarse");
                 logger.info("3. Salir");
-                logger.info("Seleccione una opción: ");
+                logger.info("Seleccione una opcion: ");
                 opcion = obtenerEntradaNumerica();
                 switch (opcion) {
                     case 1 -> iniciarSesion();
                     case 2 -> registrarUsuario();
                     case 3 -> logger.info("Saliendo del sistema...");
-                    default -> logger.warning("Opción inválida. Intente nuevamente.");
+                    default -> logger.warning("Opcion invalida. Intente nuevamente.");
                 }
             } else {
-                logger.info("\n==== Menú Principal ====");
+                logger.info("\n==== Menu Principal ====");
                 logger.info("1. Ver alojamientos disponibles");
                 logger.info("2. Buscar alojamientos (por tipo y precio)");
                 logger.info("3. Realizar una reserva");
@@ -61,8 +106,8 @@ public class MenuTerminal {
                 logger.info("6. Ver pagos realizados");
                 logger.info("7. Agregar alojamiento");
                 logger.info("8. Eliminar alojamiento");
-                logger.info("9. Cerrar Sesión");
-                logger.info("Seleccione una opción: ");
+                logger.info("9. Cerrar sesion");
+                logger.info("Seleccione una opcion: ");
 
                 opcion = obtenerEntradaNumerica();
 
@@ -76,16 +121,20 @@ public class MenuTerminal {
                     case 7 -> agregarAlojamiento();
                     case 8 -> eliminarAlojamiento();
                     case 9 -> cerrarSesion();
-                    default -> logger.warning("Opción inválida. Intente nuevamente.");
+                    default -> logger.warning("Opcion invalida. Intente nuevamente.");
                 }
             }
         } while (opcion != 3 && !(usuarioActivo != null && opcion == 9));
     }
 
+    /**
+     * metodo que permite iniciar sesion solicitando nombre y contrasena,
+     * y asigna el usuario activo si las credenciales son correctas.
+     */
     public void iniciarSesion() {
         logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
-        logger.info("Ingrese su contraseña: ");
+        logger.info("Ingrese su contrasena: ");
         String contrasena = leer.nextLine();
 
         for (Usuario u : usuarios) {
@@ -96,14 +145,18 @@ public class MenuTerminal {
             }
         }
 
-        logger.warning("Usuario o contraseña incorrectos.");
+        logger.warning("Usuario o contrasena incorrectos.");
     }
 
+    /**
+     * metodo que permite registrar un nuevo usuario solicitando
+     * nombre, contrasena y rol, luego guarda el usuario en el sistema.
+     */
     public void registrarUsuario() {
         logger.info("\nIngrese su nombre de usuario: ");
         String nombre = leer.nextLine();
 
-        logger.info("Ingrese la contraseña: ");
+        logger.info("Ingrese la contrasena: ");
         String contrasena = leer.nextLine();
 
         logger.info("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
@@ -117,24 +170,36 @@ public class MenuTerminal {
 
         gestorDeDatos.guardarUsuarios(usuarios);
 
-        logger.info("Usuario registrado con éxito.");
+        logger.info("Usuario registrado con exito.");
     }
 
+    /**
+     * obtiene y valida una entrada numerica del usuario desde la terminal,
+     * asegurandose que sea un numero valido.
+     *
+     * @return el numero ingresado por el usuario.
+     */
     private int obtenerEntradaNumerica() {
         while (!leer.hasNextInt()) {
             leer.nextLine();
-            logger.info("Por favor, ingrese un número válido: ");
+            logger.info("Por favor, ingrese un numero valido: ");
         }
         int num = leer.nextInt();
         leer.nextLine();
         return num;
     }
 
+    /**
+     * metodo para cerrar la sesion del usuario activo.
+     */
     private void cerrarSesion() {
         usuarioActivo = null;
-        logger.info("Has cerrado sesión.");
+        logger.info("Has cerrado sesion.");
     }
 
+    /**
+     * muestra en consola la lista completa de alojamientos disponibles.
+     */
     private void mostrarAlojamientos() {
         logger.info("\n--- ALOJAMIENTOS ---");
         for (int i = 0; i < alojamientos.size(); i++) {
@@ -142,6 +207,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * permite buscar alojamientos filtrando por tipo y rango de precio,
+     * y muestra los resultados en consola.
+     */
     private void buscarAlojamientosFiltrados() {
         logger.info("\nSeleccione el tipo de alojamiento:");
         logger.info("1. Todos");
@@ -149,9 +218,9 @@ public class MenuTerminal {
         logger.info("3. Departamento");
         int tipo = obtenerEntradaNumerica();
 
-        logger.info("Ingrese precio mínimo (0 para sin mínimo): ");
+        logger.info("Ingrese precio minimo (0 para sin minimo): ");
         float precioMin = leer.nextFloat();
-        logger.info("Ingrese precio máximo (0 para sin máximo): ");
+        logger.info("Ingrese precio maximo (0 para sin maximo): ");
         float precioMax = leer.nextFloat();
         leer.nextLine();
 
@@ -163,7 +232,7 @@ public class MenuTerminal {
                 case 1 -> tipoOk = true;
                 case 2 -> tipoOk = alojamiento instanceof Hotel;
                 case 3 -> tipoOk = alojamiento instanceof Departamento;
-                default -> logger.warning("Tipo inválido, mostrando todos.");
+                default -> logger.warning("Tipo invalido, mostrando todos.");
             }
 
             boolean precioOk = true;
@@ -182,13 +251,17 @@ public class MenuTerminal {
         if (resultados.isEmpty()) {
             logger.info("No se encontraron alojamientos que coincidan con los criterios.");
         } else {
-            logger.info("\n--- RESULTADOS DE LA BÚSQUEDA ---");
+            logger.info("\n--- RESULTADOS DE LA BUSQUEDA ---");
             for (int i = 0; i < resultados.size(); i++) {
                 logger.info(String.format("[%d]\n%s", i + 1, resultados.get(i).verDetalles()));
             }
         }
     }
 
+    /**
+     * permite a un usuario con rol CLIENTE realizar una reserva
+     * para un alojamiento seleccionado y fechas indicadas.
+     */
     private void realizarReserva() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden realizar reservas.");
@@ -197,11 +270,11 @@ public class MenuTerminal {
 
         mostrarAlojamientos();
 
-        logger.info("\nSeleccione el número del alojamiento a reservar: ");
+        logger.info("\nSeleccione el numero del alojamiento a reservar: ");
         int index = obtenerEntradaNumerica() - 1;
 
         if (index < 0 || index >= alojamientos.size()) {
-            logger.warning("Alojamiento inválido.");
+            logger.warning("Alojamiento invalido.");
             return;
         }
 
@@ -219,12 +292,16 @@ public class MenuTerminal {
             gestorDeDatos.guardarUsuarios(usuarios);
             gestorDeDatos.guardarAlojamientos(alojamientos);
 
-            logger.info("Reserva realizada con éxito.");
+            logger.info("Reserva realizada con exito.");
         } catch (Exception e) {
             logger.warning("Error al realizar la reserva: " + e.getMessage());
         }
     }
 
+    /**
+     * muestra las reservas realizadas por el usuario activo,
+     * solo si su rol es CLIENTE.
+     */
     private void verReservas() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden ver sus reservas.");
@@ -243,6 +320,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * permite a un usuario con rol CLIENTE realizar un pago
+     * para una reserva confirmada.
+     */
     private void realizarPago() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden realizar pagos");
@@ -268,7 +349,7 @@ public class MenuTerminal {
 
         int opcionPago = obtenerEntradaNumerica() - 1;
         if (opcionPago < 0 || opcionPago >= reservasPendientes.size()) {
-            logger.warning("Opción inválida.");
+            logger.warning("Opcion invalida.");
             return;
         }
 
@@ -287,6 +368,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * muestra los pagos realizados por el usuario activo,
+     * solo si su rol es CLIENTE.
+     */
     private void verPagos() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden ver sus pagos");
@@ -306,6 +391,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * metodo para agregar un alojamiento nuevo,
+     * dependiendo del rol del usuario activo (arrendatario o admin).
+     */
     private void agregarAlojamiento() {
         if (usuarioActivo.getRol() == Roles.ARRENDATARIO) {
             agregarDepartamento();
@@ -316,23 +405,27 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * agrega un departamento nuevo al sistema,
+     * solo accesible para usuarios con rol ARRENDATARIO.
+     */
     private void agregarDepartamento() {
         if (usuarioActivo.getRol() != Roles.ARRENDATARIO) {
             logger.warning("Solo los arrendatarios pueden agregar departamentos.");
             return;
         }
 
-        logger.info("\nDirección del departamento: ");
+        logger.info("\nDireccion del departamento: ");
         String direccion = leer.nextLine();
 
         logger.info("Precio por noche: ");
         float precio = leer.nextFloat();
         leer.nextLine();
 
-        logger.info("Descripción del departamento: ");
+        logger.info("Descripcion del departamento: ");
         String descripcion = leer.nextLine();
 
-        logger.info("Número de habitaciones: ");
+        logger.info("Numero de habitaciones: ");
         int numHabitaciones = leer.nextInt();
         leer.nextLine();
 
@@ -341,21 +434,25 @@ public class MenuTerminal {
 
         gestorDeDatos.guardarAlojamientos(alojamientos);
 
-        logger.info("Departamento agregado con éxito.");
+        logger.info("Departamento agregado con exito.");
     }
 
+    /**
+     * agrega un hotel nuevo al sistema,
+     * solo accesible para usuarios con rol ADMIN.
+     */
     private void agregarHotel() {
-        logger.info("\nDirección del hotel: ");
+        logger.info("\nDireccion del hotel: ");
         String direccion = leer.nextLine();
 
         logger.info("Precio por noche: ");
         float precio = leer.nextFloat();
         leer.nextLine();
 
-        logger.info("Descripción del hotel: ");
+        logger.info("Descripcion del hotel: ");
         String descripcion = leer.nextLine();
 
-        logger.info("Número de estrellas: ");
+        logger.info("Numero de estrellas: ");
         int numEstrellas = leer.nextInt();
         leer.nextLine();
 
@@ -364,18 +461,21 @@ public class MenuTerminal {
 
         gestorDeDatos.guardarAlojamientos(alojamientos);
 
-        logger.info("Hotel agregado con éxito.");
+        logger.info("Hotel agregado con exito.");
     }
 
+    /**
+     * elimina un alojamiento seleccionado de la lista de alojamientos.
+     */
     private void eliminarAlojamiento() {
         logger.info("\nSeleccione el alojamiento que desea eliminar:");
         mostrarAlojamientos();
 
-        logger.info("\nSeleccione el número del alojamiento a eliminar: ");
+        logger.info("\nSeleccione el numero del alojamiento a eliminar: ");
         int index = obtenerEntradaNumerica() - 1;
 
         if (index < 0 || index >= alojamientos.size()) {
-            logger.warning("Alojamiento inválido.");
+            logger.warning("Alojamiento invalido.");
             return;
         }
 
@@ -383,6 +483,7 @@ public class MenuTerminal {
 
         gestorDeDatos.guardarAlojamientos(alojamientos);
 
-        logger.info("Alojamiento eliminado con éxito.");
+        logger.info("Alojamiento eliminado con exito.");
     }
 }
+
