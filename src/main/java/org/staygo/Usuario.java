@@ -19,6 +19,7 @@ public class Usuario {
     private String contrasena;
     private Roles rol;
     private List<Reserva> reservas;
+    private List<Pago> pagos;  // Nueva lista para pagos
 
     /**
      * Constructor que inicializa un nuevo usuario con los valores proporcionados.
@@ -34,6 +35,7 @@ public class Usuario {
         this.contrasena = contrasena;
         this.rol = rol;
         this.reservas = new ArrayList<>();
+        this.pagos = new ArrayList<>();  // Inicializar lista de pagos
     }
 
     /**
@@ -91,6 +93,24 @@ public class Usuario {
     }
 
     /**
+     * Obtiene la lista de pagos realizados por el usuario.
+     *
+     * @return la lista de pagos.
+     */
+    public List<Pago> getPagos() {
+        return pagos;
+    }
+
+    /**
+     * Agrega un pago a la lista de pagos del usuario.
+     *
+     * @param pago el pago a agregar.
+     */
+    public void agregarPago(Pago pago) {
+        pagos.add(pago);
+    }
+
+    /**
      * Constructor para la deserialización de un usuario desde un archivo JSON.
      * Este constructor es utilizado por Jackson para mapear un objeto JSON a un objeto Usuario.
      *
@@ -99,18 +119,20 @@ public class Usuario {
      * @param contrasena la contraseña del usuario.
      * @param rol el rol asignado al usuario.
      * @param reservas la lista de reservas del usuario.
+     * @param pagos la lista de pagos del usuario.
      */
     @JsonCreator
     public Usuario(@JsonProperty("idUsuario") Long idUsuario,
                    @JsonProperty("nombre") String nombre,
                    @JsonProperty("contrasena") String contrasena,
                    @JsonProperty("rol") Roles rol,
-                   @JsonProperty("reservas") List<Reserva> reservas) {
+                   @JsonProperty("reservas") List<Reserva> reservas,
+                   @JsonProperty("pagos") List<Pago> pagos) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.rol = rol;
-        this.reservas = reservas;
+        this.reservas = reservas != null ? reservas : new ArrayList<>();
+        this.pagos = pagos != null ? pagos : new ArrayList<>();
     }
 }
-
