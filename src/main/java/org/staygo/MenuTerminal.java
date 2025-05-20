@@ -67,25 +67,27 @@ public class MenuTerminal {
             } else {
                 logger.info("\n==== Menú Principal ====");
                 logger.info("1. Ver alojamientos disponibles");
-                logger.info("2. Realizar una reserva");
-                logger.info("3. Ver reservas de un usuario");
-                logger.info("4. Agregar alojamiento");
-                logger.info("5. Eliminar alojamiento");
-                logger.info("6. Cerrar Sesión");
-                logger.info("Seleccione una opción: ");
+                logger.info("2. Buscar alojamientos (por tipo y precio)");
+                logger.info("3. Realizar una reserva");
+                logger.info("4. Ver reservas de un usuario");
+                logger.info("5. Agregar alojamiento");
+                logger.info("6. Eliminar alojamiento");
+                logger.info("7. Cerrar Sesion");
+                logger.info("Seleccione una opcion: ");
 
                 opcion = obtenerEntradaNumerica();
                 switch (opcion) {
                     case 1 -> mostrarAlojamientos();
-                    case 2 -> realizarReserva();
-                    case 3 -> verReservas();
-                    case 4 -> agregarAlojamiento();
-                    case 5 -> eliminarAlojamiento();
-                    case 6 -> cerrarSesion();
-                    default -> logger.warning("Opción inválida. Intente nuevamente.");
+                    case 2 -> buscarAlojamientosFiltrados();
+                    case 3 -> realizarReserva();
+                    case 4 -> verReservas();
+                    case 5 -> agregarAlojamiento();
+                    case 6 -> eliminarAlojamiento();
+                    case 7 -> cerrarSesion();
+                    default -> logger.warning("Opcion invalida. Intente de nuevo");
                 }
             }
-        } while (opcion != 3);
+        } while (opcion != 3 && !(usuarioActivo != null && opcion == 7));
     }
 
     public void iniciarSesion() {
@@ -148,6 +150,53 @@ public class MenuTerminal {
         }
     }
 
+    private void buscarAlojamientosFiltrados() {
+        logger.info("\nSeleccione el tipo de alojamiento:");
+        logger.info("1. Todos");
+        logger.info("2. Hotel");
+        logger.info("3. Departamento");
+        int tipo = obtenerEntradaNumerica();
+
+        logger.info("Ingrese precio minimo: ");
+        float precioMin = leer.nextFloat();
+        logger.info("Ingrese precio maximo: ");
+        float precioMax = leer.nextFloat();
+        leer.nextLine();
+
+        List<Alojamiento> resultados = new ArrayList<>();
+
+        for (Alojamiento alojamiento : alojamientos) {
+            boolean tipoOk = false;
+            switch (tipo) {
+                case 1 -> tipoOk = true;
+                case 2 -> tipoOk = alojamiento instanceof Hotel;
+                case 3 -> tipoOk = alojamiento instanceof Departamento;
+                default -> logger.warning("Tipo invalido, mostrando todos");
+            }
+
+            boolean precioOk = true;
+            if (precioMin > 0 && alojamiento.getPrecio() < precioMin) {
+                precioOk = false;
+            }
+            if (precioMax > 0 && alojamiento.getPrecio() > precioMax) {
+                precioOk = false;
+            }
+
+            if (tipoOk && precioOk) {
+                resultados.add(alojamiento);
+            }
+        }
+
+        if (resultados.isEmpty()) {
+            logger.info("No se encontraron alojamientos que coincidan con los criterios.");
+        } else {
+            logger.info("\n--- RESULTADOS DE LA BUSQUEDA ---");
+            for (int i = 0; i < resultados.size(); i++) {
+                logger.info(String.format("[%d]\n%s", i + 1, resultados.get(i).verDetalles()));
+            }
+        }
+    }
+
     private void realizarReserva() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden realizar reservas.");
@@ -175,7 +224,7 @@ public class MenuTerminal {
             usuarioActivo.realizarReserva(reserva);
             alojamientos.get(index).setOcupado(true);
 
-            gestorDeDatos.guardarUsuarios(usuarios);     // Commit recomendado aquí
+            gestorDeDatos.guardarUsuarios(usuarios);
             gestorDeDatos.guardarAlojamientos(alojamientos);
 
             logger.info("Reserva realizada con éxito.");
@@ -235,7 +284,7 @@ public class MenuTerminal {
         Departamento nuevoDepartamento = new Departamento(direccion, precio, descripcion, numHabitaciones, usuarioActivo);
         alojamientos.add(nuevoDepartamento);
 
-        gestorDeDatos.guardarAlojamientos(alojamientos); 
+        gestorDeDatos.guardarAlojamientos(alojamientos);
 
         logger.info("Departamento agregado con éxito.");
     }
