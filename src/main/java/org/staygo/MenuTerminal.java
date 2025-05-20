@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  * </p>
  *
  * @author Lorenzo Lopez
+ * @noinspection FieldMayBeFinal
  */
 public class MenuTerminal {
 
@@ -173,10 +174,7 @@ public class MenuTerminal {
                 default -> logger.warning("Tipo invalido, mostrando todos");
             }
 
-            boolean precioOk = true;
-            if (precioMin > 0 && alojamiento.getPrecio() < precioMin) {
-                precioOk = false;
-            }
+            boolean precioOk = !(precioMin > 0) || !(alojamiento.getPrecio() < precioMin);
             if (precioMax > 0 && alojamiento.getPrecio() > precioMax) {
                 precioOk = false;
             }
@@ -250,6 +248,11 @@ public class MenuTerminal {
         }
     }
 
+
+    /**
+     * metodo para agregar un alojamiento nuevo,
+     * dependiendo del rol del usuario activo (arrendatario o admin).
+     */
     private void agregarAlojamiento() {
         if (usuarioActivo.getRol() == Roles.ARRENDATARIO) {
             agregarDepartamento();
