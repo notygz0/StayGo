@@ -268,6 +268,9 @@ public class MenuTerminal {
         }
 
         alojamientos.remove(index);
+
+        gestorDeDatos.guardarAlojamientos(alojamientos);
+
         logger.info("Alojamiento eliminado con éxito.");
     }
 }
