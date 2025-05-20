@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * </p>
  *
  * @author Lorenzo Lopez
- * @noinspection FieldMayBeFinal
+ *
  */
 public class MenuTerminal {
 
@@ -150,6 +150,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * permite buscar alojamientos filtrando por tipo y rango de precio,
+     * y muestra los resultados en consola.
+     */
     private void buscarAlojamientosFiltrados() {
         logger.info("\nSeleccione el tipo de alojamiento:");
         logger.info("1. Todos");
@@ -230,6 +234,11 @@ public class MenuTerminal {
         }
     }
 
+
+    /**
+     * muestra las reservas realizadas por el usuario activo,
+     * solo si su rol es CLIENTE.
+     */
     private void verReservas() {
         if (usuarioActivo.getRol() != Roles.CLIENTE) {
             logger.warning("Solo los clientes pueden ver sus reservas.");
@@ -263,6 +272,10 @@ public class MenuTerminal {
         }
     }
 
+    /**
+     * agrega un departamento nuevo al sistema,
+     * solo accesible para usuarios con rol ARRENDATARIO.
+     */
     private void agregarDepartamento() {
         if (usuarioActivo.getRol() != Roles.ARRENDATARIO) {
             logger.warning("Solo los arrendatarios pueden agregar departamentos.");
@@ -291,6 +304,11 @@ public class MenuTerminal {
         logger.info("Departamento agregado con éxito.");
     }
 
+
+    /**
+     * agrega un hotel nuevo al sistema,
+     * solo accesible para usuarios con rol ADMIN.
+     */
     private void agregarHotel() {
         logger.info("\nDirección del hotel: ");
         String direccion = leer.nextLine();
@@ -314,6 +332,11 @@ public class MenuTerminal {
         logger.info("Hotel agregado con éxito.");
     }
 
+
+
+    /**
+     * elimina un alojamiento seleccionado de la lista de alojamientos.
+     */
     private void eliminarAlojamiento() {
         logger.info("\nSeleccione el alojamiento que desea eliminar:");
         mostrarAlojamientos();
