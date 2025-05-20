@@ -48,8 +48,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <docencoding>${project.build.sourceEncoding}</docencoding>
                     <charset>${project.build.sourceEncoding}</charset>
-                    <!-- si quieres incluir privados, agrega: -->
-                    <!-- <show>private</show> -->
+                    <show>private</show>
                 </configuration>
             </plugin>
         </plugins>
