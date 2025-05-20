@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"org.staygo","c":"MenuTerminal","l":"iniciarSesion()"},{"p":"org.staygo","c":"MenuTerminal","l":"MenuTerminal()","u":"%3Cinit%3E()"},{"p":"org.staygo","c":"MenuTerminal","l":"mostrarMenu()"},{"p":"org.staygo","c":"MenuTerminal","l":"registrarUsuario()"}];updateSearchResults();
