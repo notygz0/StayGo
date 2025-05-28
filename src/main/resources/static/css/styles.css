@@ -7,7 +7,6 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 15px 40px;
   background-color: #161616;
@@ -16,13 +15,16 @@ body {
   z-index: 100;
 }
 
-.logo img {
+.logo-img {
   height: 40px;
+  width: auto;
 }
 
 .nav {
   display: flex;
-  gap: 20px;
+  gap: 25px;
+  flex: 1;
+  justify-content: center;
 }
 
 .nav a {
@@ -30,11 +32,69 @@ body {
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
-  padding: 8px 12px;
 }
 
 .nav a:hover {
   color: #00aaff;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-menu-toggle,
+.user-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.user-menu-toggle {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.user-icon {
+  object-fit: contain;
+  display: block;
+}
+
+.user-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  flex-direction: column;
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 200;
+}
+
+.user-dropdown.show {
+  display: flex;
+}
+
+.user-dropdown a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  font-weight: 700;
+  color: #333;
+  text-decoration: none;
+}
+
+.user-dropdown a:hover {
+  background: #e2e2e2;
+}
+
+.arrow {
+  font-size: 16px;
+  color: #666;
 }
 
 .hero {
@@ -219,74 +279,4 @@ body {
   padding: 18px 0;
   font-size: 14px;
   margin-top: 40px;
-}
-
-/* boton de usuario*/
-
-.auth-menu {
-  position: relative;
-  margin-left: 20px;
-}
-
-.auth-button {
-  background: #ddd;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease;
-}
-
-.auth-button img {
-  width: 22px;
-  height: 22px;
-}
-
-.auth-button:hover {
-  background: #ccc;
-}
-
-.auth-dropdown {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  background: #eee;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-  width: 160px;
-  display: flex;
-  flex-direction: column;
-  padding: 12px 0;
-  z-index: 1000;
-}
-
-.auth-dropdown.hidden {
-  display: none;
-}
-
-.auth-dropdown a {
-  padding: 10px 20px;
-  color: #555;
-  font-weight: 700;
-  text-decoration: none;
-  border-bottom: 1px solid #ccc;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
-}
-
-.auth-dropdown a:last-child {
-  border-bottom: none;
-}
-
-.auth-dropdown a:hover {
-  background: #ddd;
-  color: #000;
-  cursor: pointer;
 }
