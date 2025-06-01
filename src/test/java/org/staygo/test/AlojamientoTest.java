@@ -7,8 +7,6 @@ import org.staygo.Departamento;
 import org.staygo.Roles;
 import org.staygo.Usuario;
 
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
