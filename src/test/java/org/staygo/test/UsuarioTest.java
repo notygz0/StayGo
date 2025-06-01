@@ -43,6 +43,6 @@ class UsuarioTest {
         List<Reserva> reservas = usuario.obtenerReservas();
 
         assertEquals(1, reservas.size());
-        assertSame(reserva, reservas.getFirst());
+        assertSame(reserva, reservas.get(0));
     }
 }
