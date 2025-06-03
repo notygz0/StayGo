@@ -3,6 +3,11 @@ package org.staygo.test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.staygo.*;
+import org.staygo.entity.Alojamiento;
+import org.staygo.entity.Departamento;
+import org.staygo.entity.Resena;
+import org.staygo.entity.Roles;
+import org.staygo.entity.Usuario;
 
 import java.time.LocalDateTime;
 

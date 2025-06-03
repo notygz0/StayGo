@@ -1,4 +1,4 @@
-package org.staygo;
+package org.staygo.entity;
 /**
  * enum que representa el estado de una reserva en el sistema.
  * los posibles estados son: pendiente, confirmado y cancelada.

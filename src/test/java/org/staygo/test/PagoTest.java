@@ -3,6 +3,9 @@ package org.staygo.test;
 
 import org.junit.jupiter.api.Test;
 import org.staygo.*;
+import org.staygo.entity.Pago;
+import org.staygo.entity.Roles;
+import org.staygo.entity.Usuario;
 
 import static org.junit.jupiter.api.Assertions.*;
 /**

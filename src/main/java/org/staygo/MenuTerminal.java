@@ -6,6 +6,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import org.staygo.entity.Alojamiento;
+import org.staygo.entity.Departamento;
+import org.staygo.entity.EstadoReserva;
+import org.staygo.entity.Hotel;
+import org.staygo.entity.Pago;
+import org.staygo.entity.Reserva;
+import org.staygo.entity.Roles;
+import org.staygo.entity.Usuario;
+
 /**
  * clase que permite al usuario usar el programa mediante terminal.
  * <p>

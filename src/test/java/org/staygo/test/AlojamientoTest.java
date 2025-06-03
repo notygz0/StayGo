@@ -2,10 +2,10 @@ package org.staygo.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.staygo.Alojamiento;
-import org.staygo.Departamento;
-import org.staygo.Roles;
-import org.staygo.Usuario;
+import org.staygo.entity.Alojamiento;
+import org.staygo.entity.Departamento;
+import org.staygo.entity.Roles;
+import org.staygo.entity.Usuario;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,4 @@
-package org.staygo;
+package org.staygo.entity;
 
 /**
  * clase abstracta que representa un alojamiento en el sistema.

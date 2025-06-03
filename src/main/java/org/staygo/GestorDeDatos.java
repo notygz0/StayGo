@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.staygo.entity.Alojamiento;
+import org.staygo.entity.Usuario;
 /**
  * clase que gestiona la carga y el almacenamiento de datos de alojamientos y usuarios desde/hacia archivos JSON.
  * utiliza la libreria jackson para convertir los objetos a formato JSON y viceversa.

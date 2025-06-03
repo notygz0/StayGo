@@ -1,4 +1,4 @@
-package org.staygo;
+package org.staygo.entity;
 
 /**
  * clase que representa un departamento dentro del sistema de gestion de alojamientos.

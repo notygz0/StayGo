@@ -1,4 +1,4 @@
-package org.staygo;
+package org.staygo.entity;
 
 import java.time.LocalDateTime;
 /**
