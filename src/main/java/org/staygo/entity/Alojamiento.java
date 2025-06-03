@@ -1,5 +1,9 @@
 package org.staygo.entity;
 
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.List;
+
 /**
  * clase abstracta que representa un alojamiento en el sistema.
  * los alojamientos pueden ser hoteles o departamentos.
@@ -9,6 +13,12 @@ package org.staygo.entity;
  * @author Lorenzo Lopez
  * @author Felipe Delgado
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "alojamiento")
 public abstract class Alojamiento {
 
     private String direccion;
