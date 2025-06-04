@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
  */
 public class Pago {
 
-    private Usuario usuario;
+    private User usuario;
     private float precio;
     private LocalDateTime fechaPago;
     private boolean estadoPago;
 
     @JsonCreator
-    public Pago(@JsonProperty("usuario") Usuario usuario,
+    public Pago(@JsonProperty("usuario") User usuario,
                 @JsonProperty("precio") float precio,
                 @JsonProperty("fechaPago") LocalDateTime fechaPago,
                 @JsonProperty("estadoPago") boolean estadoPago) {
@@ -31,7 +31,7 @@ public class Pago {
     }
 
     // Constructor para crear pago nuevo (sin fecha ni estado realizado)
-    public static Pago crearPago(Usuario usuario, float precio) {
+    public static Pago crearPago(User usuario, float precio) {
         if (usuario == null) {
             throw new IllegalArgumentException("usuario no puede ser null");
         }
@@ -51,7 +51,7 @@ public class Pago {
     }
 
     // Getters
-    public Usuario getUsuario() {
+    public User getUsuario() {
         return usuario;
     }
 
@@ -67,7 +67,7 @@ public class Pago {
         return estadoPago;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
 

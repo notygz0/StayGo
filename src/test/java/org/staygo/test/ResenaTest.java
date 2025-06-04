@@ -6,8 +6,8 @@ import org.staygo.*;
 import org.staygo.entity.Alojamiento;
 import org.staygo.entity.Departamento;
 import org.staygo.entity.Resena;
-import org.staygo.entity.Roles;
-import org.staygo.entity.Usuario;
+import org.staygo.entity.Role;
+import org.staygo.entity.User;
 
 import java.time.LocalDateTime;
 
@@ -25,14 +25,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResenaTest {
 
     private Resena resena;
-    private Usuario usuario;
+    private User usuario;
     private Alojamiento alojamiento;
     private LocalDateTime fechaCreacion;
 
     @BeforeEach
     void setUp() {
         // Inicialización de los datos para la prueba
-        usuario = new Usuario(1L, "Juan Perez", "password", Roles.CLIENTE);
+        usuario = new User(1L, "Juan Perez", "password", Role.CLIENTE);
         alojamiento = new Departamento("Calle Falsa 123", 100.0f, "Departamento confortable", 2, usuario);
         fechaCreacion = LocalDateTime.now();
 

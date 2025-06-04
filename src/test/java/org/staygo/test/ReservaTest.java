@@ -6,8 +6,8 @@ import org.staygo.*;
 import org.staygo.entity.Alojamiento;
 import org.staygo.entity.Departamento;
 import org.staygo.entity.Reserva;
-import org.staygo.entity.Roles;
-import org.staygo.entity.Usuario;
+import org.staygo.entity.Role;
+import org.staygo.entity.User;
 
 import java.time.LocalDate;
 
@@ -25,14 +25,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReservaTest {
     private Reserva reserva;
-    private Usuario usuario;
+    private User usuario;
     private Alojamiento alojamiento;
     private LocalDate hoy;
 
     @BeforeEach
     void setUp() {
         hoy = LocalDate.now();
-        usuario = new Usuario(4354L, "lorenzo", "lorencito1234", Roles.CLIENTE);
+        usuario = new User(4354L, "lorenzo", "lorencito1234", Role.CLIENTE);
         alojamiento = new Departamento("av arturo prat", 25000, "departamento amplio", 1, usuario);
         reserva = new Reserva(usuario, alojamiento, hoy, hoy.plusDays(1));
     }

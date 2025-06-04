@@ -6,8 +6,8 @@ import org.staygo.*;
 import org.staygo.entity.Alojamiento;
 import org.staygo.entity.Departamento;
 import org.staygo.entity.Reserva;
-import org.staygo.entity.Roles;
-import org.staygo.entity.Usuario;
+import org.staygo.entity.Role;
+import org.staygo.entity.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,11 +25,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class UsuarioTest {
-    private Usuario usuario;
+    private User usuario;
 
     @BeforeEach
     void setUp(){
-        usuario = new Usuario(1L, "felipe", "1245!!", Roles.CLIENTE);
+        usuario = new User(1L, "felipe", "1245!!", Role.CLIENTE);
     }
     @Test
     void testIniciarSesion_correcto() {

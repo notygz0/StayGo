@@ -1,5 +1,9 @@
 package org.staygo.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 /**
  * clase que representa un departamento dentro del sistema de gestion de alojamientos.
  * esta clase extiende la clase {@link Alojamiento} y agrega atributos especificos relacionados
@@ -8,45 +12,16 @@ package org.staygo.entity;
  * @author Lorenzo Lopez
  * @author Felipe Delgado
  */
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="departamento")
 public class Departamento extends Alojamiento {
-
+    @ManyToOne
+    @JoinColumn(name = "dueno_id", nullable = false)
+    private User dueno;
     private int numHabitaciones;
-    private Usuario dueno;
-
-    /**
-     * constructor para crear una nueva instancia de un departamento.
-     *
-     * @param direccion la direccion del departamento.
-     * @param precio el precio del departamento por noche.
-     * @param descripcion una descripcion del departamento.
-     * @param numHabitaciones el numero de habitaciones que tiene el departamento.
-     * @param dueno el dueno del departamento.
-     */
-    public Departamento(String direccion, float precio, String descripcion, int numHabitaciones, Usuario dueno) {
-        super(direccion, precio, descripcion);
-        this.numHabitaciones = numHabitaciones;
-        this.dueno = dueno;
-    }
-
-    /**
-     * obtiene el dueno del departamento.
-     *
-     * @return el dueno del departamento.
-     */
-    @Override
-    public Usuario getDueno() {
-        return dueno;
-    }
-
-    /**
-     * obtiene una descripcion detallada del departamento.
-     *
-     * @return una cadena de texto con los detalles del departamento.
-     */
-    @Override
-    public String verDetalles() {
-        return "Departamento: " + getDireccion() + ", Precio: " + getPrecio() + ", Habitaciones: " + numHabitaciones + ", Dueño: " + (dueno != null ? dueno.getNombre() : "Desconocido");
-    }
 }
 
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.staygo.entity.Alojamiento;
-import org.staygo.entity.Usuario;
+import org.staygo.entity.User;
 /**
  * clase que gestiona la carga y el almacenamiento de datos de alojamientos y usuarios desde/hacia archivos JSON.
  * utiliza la libreria jackson para convertir los objetos a formato JSON y viceversa.
@@ -38,11 +38,11 @@ public class GestorDeDatos {
         }
     }
 
-    public List<Usuario> cargarUsuarios() {
+    public List<User> cargarUsuarios() {
         try {
             File file = new File(USUARIOS_FILE);
             if (file.exists()) {
-                return objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, Usuario.class));
+                return objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
             } else {
                 return new ArrayList<>();
             }
@@ -62,7 +62,7 @@ public class GestorDeDatos {
     }
 
 
-    public void guardarUsuarios(List<Usuario> usuarios) {
+    public void guardarUsuarios(List<User> usuarios) {
         try {
             objectMapper.writeValue(new File(USUARIOS_FILE), usuarios);
         } catch (IOException e) {

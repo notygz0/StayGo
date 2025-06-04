@@ -6,7 +6,7 @@ package org.staygo.entity;
  * @author Felipe Delgado
  */
 
-public enum Roles {
+public enum Role {
     CLIENTE,
     ARRENDATARIO,
     ADMIN

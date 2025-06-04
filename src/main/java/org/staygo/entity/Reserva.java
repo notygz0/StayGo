@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class Reserva {
 
-    private Usuario usuario;
+    private User usuario;
     private Alojamiento alojamiento;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
@@ -33,7 +33,7 @@ public class Reserva {
      * @throws IllegalArgumentException si las fechas son inválidas o si hay conflictos con otras reservas.
      */
     @JsonCreator
-    public Reserva(@JsonProperty("usuario") Usuario usuario,
+    public Reserva(@JsonProperty("usuario") User usuario,
                    @JsonProperty("alojamiento") Alojamiento alojamiento,
                    @JsonProperty("fechaInicio") LocalDate fechaInicio,
                    @JsonProperty("fechaFin") LocalDate fechaFin,
@@ -112,7 +112,7 @@ public class Reserva {
      * @param fechaFin la fecha de fin de la reserva.
      * @throws IllegalArgumentException si las fechas son inválidas o si hay un conflicto de reserva.
      */
-    public Reserva(Usuario usuario, Alojamiento alojamiento, LocalDate fechaInicio, LocalDate fechaFin) {
+    public Reserva(User usuario, Alojamiento alojamiento, LocalDate fechaInicio, LocalDate fechaFin) {
         Objects.requireNonNull(usuario, "usuario no puede ser null");
         Objects.requireNonNull(alojamiento, "alojamiento no puede ser null");
         Objects.requireNonNull(fechaInicio, "fecha de inicio no puede ser null");
@@ -145,7 +145,7 @@ public class Reserva {
      *
      * @return el usuario de la reserva.
      */
-    public Usuario getUsuario() {
+    public User getUsuario() {
         return usuario;
     }
 

@@ -4,8 +4,8 @@ package org.staygo.test;
 import org.junit.jupiter.api.Test;
 import org.staygo.*;
 import org.staygo.entity.Pago;
-import org.staygo.entity.Roles;
-import org.staygo.entity.Usuario;
+import org.staygo.entity.Role;
+import org.staygo.entity.User;
 
 import static org.junit.jupiter.api.Assertions.*;
 /**
@@ -20,7 +20,7 @@ class PagoTest {
 
     @Test
     void testCrearPagoValido() {
-        Usuario u = new Usuario(132L, "felipe", "felipe123", Roles.CLIENTE);
+        User u = new User(132L, "felipe", "felipe123", Role.CLIENTE);
         Pago p = Pago.crearPago(u, 1000);
         assertNotNull(p);
         assertEquals(1000f, p.getPrecio(), 0.001f);
@@ -29,7 +29,7 @@ class PagoTest {
     }
     @Test
     void testRealizarPago() {
-        Pago p = Pago.crearPago(new Usuario(1L, "x", "pw", Roles.CLIENTE), 500f);
+        Pago p = Pago.crearPago(new User(1L, "x", "pw", Role.CLIENTE), 500f);
         assertTrue(p.realizarPago());
         assertTrue(p.isEstadoPago());
         assertNotNull(p.getFechaPago());

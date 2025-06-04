@@ -13,11 +13,11 @@ import java.util.List;
  * @author Lorenzo Lopez
  * @author Felipe Delgado
  */
-public class Usuario {
+public class User {
     private Long idUsuario;
     private String nombre;
     private String contrasena;
-    private Roles rol;
+    private Role rol;
     private List<Reserva> reservas;
     private List<Pago> pagos;  // Nueva lista para pagos
 
@@ -29,7 +29,7 @@ public class Usuario {
      * @param contrasena la contraseña del usuario.
      * @param rol el rol asignado al usuario.
      */
-    public Usuario(Long idUsuario, String nombre, String contrasena, Roles rol) {
+    public User(Long idUsuario, String nombre, String contrasena, Role rol) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
@@ -52,7 +52,7 @@ public class Usuario {
      *
      * @return el rol del usuario.
      */
-    public Roles getRol() {
+    public Role getRol() {
         return rol;
     }
 
@@ -76,7 +76,7 @@ public class Usuario {
      * @throws IllegalStateException si el usuario no es un CLIENTE.
      */
     public void realizarReserva(Reserva reserva) {
-        if (rol == Roles.CLIENTE) {
+        if (rol == Role.CLIENTE) {
             reservas.add(reserva);
         } else {
             throw new IllegalStateException("solo los clientes pueden realizar reservas");
@@ -122,10 +122,10 @@ public class Usuario {
      * @param pagos la lista de pagos del usuario.
      */
     @JsonCreator
-    public Usuario(@JsonProperty("idUsuario") Long idUsuario,
+    public User(@JsonProperty("idUsuario") Long idUsuario,
                    @JsonProperty("nombre") String nombre,
                    @JsonProperty("contrasena") String contrasena,
-                   @JsonProperty("rol") Roles rol,
+                   @JsonProperty("rol") Role rol,
                    @JsonProperty("reservas") List<Reserva> reservas,
                    @JsonProperty("pagos") List<Pago> pagos) {
         this.idUsuario = idUsuario;

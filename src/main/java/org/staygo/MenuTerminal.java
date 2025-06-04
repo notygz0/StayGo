@@ -12,8 +12,8 @@ import org.staygo.entity.EstadoReserva;
 import org.staygo.entity.Hotel;
 import org.staygo.entity.Pago;
 import org.staygo.entity.Reserva;
-import org.staygo.entity.Roles;
-import org.staygo.entity.Usuario;
+import org.staygo.entity.Role;
+import org.staygo.entity.User;
 
 /**
  * clase que permite al usuario usar el programa mediante terminal.
@@ -35,7 +35,7 @@ public class MenuTerminal {
     /**
      * lista que contiene los usuarios registrados en el sistema.
      */
-    private List<Usuario> usuarios;
+    private List<User> usuarios;
 
     /**
      * scanner para leer entradas de usuario desde la terminal.
@@ -45,7 +45,7 @@ public class MenuTerminal {
     /**
      * usuario que esta actualmente activo (logueado).
      */
-    private Usuario usuarioActivo;
+    private User usuarioActivo;
 
     /**
      * gestor de datos para cargar y guardar usuarios y alojamientos.
@@ -80,9 +80,9 @@ public class MenuTerminal {
      * en caso de que la lista de usuarios este vacia.
      */
     private void cargarDatosIniciales() {
-        usuarios.add(new Usuario(1L, "admin", "admin123", Roles.ADMIN));
-        usuarios.add(new Usuario(2L, "arrendatario", "arrenda123", Roles.ARRENDATARIO));
-        usuarios.add(new Usuario(3L, "cliente", "cliente123", Roles.CLIENTE));
+        usuarios.add(new User(1L, "admin", "admin123", Role.ADMIN));
+        usuarios.add(new User(2L, "arrendatario", "arrenda123", Role.ARRENDATARIO));
+        usuarios.add(new User(3L, "cliente", "cliente123", Role.CLIENTE));
     }
 
     /**
@@ -146,7 +146,7 @@ public class MenuTerminal {
         logger.info("Ingrese su contrasena: ");
         String contrasena = leer.nextLine();
 
-        for (Usuario u : usuarios) {
+        for (User u : usuarios) {
             if (u.iniciarSesion(nombre, contrasena)) {
                 usuarioActivo = u;
                 logger.info("Bienvenido, " + usuarioActivo.getNombre());
@@ -171,10 +171,10 @@ public class MenuTerminal {
         logger.info("Seleccione el rol (1. CLIENTE, 2. ARRENDATARIO): ");
         int rolOption = obtenerEntradaNumerica();
         leer.nextLine();
-        Roles rol = (rolOption == 1) ? Roles.CLIENTE : Roles.ARRENDATARIO;
+        Role rol = (rolOption == 1) ? Role.CLIENTE : Role.ARRENDATARIO;
 
         Long idUsuario = (long) (usuarios.size() + 1);
-        Usuario nuevoUsuario = new Usuario(idUsuario, nombre, contrasena, rol);
+        User nuevoUsuario = new User(idUsuario, nombre, contrasena, rol);
         usuarios.add(nuevoUsuario);
 
         gestorDeDatos.guardarUsuarios(usuarios);
@@ -272,7 +272,7 @@ public class MenuTerminal {
      * para un alojamiento seleccionado y fechas indicadas.
      */
     private void realizarReserva() {
-        if (usuarioActivo.getRol() != Roles.CLIENTE) {
+        if (usuarioActivo.getRol() != Role.CLIENTE) {
             logger.warning("Solo los clientes pueden realizar reservas.");
             return;
         }
@@ -312,7 +312,7 @@ public class MenuTerminal {
      * solo si su rol es CLIENTE.
      */
     private void verReservas() {
-        if (usuarioActivo.getRol() != Roles.CLIENTE) {
+        if (usuarioActivo.getRol() != Role.CLIENTE) {
             logger.warning("Solo los clientes pueden ver sus reservas.");
             return;
         }
@@ -334,7 +334,7 @@ public class MenuTerminal {
      * para una reserva confirmada.
      */
     private void realizarPago() {
-        if (usuarioActivo.getRol() != Roles.CLIENTE) {
+        if (usuarioActivo.getRol() != Role.CLIENTE) {
             logger.warning("Solo los clientes pueden realizar pagos");
             return;
         }
@@ -382,7 +382,7 @@ public class MenuTerminal {
      * solo si su rol es CLIENTE.
      */
     private void verPagos() {
-        if (usuarioActivo.getRol() != Roles.CLIENTE) {
+        if (usuarioActivo.getRol() != Role.CLIENTE) {
             logger.warning("Solo los clientes pueden ver sus pagos");
             return;
         }
@@ -405,9 +405,9 @@ public class MenuTerminal {
      * dependiendo del rol del usuario activo (arrendatario o admin).
      */
     private void agregarAlojamiento() {
-        if (usuarioActivo.getRol() == Roles.ARRENDATARIO) {
+        if (usuarioActivo.getRol() == Role.ARRENDATARIO) {
             agregarDepartamento();
-        } else if (usuarioActivo.getRol() == Roles.ADMIN) {
+        } else if (usuarioActivo.getRol() == Role.ADMIN) {
             agregarHotel();
         } else {
             logger.warning("No tiene permisos para agregar alojamiento.");
@@ -419,7 +419,7 @@ public class MenuTerminal {
      * solo accesible para usuarios con rol ARRENDATARIO.
      */
     private void agregarDepartamento() {
-        if (usuarioActivo.getRol() != Roles.ARRENDATARIO) {
+        if (usuarioActivo.getRol() != Role.ARRENDATARIO) {
             logger.warning("Solo los arrendatarios pueden agregar departamentos.");
             return;
         }

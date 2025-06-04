@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 
 public class Resena {
 
-    private Usuario usuario;
+    private User usuario;
     private Alojamiento alojamiento;
     private String texto;
     private LocalDateTime fechaCreacion;
     private float calificacion;
 
-    public Resena(Usuario usuario, Alojamiento alojamiento, String texto, LocalDateTime fechaCreacion, float calificacion) {
+    public Resena(User usuario, Alojamiento alojamiento, String texto, LocalDateTime fechaCreacion, float calificacion) {
         this.usuario = usuario;
         this.alojamiento = alojamiento;
         this.texto = texto;
@@ -26,11 +26,11 @@ public class Resena {
         this.calificacion = calificacion;
     }
 
-    public Usuario getUsuario() {
+    public User getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
 

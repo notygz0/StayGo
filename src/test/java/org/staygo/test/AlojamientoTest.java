@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.staygo.entity.Alojamiento;
 import org.staygo.entity.Departamento;
-import org.staygo.entity.Roles;
-import org.staygo.entity.Usuario;
+import org.staygo.entity.Role;
+import org.staygo.entity.User;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,12 +22,12 @@ class AlojamientoTest {
 
 
     private Alojamiento alojamiento;
-    private Usuario arrendatario;
+    private User arrendatario;
 
 
     @BeforeEach
     void setUp() {
-        arrendatario = new Usuario(1L, "arrendatario", "contraseña", Roles.ARRENDATARIO);
+        arrendatario = new User(1L, "arrendatario", "contraseña", Role.ARRENDATARIO);
         alojamiento = new Departamento("Calle Falsa 123", 15000f, "Departamento comodo", 3, arrendatario);
     }
 
