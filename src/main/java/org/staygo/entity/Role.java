@@ -7,7 +7,7 @@ package org.staygo.entity;
  */
 
 public enum Role {
-    CLIENTE,
-    ARRENDATARIO,
-    ADMIN
+    ADMIN,
+    USER,
+    ARREMDATARIO
 }
