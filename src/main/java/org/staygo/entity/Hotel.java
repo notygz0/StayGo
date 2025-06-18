@@ -1,13 +1,8 @@
 package org.staygo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.List;
 /**
  * Entidad que representa un hotel en el sistema
  * Hereda de Alojamiento e incluye número de estrellas y habitaciones
@@ -19,8 +14,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="Hotel")
-public class Hotel extends Alojamiento {
+@Table(name="hotel")
+public class Hotel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String nombre;
+    private float precio;
+    private String descripcion;
+    private boolean ocupado;
+
     private int numEstrellas;
     private int numHabitaciones;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reserva> reservas;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resena> resenas;
 }
