@@ -9,10 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 @Repository
-public interface DepartamentoRepository extends JpaRepository<Departamento, Long> {
-    @Override
-    List<Departamento> findAllById(Iterable<Long> longs);
-
+public interface DepartamentoRepository extends JpaRepository<Departamento, Integer> {
     @Query("SELECT d FROM Departamento d WHERE (:nombre IS NULL OR d.nombre LIKE %:nombre%) AND (:ocupado IS NULL OR d.ocupado = :ocupado) AND (:numHabitaciones IS NULL OR d.numHabitaciones = :numHabitaciones) AND (:duenoId IS NULL OR d.dueno.id = :duenoId)")
     List<Departamento> findByFiltros(
             @Param("nombre") String nombre,

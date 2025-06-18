@@ -10,6 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
-    @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId AND r.alojamiento.id = :alojamientoId")
-    Optional<Reserva> findByUsuarioIdAndAlojamientoId(@Param("userId") Long userId, @Param("alojamientoId") Long alojamientoId);
+    // Para reservas de departamento
+    @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId AND r.departamento.id = :departamentoId")
+    Optional<Reserva> findByUsuarioIdAndDepartamentoId(@Param("userId") Long userId, @Param("departamentoId") Long departamentoId);
+
+    // Para reservas de hotel
+    @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId AND r.hotel.id = :hotelId")
+    Optional<Reserva> findByUsuarioIdAndHotelId(@Param("userId") Long userId, @Param("hotelId") Long hotelId);
 }
