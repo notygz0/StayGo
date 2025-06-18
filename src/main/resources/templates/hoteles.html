@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoteles</title>
+    <link rel="stylesheet" href="/css/hotel.css">
+</head>
+<body>
+<!-- Cabecera -->
+<header class="header">
+    <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="/hoteles" class="active">Hoteles</a>
+        <a href="/departamentos">Departamentos</a>
+    </nav>
+</header>
+
+<!-- Contenido principal -->
+<main>
+    <h1>Bienvenido a la sección de Hoteles</h1>
+    <p>Aquí puedes ver los hoteles disponibles para reservar.</p>
+
+    <!-- filtros de búsqueda -->
+    <div class="filters">
+        <input type="text" id="search-name" placeholder="Buscar por nombre..." onkeyup="filtrarHoteles()">
+    </div>
+
+    <!-- filtro de precio por rango -->
+    <div class="filters">
+        <label for="price-range">Filtrar por precio (hasta $<span id="price-range-value">500000</span>)</label>
+        <input type="range" id="price-range" min="100000" max="1000000" step="10000" value="500000" oninput="filtrarHoteles()">
+    </div>
+
+    <!-- Contenedor de los hoteles (vacío inicialmente) -->
+    <div id="hoteles-container" class="hoteles"></div>
+</main>
+
+<!-- Pie de página -->
+<footer class="footer">
+    <p>&copy; 2025 StayGo. Todos los derechos reservados.</p>
+</footer>
+
+<script src="/scripts/hoteles.js" defer></script>
+</body>
+</html>
