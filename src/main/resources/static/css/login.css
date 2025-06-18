@@ -1,0 +1,83 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #00aaff, #0088cc);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  text-align: center;
+}
+
+.login-container h1 {
+  color: #0088cc;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.login-container label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+  display: block;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.login-container input:focus {
+  border-color: #00aaff;
+}
+
+.login-container .btn input[type="submit"] {
+  background-color: #00aaff;
+  color: #fff;
+  padding: 14px 0;
+  border: none;
+  width: 100%;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container .btn input[type="submit"]:hover {
+  background-color: #0088cc;
+}
+
+.login-container .signup-link {
+  margin-top: 15px;
+  color: #666;
+}
+
+.login-container .signup-link a {
+  color: #00aaff;
+  text-decoration: none;
+}
+
+.login-container .signup-link a:hover {
+  text-decoration: underline;
+}
+
+.login-container .pass-link a {
+  color: #00aaff;
+  font-size: 14px;
+}
