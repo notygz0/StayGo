@@ -31,7 +31,7 @@ public class RegisterTest {
                     System.out.println("Location: " + location);
                     System.out.println("Content: " + result.getResponse().getContentAsString());
                     assertTrue(status >= 300 && status < 400, "Expected redirection status but got: " + status);
-                    assertTrue("/login".equals(location), "Expected redirection to /login but got: " + location);
+                    assertEquals("/login", location, "Expected redirection to /login but got: " + location);
                 });
     }
 
