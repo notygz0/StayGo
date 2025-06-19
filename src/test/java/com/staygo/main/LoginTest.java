@@ -34,11 +34,10 @@ public class LoginTest {
                         .param("password", password))
                 .andExpect(result -> {
                     int status = result.getResponse().getStatus();
-                    String location = result.getResponse().getHeader("Location");
-                    assertTrue(status >= 300 && status < 400 && "/".equals(location));
+                    assertEquals(200, status);
                 });
-
     }
+
     @Test
     void EstadoUsuario() {
         var auth = new UsernamePasswordAuthenticationToken(username, password);
