@@ -34,10 +34,10 @@ public class Reserva implements Serializable {
     private Hotel hotel;
 
     @Column(name = "fecha_inicio")
-    private LocalDate fecha_inicio;
+    private LocalDate fechaInicio;
 
     @Column(name = "fecha_final")
-    private LocalDate fecha_final;
+    private LocalDate fechaFinal;
 
     @Enumerated(EnumType.STRING)
     private EstadoReserva estadoReserva = EstadoReserva.PENDIENTE;
