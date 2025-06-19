@@ -17,7 +17,7 @@ import org.springframework.ui.ConcurrentModel;
 @SpringBootTest
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
-public class LoginTest {
+class LoginTest {
     private final String username = "Cuervas";
     private final String password = "1234";
 
