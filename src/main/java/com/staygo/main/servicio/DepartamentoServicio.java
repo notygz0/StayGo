@@ -20,7 +20,7 @@ public class DepartamentoServicio {
     private final DepartamentoRepository departamentoRepository;
     private final UserRepository userRepository;
 
-    public ResponseEntity<?> listarDepartamentos() {
+    public ResponseEntity<List<DepartamentoResponse>> listarDepartamentos() {
         List<Departamento> departamentos = departamentoRepository.findAll();
         List<DepartamentoResponse> response = departamentos.stream()
                 .map(departamento -> DepartamentoResponse.builder()
@@ -34,10 +34,11 @@ public class DepartamentoServicio {
                 .toList();
         return ResponseEntity.ok().body(response);
     }
-    public ResponseEntity<?> crearDepartamento(DepartamentoRequest departamento) {
+    public ResponseEntity<DepartamentoResponse> crearDepartamento(DepartamentoRequest departamento) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User dueno = userRepository.findByUsername("Cuervas")
+        User dueno = userRepository.findByUsername("Cuervas") // o usa authentication.getName()
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
         Departamento nuevoDepartamento = Departamento.builder()
                 .dueno(dueno)
                 .nombre(departamento.getNombre())
@@ -45,7 +46,19 @@ public class DepartamentoServicio {
                 .precio(departamento.getPrecio())
                 .numHabitaciones(departamento.getNumHabitaciones())
                 .build();
-        departamentoRepository.save(nuevoDepartamento);
-        return ResponseEntity.ok("Departamento creado exitosamente");
+
+        Departamento guardado = departamentoRepository.save(nuevoDepartamento);
+
+        DepartamentoResponse response = DepartamentoResponse.builder()
+                .id(guardado.getId())
+                .nombre(guardado.getNombre())
+                .descripcion(guardado.getDescripcion())
+                .precio(guardado.getPrecio())
+                .numHabitaciones(guardado.getNumHabitaciones())
+                .dueno(dueno.getUsername())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
+
 }

@@ -7,8 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * clase que representa un departamento dentro del sistema de gestion de alojamientos.
- * Un departamento tiene un dueño, un nombre, un precio, una descripción,
+ * clase que representa un departamento dentro del sistema de gestion de alojamientos.* Un departamento tiene un dueño, un nombre, un precio, una descripción,
  *
  * @author Lorenzo Lopez
  * @author Felipe Delgado
