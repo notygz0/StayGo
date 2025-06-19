@@ -14,7 +14,7 @@ public class DepartamentoController {
     private final DepartamentoServicio departamentoServicio;
 
     @GetMapping()
-    public String Departamentos() {
+    public String departamentos() {
         return "departamento";
     }
     @PostMapping("/crear")
