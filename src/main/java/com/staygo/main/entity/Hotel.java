@@ -1,5 +1,6 @@
 package com.staygo.main.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
