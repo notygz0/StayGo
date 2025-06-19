@@ -13,7 +13,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // desactiva protección CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // permite todo
+                        .anyRequest().permitAll() // permite todas las solicitudes
                 );
         return http.build();
     }
