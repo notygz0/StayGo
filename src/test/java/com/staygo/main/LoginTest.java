@@ -45,7 +45,7 @@ public class LoginTest {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         var model = new ConcurrentModel();
-        userServicio.EstadoUsuario(model);
+        userServicio.estadoUsuario(model);
 
         assertTrue((Boolean) model.getAttribute("isLoggedIn"));
         assertEquals(username, model.getAttribute("username"));

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 
 @Service
 public class UserServicio {
-     public void EstadoUsuario(Model model) {
+     public void estadoUsuario(Model model) {
         boolean isLoggedIn = false;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

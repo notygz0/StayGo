@@ -14,7 +14,7 @@ public class HomeController {
     private final UserServicio userServicio;
     @GetMapping()
     public String home(Model model) {
-        userServicio.EstadoUsuario(model);
+        userServicio.estadoUsuario(model);
         return "index";
     }
 
