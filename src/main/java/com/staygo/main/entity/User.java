@@ -50,6 +50,7 @@ public class User implements UserDetails, Serializable {
         return List.of(new SimpleGrantedAuthority((role.name())));
     }
 
+    /*
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -66,4 +67,6 @@ public class User implements UserDetails, Serializable {
     public boolean isEnabled() {
         return true;
     }
+    @Override
+     */
 }
