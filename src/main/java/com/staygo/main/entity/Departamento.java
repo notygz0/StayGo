@@ -3,12 +3,12 @@ package com.staygo.main.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * clase que representa un departamento dentro del sistema de gestion de alojamientos.
- * esta clase extiende la clase {@link Alojamiento} y agrega atributos especificos relacionados
- * con un departamento, como el numero de habitaciones y el dueno del departamento.
+ * Un departamento tiene un dueño, un nombre, un precio, una descripción,
  *
  * @author Lorenzo Lopez
  * @author Felipe Delgado
@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="departamento")
-public class Departamento {
+public class Departamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

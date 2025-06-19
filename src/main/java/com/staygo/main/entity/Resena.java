@@ -6,7 +6,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
 /**
  * Entidad que representa una reseña dejada por un usuario sobre un alojamiento.
  * Contiene información sobre el usuario, el alojamiento, el texto de la reseña,
