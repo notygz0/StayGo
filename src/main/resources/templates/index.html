@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StayGo - Tu alojamiento ideal</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <!-- Contenedor del logo-->
+    <div class="logo-container">
+  <img th:src="@{/img/logos/h7.png}" alt="StayGo Logo" class="logo-img" />
+</div>
+
+
+    <nav class="nav">
+      <a th:href="@{/}">Inicio</a>
+      <a href="#alojamientos">Alojamientos</a>
+      <a th:if="${isLoggedIn}" href="#reservas">Reservas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="user-menu">
+      <button id="user-menu-button" class="user-menu-toggle">
+        <img th:src="@{/img/icons/user.png}" alt="Usuario" class="user-icon" />
+      </button>
+      <div th:id="user-dropdown" class="user-dropdown">
+        <a th:if="${isLoggedIn}" th:href="@{/auth/logout}">Cerrar Sesion <span class="arrow">→</span></a>
+        <a th:unless="${isLoggedIn}" th:href="@{/login}">Iniciar Sesión <span class="arrow">→</span></a>
+        <a th:unless="${isLoggedIn}" th:href="@{/register}">Registrarse <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero / Banner -->
+  <section id="home" class="hero">
+    <img th:src="@{/img/banner.png}" alt="Banner StayGo" class="hero-banner" />
+    <div class="hero-text">
+      <h1>Encuentra el alojamiento perfecto para tu viaje</h1>
+      <p>Con StayGo, tu experiencia es nuestra prioridad.</p>
+
+      <!-- Botones para alternar vista -->
+      <div class="btn-group">
+        <form th:action="@{/hoteles}" method="get" style="display:inline;">
+          <button type="submit" class="btn btn-secondary">Ver Hoteles</button>
+        </form>
+        <form th:action="@{/departamentos}" method="get" style="display:inline;">
+          <button type="submit" class="btn btn-secondary">Ver Departamentos</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alojamientos -->
+  <section id="alojamientos" class="alojamientos">
+    <h2>Alojamientos Destacados</h2>
+    <div id="alojamientos-container" class="alojamientos-container"></div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="contacto">
+    <h2>Contacto</h2>
+    <p>Para consultas, escríbenos a <a href="mailto:contacto@staygo.com">contacto@staygo.com</a></p>
+  </section>
+
+  <!-- footer -->
+  <footer class="footer">
+    <p>&copy; 2025 StayGo. Todos los derechos reservados.</p>
+  </footer>
+
+  <script th:src="@{/scripts/scripts.js}" defer></script>
+</body>
+</html>

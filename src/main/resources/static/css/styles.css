@@ -1,0 +1,356 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #f4f7fa;
+  color: #222;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #161616;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.nav {
+  display: flex;
+  gap: 25px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #00aaff;
+}
+
+/* menu de usuario */
+.user-menu {
+  position: relative;
+}
+
+.user-menu-toggle,
+.user-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.user-menu-toggle {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.user-icon {
+  object-fit: contain;
+  display: block;
+}
+
+.user-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  flex-direction: column;
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 200;
+}
+
+.user-dropdown.show {
+  display: flex;
+}
+
+.user-dropdown a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  font-weight: 700;
+  color: #333;
+  text-decoration: none;
+}
+
+.user-dropdown a:hover {
+  background: #e2e2e2;
+}
+
+.arrow {
+  font-size: 16px;
+  color: #666;
+}
+
+/* hero / banner */
+.hero {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.hero-banner {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+/* boton primario */
+.btn-primary {
+  background-color: #00aaff;
+  color: white;
+  padding: 15px 35px;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0088cc;
+}
+
+/* seccion de alojamientos */
+.alojamientos {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.alojamientos h2 {
+  font-size: 32px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.alojamientos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.alojamiento-card {
+  background-color: #fff;
+  width: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.alojamiento-card:hover {
+  transform: translateY(-10px);
+}
+
+.alojamiento-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.alojamiento-info {
+  padding: 15px 20px;
+}
+
+.alojamiento-info h3 {
+  margin: 0 0 10px 0;
+  font-weight: 700;
+  font-size: 22px;
+  color: #161616;
+}
+
+.alojamiento-info p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #00aaff;
+}
+
+/* seccion reservas */
+.reservas {
+  background-color: #fff;
+  max-width: 400px;
+  margin: 50px auto 30px auto;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.reservas h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.reservas form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservas label {
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.reservas input,
+.reservas select {
+  margin-top: 8px;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.reservas input:focus,
+.reservas select:focus {
+  border-color: #00aaff;
+}
+
+.reservas button {
+  margin-top: 25px;
+  background-color: #00aaff;
+  border: none;
+  padding: 14px;
+  color: white;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reservas button:hover {
+  background-color: #0088cc;
+}
+
+#mensaje-reserva {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* contacto */
+.contacto {
+  max-width: 700px;
+  margin: 50px auto 30px auto;
+  text-align: center;
+  font-size: 18px;
+  color: #161616;
+}
+
+/* footer */
+.footer {
+  background-color: #161616;
+  color: #bbb;
+  text-align: center;
+  padding: 18px 0;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+.btn-group {
+  margin: 1.5rem 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #868e96 100%);
+  color: #fff;
+}
+
+.btn-secondary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.btn-secondary:active::after {
+  width: 200px;
+  height: 200px;
+  transition: 0s;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #70777d 100%);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00aaff 0%, #0088cc 100%);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0088cc 0%, #0072b1 100%);
+}
