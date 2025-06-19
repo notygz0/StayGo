@@ -10,7 +10,6 @@ body {
   font-family: 'Poppins', Arial, sans-serif;
   background-color: #f4f4f9;
   color: #333;
-  padding: 20px;
 }
 
 /* Estilos del header */
@@ -23,6 +22,15 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.nav a:hover {
+  color: #a4a4a4;
 }
 
 nav ul {
@@ -211,7 +219,7 @@ a:hover {
   font-style: italic;
 }
 
-/* estilos del pie de pagina */
+/* footer */
 .footer {
   background-color: #161616;
   color: #bbb;
