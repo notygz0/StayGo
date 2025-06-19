@@ -9,9 +9,10 @@
 <body>
   <div class="login-container">
     <h1>Iniciar Sesión</h1>
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/auth/login}" method="post">
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
       <div class="field">
-        <label for="username">Correo Electrónico:</label>
+        <label for="username">Nombre Usuario:</label>
         <input type="text" id="username" name="username" required />
       </div>
 
