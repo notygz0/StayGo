@@ -19,7 +19,7 @@
     <nav class="nav">
       <a th:href="@{/}">Inicio</a>
       <a href="#alojamientos">Alojamientos</a>
-      <a th:if="${isLoggedIn}" href="#reservas">Reservas</a>
+      <a th:if="${isLoggedIn}" th:href="@{/reservas}">Reservas</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
