@@ -104,14 +104,9 @@
           </excludes>
         </configuration>
       </plugin>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
-=======
 
->>>>>>> Stashed changes
+
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -133,16 +128,9 @@
         </executions>
       </plugin>
     </plugins>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
 
 
->>>>>>> Stashed changes
-=======
 
-
->>>>>>> Stashed changes
   </build>
 
 </project>

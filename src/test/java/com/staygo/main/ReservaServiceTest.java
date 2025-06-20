@@ -84,15 +84,9 @@ class ReservaServiceTest {
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
                 reservaService.crearReservaDepartamento(1)
         );
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        assertTrue(ex.getMessage().contains("Usuario no encontrado con el nombre: testUser"));
-=======
-        assertEquals("Usuario no encontrado", ex.getMessage());
->>>>>>> Stashed changes
-=======
-        assertEquals("Usuario no encontrado", ex.getMessage());
->>>>>>> Stashed changes
+
+        assertEquals("Usuario no encontrado con el nombre: testUser", ex.getMessage());
+
         verify(reservaRepository, never()).save(any());
     }
 
@@ -106,16 +100,11 @@ class ReservaServiceTest {
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
                 reservaService.crearReservaDepartamento(999)
         );
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        assertTrue(ex.getMessage().contains("Departamento no encontrado con id: 999"));
-=======
-        assertEquals("Departamento no encontrado", ex.getMessage());
->>>>>>> Stashed changes
-=======
-        assertEquals("Departamento no encontrado", ex.getMessage());
->>>>>>> Stashed changes
+
+        assertEquals("Departamento no encontrado con id: 999", ex.getMessage());
+
         verify(reservaRepository, never()).save(any());
     }
+
 
 }
