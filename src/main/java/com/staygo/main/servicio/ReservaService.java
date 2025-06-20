@@ -29,8 +29,8 @@ public class ReservaService {
         Reserva reserva = Reserva.builder()
                 .user(user)
                 .departamento(departamento)
-                .fecha_inicio(java.time.LocalDate.now())
-                .fecha_final(java.time.LocalDate.now().plusDays(2))
+                .fechaInicio(java.time.LocalDate.now())
+                .fechaFinal(java.time.LocalDate.now().plusDays(2))
                 .estadoReserva(EstadoReserva.PENDIENTE)
                 .build();
         reservaRepository.save(reserva);

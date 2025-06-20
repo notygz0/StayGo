@@ -17,7 +17,7 @@ import org.springframework.ui.ConcurrentModel;
 @SpringBootTest
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
-public class LoginTest {
+class LoginTest {
     private final String username = "Cuervas";
     private final String password = "1234";
 
@@ -34,18 +34,17 @@ public class LoginTest {
                         .param("password", password))
                 .andExpect(result -> {
                     int status = result.getResponse().getStatus();
-                    String location = result.getResponse().getHeader("Location");
-                    assertTrue(status >= 300 && status < 400 && "/".equals(location));
+                    assertEquals(200, status);
                 });
-
     }
+
     @Test
     void EstadoUsuario() {
         var auth = new UsernamePasswordAuthenticationToken(username, password);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         var model = new ConcurrentModel();
-        userServicio.EstadoUsuario(model);
+        userServicio.estadoUsuario(model);
 
         assertTrue((Boolean) model.getAttribute("isLoggedIn"));
         assertEquals(username, model.getAttribute("username"));

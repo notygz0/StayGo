@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Perfil del Arrendador</title>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+</head>
+<body>
+
+<h3>Crear nuevo Departamento</h3>
+<form id="formDepartamento">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required>
+
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" required></textarea>
+
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio" step="0.01" required>
+
+    <label for="numHabitaciones">Habitaciones:</label>
+    <input type="number" id="numHabitaciones" required>
+
+    <button type="submit">Crear Departamento</button>
+
+    <p class="mensaje" id="mensajeConfirmacion"></p>
+</form>
+
+<h3 style="text-align: center;">Mis Departamentos</h3>
+<div id="listaDepartamentos"> </div>
+
+<script src="/scripts/perfil.js"></script>
+
+
+
+</body>
+</html>

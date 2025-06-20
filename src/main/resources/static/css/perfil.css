@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    color: #333;
+    margin-top: 30px;
+    text-align: center;
+}
+
+form#formDepartamento {
+    background: #fff;
+    padding: 24px;
+    margin: 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input, form textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button:hover {
+    background: #0056b3;
+}
+
+.mensaje {
+    color: green;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+#listaDepartamentos {
+    margin: 0 auto;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+}
