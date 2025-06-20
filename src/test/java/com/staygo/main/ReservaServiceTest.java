@@ -85,7 +85,11 @@ class ReservaServiceTest {
                 reservaService.crearReservaDepartamento(1)
         );
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         assertTrue(ex.getMessage().contains("Usuario no encontrado con el nombre: testUser"));
+=======
+        assertEquals("Usuario no encontrado", ex.getMessage());
+>>>>>>> Stashed changes
 =======
         assertEquals("Usuario no encontrado", ex.getMessage());
 >>>>>>> Stashed changes
@@ -103,7 +107,11 @@ class ReservaServiceTest {
                 reservaService.crearReservaDepartamento(999)
         );
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         assertTrue(ex.getMessage().contains("Departamento no encontrado con id: 999"));
+=======
+        assertEquals("Departamento no encontrado", ex.getMessage());
+>>>>>>> Stashed changes
 =======
         assertEquals("Departamento no encontrado", ex.getMessage());
 >>>>>>> Stashed changes
