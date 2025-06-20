@@ -82,9 +82,13 @@ class ReservaServiceTest {
         when(userRepository.findByUsername("testUser")).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
-            reservaService.crearReservaDepartamento(1)
+                reservaService.crearReservaDepartamento(1)
         );
+<<<<<<< Updated upstream
         assertTrue(ex.getMessage().contains("Usuario no encontrado con el nombre: testUser"));
+=======
+        assertEquals("Usuario no encontrado", ex.getMessage());
+>>>>>>> Stashed changes
         verify(reservaRepository, never()).save(any());
     }
 
@@ -96,9 +100,14 @@ class ReservaServiceTest {
         when(departamentoRepository.findById(999)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
-            reservaService.crearReservaDepartamento(999)
+                reservaService.crearReservaDepartamento(999)
         );
+<<<<<<< Updated upstream
         assertTrue(ex.getMessage().contains("Departamento no encontrado con id: 999"));
+=======
+        assertEquals("Departamento no encontrado", ex.getMessage());
+>>>>>>> Stashed changes
         verify(reservaRepository, never()).save(any());
     }
+
 }
