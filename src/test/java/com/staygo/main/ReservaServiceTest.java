@@ -69,8 +69,8 @@ class ReservaServiceTest {
         assertAll("verificar campos de la reserva",
             () -> assertSame(usuario, guardada.getUser()),
             () -> assertSame(depto, guardada.getDepartamento()),
-            () -> assertEquals(LocalDate.now(), guardada.getFecha_inicio()),
-            () -> assertEquals(LocalDate.now().plusDays(2), guardada.getFecha_final()),
+            () -> assertEquals(LocalDate.now(), guardada.getFechaInicio()),
+            () -> assertEquals(LocalDate.now().plusDays(2), guardada.getFechaFinal()),
             () -> assertEquals(EstadoReserva.PENDIENTE, guardada.getEstadoReserva())
         );
     }
