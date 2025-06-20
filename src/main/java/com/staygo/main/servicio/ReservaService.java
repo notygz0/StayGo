@@ -21,10 +21,11 @@ public class ReservaService {
     private final ReservaRepository reservaRepository;
     public ResponseEntity<?> crearReservaDepartamento(Integer idDepartamento) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername("Cuervas")
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con el nombre: " + username));
         Departamento departamento = departamentoRepository.findById(idDepartamento)
-                .orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Departamento no encontrado con id: " + idDepartamento));
         Reserva reserva = Reserva.builder()
                 .user(user)
                 .departamento(departamento)

@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -34,15 +37,23 @@ class ReservaServiceTest {
     @InjectMocks
     private ReservaService reservaService;
 
+    private Authentication authentication;
+    private SecurityContext securityContext;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        authentication = mock(Authentication.class);
+        securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
     }
 
     @Test
     void crearReservaDepartamento_Exitosa() {
+        when(authentication.getName()).thenReturn("testUser");
         User usuario = new User();
-        when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.of(usuario));
+        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(usuario));
 
         Departamento depto = new Departamento();
         when(departamentoRepository.findById(1)).thenReturn(Optional.of(depto));
@@ -67,25 +78,27 @@ class ReservaServiceTest {
 
     @Test
     void crearReservaDepartamento_UsuarioNoEncontrado() {
-        when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.empty());
+        when(authentication.getName()).thenReturn("testUser");
+        when(userRepository.findByUsername("testUser")).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
             reservaService.crearReservaDepartamento(1)
         );
-        assertTrue(ex.getMessage().contains("usuario no encontrado"));
+        assertTrue(ex.getMessage().contains("Usuario no encontrado con el nombre: testUser"));
         verify(reservaRepository, never()).save(any());
     }
 
     @Test
     void crearReservaDepartamento_DepartamentoNoEncontrado() {
+        when(authentication.getName()).thenReturn("testUser");
         User usuario = new User();
-        when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.of(usuario));
+        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(usuario));
         when(departamentoRepository.findById(999)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
             reservaService.crearReservaDepartamento(999)
         );
-        assertTrue(ex.getMessage().contains("departamento no encontrado"));
+        assertTrue(ex.getMessage().contains("Departamento no encontrado con id: 999"));
         verify(reservaRepository, never()).save(any());
     }
 }
