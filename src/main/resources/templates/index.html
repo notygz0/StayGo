@@ -1,81 +1,76 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>StayGo - Tu alojamiento ideal</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StayGo - Tu alojamiento ideal</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 
-<!-- Header -->
-<header class="header">
-    <div class="logo">
-        <img src="img/logos/logo.png" alt="StayGo Logo" />
-    </div>
+  <!-- Header -->
+  <header class="header">
+    <!-- Contenedor del logo-->
+    <div class="logo-container">
+  <img th:src="@{/img/logos/h7.png}" alt="StayGo Logo" class="logo-img" />
+</div>
+
+
     <nav class="nav">
-        <a href="#home">Inicio</a>
-        <a href="#alojamientos">Alojamientos</a>
-        <a href="#reservas">Reservas</a>
-        <a href="#contacto">Contacto</a>
+      <a th:href="@{/}">Inicio</a>
+      <a href="#alojamientos">Alojamientos</a>
+      <a th:if="${isLoggedIn}" th:href="@{/reservas}">Reservas</a>
+      <a href="#contacto">Contacto</a>
     </nav>
 
-    <div class="auth-menu">
-        <button id="auth-button" class="auth-button">
-            <img src="img/iconos/usuarioo.jpg" alt="Usuario" />
-        </button>
-        <div id="auth-dropdown" class="auth-dropdown hidden">
-            <a href="#" id="login-link">Iniciar Sesión →</a>
-            <a href="#" id="register-link">Registrarse →</a>
-        </div>
+    <div class="user-menu">
+      <button id="user-menu-button" class="user-menu-toggle">
+        <img th:src="@{/img/icons/user.png}" alt="Usuario" class="user-icon" />
+      </button>
+      <div th:id="user-dropdown" class="user-dropdown">
+        <a th:if="${isLoggedIn}" th:href="@{/auth/logout}">Cerrar Sesion <span class="arrow">→</span></a>
+        <a th:unless="${isLoggedIn}" th:href="@{/login}">Iniciar Sesión <span class="arrow">→</span></a>
+        <a th:unless="${isLoggedIn}" th:href="@{/register}">Registrarse <span class="arrow">→</span></a>
+      </div>
     </div>
-</header>
+  </header>
 
-<!-- Hero / Banner -->
-<section id="home" class="hero">
-    <img src="img/banner.png" alt="Banner StayGo" class="hero-banner" />
+  <!-- Hero / Banner -->
+  <section id="home" class="hero">
+    <img th:src="@{/img/banner.png}" alt="Banner StayGo" class="hero-banner" />
     <div class="hero-text">
-        <h1>Encuentra el alojamiento perfecto para tu viaje</h1>
-        <p>Con StayGo, tu experiencia es nuestra prioridad.</p>
-        <a href="#alojamientos" class="btn-primary">Ver Alojamientos</a>
+      <h1>Encuentra el alojamiento perfecto para tu viaje</h1>
+      <p>Con StayGo, tu experiencia es nuestra prioridad.</p>
+
+      <!-- Botones para alternar vista -->
+      <div class="btn-group">
+        <form th:action="@{/hoteles}" method="get" style="display:inline;">
+          <button type="submit" class="btn btn-secondary">Ver Hoteles</button>
+        </form>
+        <form th:action="@{/departamentos}" method="get" style="display:inline;">
+          <button type="submit" class="btn btn-secondary">Ver Departamentos</button>
+        </form>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Alojamientos -->
-<section id="alojamientos" class="alojamientos">
-    <h2>Sugerencias del día</h2>
+  <!-- Alojamientos -->
+  <section id="alojamientos" class="alojamientos">
+    <h2>Alojamientos Destacados</h2>
     <div id="alojamientos-container" class="alojamientos-container"></div>
-</section>
+  </section>
 
-<!-- Reservas -->
-<section id="reservas" class="reservas">
-    <h2>Haz tu reserva</h2>
-    <form id="reserva-form">
-        <label for="alojamiento">Alojamiento:</label>
-        <select id="alojamiento" required></select>
-
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" placeholder="Tu nombre" required />
-
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" required />
-
-        <button type="submit">Reservar</button>
-    </form>
-    <div id="mensaje-reserva"></div>
-</section>
-
-<!-- Contacto -->
-<section id="contacto" class="contacto">
+  <!-- Contacto -->
+  <section id="contacto" class="contacto">
     <h2>Contacto</h2>
     <p>Para consultas, escríbenos a <a href="mailto:contacto@staygo.com">contacto@staygo.com</a></p>
-</section>
+  </section>
 
-<!-- Footer -->
-<footer class="footer">
+  <!-- footer -->
+  <footer class="footer">
     <p>&copy; 2025 StayGo. Todos los derechos reservados.</p>
-</footer>
+  </footer>
 
-<script src="scripts.js"></script>
+  <script th:src="@{/scripts/scripts.js}" defer></script>
 </body>
 </html>
