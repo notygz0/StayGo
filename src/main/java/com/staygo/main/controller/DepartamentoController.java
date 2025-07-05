@@ -25,7 +25,7 @@ public class DepartamentoController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<?> crearDepartamento(@RequestBody DepartamentoRequest request) {
+    public ResponseEntity<?> crearDepartamento(@ModelAttribute DepartamentoRequest request) {
         return departamentoServicio.crearDepartamento(request);
     }
 

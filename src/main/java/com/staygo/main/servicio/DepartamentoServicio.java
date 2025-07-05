@@ -12,15 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class DepartamentoServicio {
+
     private final DepartamentoRepository departamentoRepository;
     private final UserRepository userRepository;
 
-    public ResponseEntity<List<DepartamentoResponse>> listarDepartamentos() {
+    public ResponseEntity<?> listarDepartamentos() {
         List<Departamento> departamentos = departamentoRepository.findAll();
         List<DepartamentoResponse> response = departamentos.stream()
                 .map(departamento -> DepartamentoResponse.builder()
@@ -34,34 +36,28 @@ public class DepartamentoServicio {
                 .toList();
         return ResponseEntity.ok().body(response);
     }
-    public ResponseEntity<DepartamentoResponse> crearDepartamento(DepartamentoRequest departamento) {
+
+    public ResponseEntity<?> crearDepartamento(DepartamentoRequest departamento) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        User dueno = userRepository.findByUsername("Cuervas")
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        User dueno = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"));
-
-
-        Departamento nuevoDepartamento = Departamento.builder()
+        Departamento.DepartamentoBuilder builder = Departamento.builder()
                 .dueno(dueno)
                 .nombre(departamento.getNombre())
                 .descripcion(departamento.getDescripcion())
                 .precio(departamento.getPrecio())
-                .numHabitaciones(departamento.getNumHabitaciones())
-                .build();
+                .numHabitaciones(departamento.getNumHabitaciones());
 
-        Departamento guardado = departamentoRepository.save(nuevoDepartamento);
+        if (departamento.getImagen() != null && !departamento.getImagen().isEmpty()) {
+            try {
+                builder.imagen(departamento.getImagen().getBytes());
+            } catch (IOException e) {
+                return ResponseEntity.badRequest().body("Error al procesar la imagen");
+            }
+        }
 
-        DepartamentoResponse response = DepartamentoResponse.builder()
-                .id(guardado.getId())
-                .nombre(guardado.getNombre())
-                .descripcion(guardado.getDescripcion())
-                .precio(guardado.getPrecio())
-                .numHabitaciones(guardado.getNumHabitaciones())
-                .dueno(dueno.getUsername())
-                .build();
-
-        return ResponseEntity.ok(response);
+        departamentoRepository.save(builder.build());
+        return ResponseEntity.ok("Departamento creado exitosamente");
     }
-
 }

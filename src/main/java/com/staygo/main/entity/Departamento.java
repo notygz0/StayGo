@@ -25,6 +25,8 @@ public class Departamento implements Serializable {
     private String nombre;
     private float precio;
     private String descripcion;
+    @Lob
+    private byte[] imagen;
     private boolean ocupado;
 
     @ManyToOne

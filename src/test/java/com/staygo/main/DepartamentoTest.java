@@ -11,14 +11,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class DepartamentoTest {
@@ -40,14 +41,18 @@ class DepartamentoTest {
     }
 
     @Test
-    void testCrearDepartamento() {
+    void testCrearDepartamento() throws Exception {
         DepartamentoRequest request = new DepartamentoRequest();
         request.setNombre("Departamento");
         request.setDescripcion("Bonito depto");
         request.setPrecio(1000.0F);
         request.setNumHabitaciones(2);
 
-        User user = new User();
+        MultipartFile imagenMock = mock(MultipartFile.class);
+        when(imagenMock.isEmpty()).thenReturn(true); // O false y simular getBytes()
+        request.setImagen(imagenMock);
+
+         User user = new User();
         when(authentication.getName()).thenReturn("Cuervas");
         when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.of(user));
 
@@ -63,7 +68,7 @@ class DepartamentoTest {
 
         ResponseEntity<?> response = departamentoServicio.crearDepartamento(request);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(200, response.getStatusCodeValue());
         verify(departamentoRepository).save(any(Departamento.class));
     }
 }
