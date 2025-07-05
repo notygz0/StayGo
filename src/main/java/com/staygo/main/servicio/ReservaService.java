@@ -20,11 +20,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ReservaService {
-
     private final UserRepository userRepository;
     private final DepartamentoRepository departamentoRepository;
     private final ReservaRepository reservaRepository;
-
     public ResponseEntity<?> crearReservaDepartamento(ReservaRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(request.getIdAlojamiento());
@@ -42,7 +40,6 @@ public class ReservaService {
         reservaRepository.save(reserva);
         return ResponseEntity.ok("Reserva generado exitosamente");
     }
-
     public ResponseEntity <?> listarReservas() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername("Cuervas")
@@ -61,5 +58,16 @@ public class ReservaService {
                 )
                 .toList();
         return ResponseEntity.ok().body(responses);
+    }
+    public boolean AlojamientoReservado(Integer idAlojamiento, int tipoAlojamiento) {
+        if (tipoAlojamiento == 1) { // 1 para Departamento
+            List<Reserva> reserva = reservaRepository.findAllByDepartamentoId(idAlojamiento);
+            return reserva.isEmpty(); // No hay reservas, alojamiento disponible
+        } else if (tipoAlojamiento == 2) { // 2 para Hotel
+            List<Reserva> reserva = reservaRepository.findAllByHotelId(idAlojamiento);
+            return reserva.isEmpty(); // No hay reservas, alojamiento disponible
+        }else {
+            throw new IllegalArgumentException("Tipo de alojamiento no válido");
+        }
     }
 }

@@ -15,10 +15,6 @@ public class UserServicio {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        log.info("Usuario autenticado: {}", username);
-        log.info("Estado de autenticación: {}", authentication.isAuthenticated());
-        log.info("isLoggedIn: {}", isLoggedIn);
-
         if ("anonymousUser".equals(username)) {
             model.addAttribute("isLoggedIn", isLoggedIn);
         } else {

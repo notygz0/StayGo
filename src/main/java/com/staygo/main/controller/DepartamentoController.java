@@ -2,6 +2,7 @@ package com.staygo.main.controller;
 
 import com.staygo.main.dto.DepartamentoRequest;
 import com.staygo.main.servicio.DepartamentoServicio;
+import com.staygo.main.servicio.ReservaService;
 import com.staygo.main.servicio.UserServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ public class DepartamentoController {
 
     private final UserServicio userServicio;
     private final DepartamentoServicio departamentoServicio;
+    private final ReservaService reservaService;
 
     @GetMapping()
     public String Departamentos() {
@@ -33,8 +35,10 @@ public class DepartamentoController {
     }
 
     @GetMapping("/detalle")
-    public String mostrarDetalleDepartamento(Model model) {
+    public String mostrarDetalleDepartamento(Model model,@RequestParam("id") Integer idAlojamiento) {
+        boolean estado = reservaService.AlojamientoReservado(idAlojamiento, 1);
         userServicio.estadoUsuario(model);
+        model.addAttribute("estado", estado);
         return "departamento_detalle";
     }
 }

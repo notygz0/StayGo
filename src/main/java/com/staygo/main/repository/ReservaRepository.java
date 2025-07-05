@@ -21,4 +21,12 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     // Para reservas de hotel
     @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId AND r.hotel.id = :hotelId")
     Optional<Reserva> findByUsuarioIdAndHotelId(@Param("userId") Integer userId, @Param("hotelId") Integer hotelId);
+
+    // Para reservas de departamento
+    @Query("SELECT r FROM Reserva r WHERE r.departamento.id = :departamentoId")
+    List<Reserva> findAllByDepartamentoId(@Param("departamentoId") Integer departamentoId);
+
+    // Para reservas de hotel
+    @Query("SELECT r FROM Reserva r WHERE r.hotel.id = :hotelId")
+    List<Reserva> findAllByHotelId(@Param("hotelId") Integer hotelId);
 }

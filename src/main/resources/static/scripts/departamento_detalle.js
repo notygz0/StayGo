@@ -52,10 +52,22 @@ document.addEventListener('DOMContentLoaded', function() {
     hidden.name = 'idAlojamiento';
     hidden.value = id;
     form.insertBefore(hidden, form.firstChild);
+    const fechaHoy = new Date().toISOString().split('T')[0];
+    const fechaFinalMin = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-    const fechaInicial = new Date().toISOString().split('T')[0];
-    document.getElementById('fecha inicio').setAttribute('min', fechaInicial);
-    const fechaFinal = new Date().toISOString().split('T')[0];
-    document.getElementById('fecha final').setAttribute('min', fechaFinal);
+    const inputInicio = document.getElementById('fecha inicio');
+    const inputFinal = document.getElementById('fecha fin');
+
+    inputInicio.setAttribute('min', fechaHoy);
+    inputFinal.setAttribute('min', fechaFinalMin);
+
+    inputInicio.addEventListener('change', function() {
+      const seleccionada = new Date(this.value);
+      // Suma un día a la fecha de inicio seleccionada
+      const siguienteDia = new Date(seleccionada.getTime() + 24 * 60 * 60 * 1000)
+          .toISOString().split('T')[0];
+      inputFinal.value = ''; // Limpia la fecha final si ya estaba seleccionada
+      inputFinal.setAttribute('min', siguienteDia);
+    });
   }
 });

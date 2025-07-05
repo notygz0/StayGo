@@ -14,10 +14,10 @@ function crearTarjetaReserva(reserva) {
 
   const img = document.createElement('img');
   img.src = "/img/list/p-5.png";
-  img.alt = reserva.name;
+  img.alt = reserva.alojamiento;
 
-  const info = document.createElement('div');
-  info.className = 'reserva-info';
+  const nombreAlojamiento = document.createElement('h3');
+  nombreAlojamiento.textContent = reserva.alojamiento;
 
   const nombre = document.createElement('h3');
   nombre.textContent = reserva.name;
@@ -29,7 +29,7 @@ function crearTarjetaReserva(reserva) {
 
   card.appendChild(img);
   card.appendChild(info);
-  info.appendChild(nombre);
+  info.appendChild(nombreAlojamiento);
   info.appendChild(boton);
 
   return card;
@@ -64,7 +64,7 @@ function mostrarPopupReserva(reserva) {
   const modal = document.createElement('div');
   modal.className = 'modal-contenido';
   modal.innerHTML = `
-    <h2>${reserva.name}</h2>
+    <h2>${reserva.alojamiento}</h2>
     <p>ID: ${reserva.id}</p>
     <p>Fecha de inicio: ${reserva.fechaInicio}</p>
     <p>Fecha de fin: ${reserva.fechaFin}</p>

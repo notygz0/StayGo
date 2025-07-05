@@ -229,7 +229,7 @@ a:hover {
   margin-top: 40px;
 }
 
-.crearReserva {
+.Reserva {
   background-color: #fff;
   border-radius: 12px;
   overflow: hidden;
@@ -245,24 +245,24 @@ a:hover {
   flex-direction: column;
 }
 
-.crearReserva h2 {
+.Reserva h2 {
   text-align: center;
   margin-bottom: 20px;
   font-weight: 700;
 }
 
-.crearReserva form {
+.Reserva form {
   display: flex;
   flex-direction: column;
 }
 
-.crearReserva label {
+.Reserva label {
   margin-top: 15px;
   font-weight: 600;
 }
 
-.crearReserva input,
-.crearReserva select {
+.Reserva input,
+.Reserva select {
   margin-top: 8px;
   padding: 10px 12px;
   font-size: 16px;
@@ -272,12 +272,12 @@ a:hover {
   transition: border-color 0.3s ease;
 }
 
-.crearReserva input:focus,
-.crearReserva select:focus {
+.Reserva input:focus,
+.Reserva select:focus {
   border-color: #00aaff;
 }
 
-.crearReserva button {
+.Reserva button {
   margin-top: 25px;
   background-color: #00aaff;
   border: none;
@@ -289,6 +289,6 @@ a:hover {
   transition: background-color 0.3s ease;
 }
 
-.crearReserva button:hover {
+.Reserva button:hover {
   background-color: #0088cc;
 }
