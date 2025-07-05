@@ -1,38 +1,40 @@
 package com.staygo.main.controller;
 
 import com.staygo.main.dto.DepartamentoRequest;
-import com.staygo.main.dto.DepartamentoResponse;
 import com.staygo.main.servicio.DepartamentoServicio;
+import com.staygo.main.servicio.UserServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/departamentos")
 @RequiredArgsConstructor
 public class DepartamentoController {
+
+    private final UserServicio userServicio;
     private final DepartamentoServicio departamentoServicio;
 
     @GetMapping()
-    public String departamentos() {
+    public String Departamentos() {
         return "departamento";
     }
+
     @PostMapping("/crear")
-    public ResponseEntity<DepartamentoResponse> crearDepartamento(@RequestBody DepartamentoRequest request) {
+    public ResponseEntity<?> crearDepartamento(@RequestBody DepartamentoRequest request) {
         return departamentoServicio.crearDepartamento(request);
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<List<DepartamentoResponse>> listarDepartamentos() {
+    public ResponseEntity<?> listarDepartamentos() {
         return departamentoServicio.listarDepartamentos();
     }
 
-
     @GetMapping("/detalle")
-    public String mostrarDetalleDepartamento() {
+    public String mostrarDetalleDepartamento(Model model) {
+        userServicio.estadoUsuario(model);
         return "departamento_detalle";
     }
 }

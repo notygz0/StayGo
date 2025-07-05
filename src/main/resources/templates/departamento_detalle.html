@@ -19,9 +19,19 @@
 
     <!-- contenido principal -->
     <main class="detalle-main">
-        <div id="departamento-detalle" class="departamento-detalle-card"></div> <!-- Contenedor de detalles -->
+         <div id="departamento-detalle" class="departamento-detalle-card" ></div> <!-- Contenedor de detalles -->
+        <form th:if="${isLoggedIn}" id="reserva-form" class="crearReserva" action="/reservas/crear" method="post">
+            <label for="fecha inicio">Fecha inicio:</label>
+            <input type="date" id="fecha inicio" name="fechaInicio" required />
+
+            <label for="fecha final">Fecha final:</label>
+            <input type="date" id="fecha final" name="fechaFinal" required />
+
+            <button type="submit">Reservar</button>
+        </form>
     </main>
 
+    <div id="mensaje-reserva"></div>
     <!-- pie de pagina -->
     <footer class="footer">
         <p>&copy; 2025 StayGo. Todos los derechos reservados.</p>

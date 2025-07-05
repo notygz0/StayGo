@@ -1,5 +1,6 @@
 package com.staygo.main.servicio;
 
+import com.staygo.main.dto.ReservaRequest;
 import com.staygo.main.dto.ReservaResponse;
 import com.staygo.main.entity.Departamento;
 import com.staygo.main.entity.EstadoReserva;
@@ -19,25 +20,29 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ReservaService {
+
     private final UserRepository userRepository;
     private final DepartamentoRepository departamentoRepository;
     private final ReservaRepository reservaRepository;
-    public ResponseEntity<?> crearReservaDepartamento(Integer idDepartamento) {
+
+    public ResponseEntity<?> crearReservaDepartamento(ReservaRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(request.getIdAlojamiento());
         User user = userRepository.findByUsername("Cuervas")
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        Departamento departamento = departamentoRepository.findById(idDepartamento)
+        Departamento departamento = departamentoRepository.findById(request.getIdAlojamiento())
                 .orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
         Reserva reserva = Reserva.builder()
                 .user(user)
                 .departamento(departamento)
-                .fecha_inicio(java.time.LocalDate.now())
-                .fecha_final(java.time.LocalDate.now().plusDays(2))
+                .fecha_inicio(request.getFechaInicio())
+                .fecha_final(request.getFechaFin())
                 .estadoReserva(EstadoReserva.PENDIENTE)
                 .build();
         reservaRepository.save(reserva);
         return ResponseEntity.ok("Reserva generado exitosamente");
     }
+
     public ResponseEntity <?> listarReservas() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername("Cuervas")
@@ -57,6 +62,4 @@ public class ReservaService {
                 .toList();
         return ResponseEntity.ok().body(responses);
     }
-
-
 }

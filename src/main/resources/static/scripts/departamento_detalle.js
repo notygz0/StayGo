@@ -9,7 +9,6 @@ async function obtenerDepartamentos() {
   return await response.json();
 }
 
-
 // Busca y muestra el detalle del departamento
 async function mostrarDetalleDepartamento() {
   try {
@@ -35,3 +34,28 @@ async function mostrarDetalleDepartamento() {
 }
 
 window.onload = mostrarDetalleDepartamento;
+
+// scripts/departamento_detalle.js
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (id) {
+    // Elimina el select si existe
+    const select = document.getElementById('alojamiento');
+    if (select) select.remove();
+
+    // Crea el input oculto
+    const form = document.getElementById('reserva-form');
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.id = 'idAlojamiento';
+    hidden.name = 'idAlojamiento';
+    hidden.value = id;
+    form.insertBefore(hidden, form.firstChild);
+
+    const fechaInicial = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha inicio').setAttribute('min', fechaInicial);
+    const fechaFinal = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha final').setAttribute('min', fechaFinal);
+  }
+});

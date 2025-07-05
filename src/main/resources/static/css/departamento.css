@@ -168,8 +168,8 @@ a:hover {
 /* estilos para la pagina de detalles */
 .detalle-main {
   display: flex;
-  justify-content: center;
-  padding: 40px;
+  flex-direction: column;
+  align-items: center;
 }
 
 .departamento-detalle-card {
@@ -227,4 +227,68 @@ a:hover {
   padding: 18px 0;
   font-size: 14px;
   margin-top: 40px;
+}
+
+.crearReserva {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  padding: 30px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.crearReserva h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.crearReserva form {
+  display: flex;
+  flex-direction: column;
+}
+
+.crearReserva label {
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.crearReserva input,
+.crearReserva select {
+  margin-top: 8px;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.crearReserva input:focus,
+.crearReserva select:focus {
+  border-color: #00aaff;
+}
+
+.crearReserva button {
+  margin-top: 25px;
+  background-color: #00aaff;
+  border: none;
+  padding: 14px;
+  color: white;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.crearReserva button:hover {
+  background-color: #0088cc;
 }
