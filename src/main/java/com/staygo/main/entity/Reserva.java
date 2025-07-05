@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -15,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "reserva")
-public class Reserva implements Serializable {
+public class Reserva {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +33,10 @@ public class Reserva implements Serializable {
     private Hotel hotel;
 
     @Column(name = "fecha_inicio")
-    private LocalDate fechaInicio;
+    private LocalDate fecha_inicio;
 
     @Column(name = "fecha_final")
-    private LocalDate fechaFinal;
+    private LocalDate fecha_final;
 
     @Enumerated(EnumType.STRING)
     private EstadoReserva estadoReserva = EstadoReserva.PENDIENTE;

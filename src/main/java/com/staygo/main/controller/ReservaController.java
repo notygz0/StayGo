@@ -13,8 +13,13 @@ public class ReservaController {
     private final ReservaService reservaService;
 
     @PostMapping("/crear")
-    public ResponseEntity<?> crearReservaDepartamento(@ModelAttribute Integer idDepartamento) {
+    public ResponseEntity<?> crearReservaDepartamento(@RequestParam Integer idDepartamento) {
         return reservaService.crearReservaDepartamento(idDepartamento);
+    }
+
+    @GetMapping("/lista")
+    public ResponseEntity<?> listarReservasDepartamento() {
+        return reservaService.listarReservas();
     }
 
     @GetMapping
