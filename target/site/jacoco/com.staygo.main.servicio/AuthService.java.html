@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">StayGo</a> &gt; <a href="index.source.html" class="el_package">com.staygo.main.servicio</a> &gt; <span class="el_source">AuthService.java</span></div><h1>AuthService.java</h1><pre class="source lang-java linenums">package com.staygo.main.servicio;
+
+import com.staygo.main.dto.RegisterRequest;
+import com.staygo.main.entity.Role;
+import com.staygo.main.entity.User;
+import com.staygo.main.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+<span class="fc" id="L16">@Slf4j</span>
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+    private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+
+    public boolean login(String username, String password, HttpServletRequest request) {
+<span class="fc" id="L25">        log.info(&quot;Intentando autenticar usuario: {}&quot;, username);</span>
+<span class="fc" id="L26">        log.debug(&quot;Password proporcionada&quot; ); //password no especificada por seguridad</span>
+
+        try {
+<span class="nc" id="L29">            Authentication authentication = authenticationManager.authenticate(</span>
+                    new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(username, password)
+            );
+<span class="nc" id="L32">            SecurityContextHolder.getContext().setAuthentication(authentication);</span>
+<span class="nc" id="L33">            request.getSession(true).setAttribute(&quot;SPRING_SECURITY_CONTEXT&quot;, SecurityContextHolder.getContext());</span>
+<span class="nc" id="L34">            log.info(&quot;Autenticación exitosa para el usuario: {}&quot;, username);</span>
+<span class="nc" id="L35">            return true;</span>
+<span class="fc" id="L36">        } catch (Exception e) {</span>
+<span class="fc" id="L37">            log.warn(&quot;Fallo de autenticación para el usuario {}: {}&quot;, username, e.getMessage());</span>
+<span class="fc" id="L38">            return false;</span>
+        }
+    }
+
+    public boolean register(RegisterRequest registerRequest) {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {</span>
+<span class="fc" id="L44">            log.warn(&quot;Registro fallido: el nombre de usuario '{}' ya existe.&quot;, registerRequest.getUsername());</span>
+<span class="fc" id="L45">            return false;</span>
+        }
+
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {</span>
+<span class="nc" id="L49">            log.warn(&quot;Registro fallido: las contraseñas no coinciden para el usuario '{}'.&quot;, registerRequest.getUsername());</span>
+<span class="nc" id="L50">            return false;</span>
+        }
+
+<span class="fc" id="L53">        User user = User.builder()</span>
+<span class="fc" id="L54">                .username(registerRequest.getUsername())</span>
+<span class="fc" id="L55">                .correo(registerRequest.getEmail())</span>
+<span class="fc" id="L56">                .password(passwordEncoder.encode(registerRequest.getPassword()))</span>
+<span class="fc" id="L57">                .role(Role.USER)</span>
+<span class="fc" id="L58">                .build();</span>
+
+<span class="fc" id="L60">        userRepository.save(user);</span>
+<span class="fc" id="L61">        log.info(&quot;Usuario registrado exitosamente: {}&quot;, registerRequest.getUsername());</span>
+<span class="fc" id="L62">        return true;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
