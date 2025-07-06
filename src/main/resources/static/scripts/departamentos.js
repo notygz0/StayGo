@@ -13,7 +13,12 @@ function crearTarjetaDepartamento(departamento) {
   card.className = 'departamento-card';
 
   const img = document.createElement('img');
-  img.src = "/img/list/p-5.png";
+  if (departamento.imagen) {
+    // Si la imagen viene en base64, arma la URL data
+    img.src = `data:image/jpeg;base64,${departamento.imagen}`;
+  } else {
+    img.src = "/img/list/p-5.png";
+  }
   img.alt = departamento.nombre;
 
   const info = document.createElement('div');

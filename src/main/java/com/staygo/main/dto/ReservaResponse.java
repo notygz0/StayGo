@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class ReservaResponse {
     private Integer id;
     private String name;
+    private String imagen;
     private String alojamiento;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;

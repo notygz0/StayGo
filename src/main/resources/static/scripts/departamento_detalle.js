@@ -18,7 +18,7 @@ async function mostrarDetalleDepartamento() {
     const detalleContainer = document.getElementById('departamento-detalle');
     if (departamento) {
       detalleContainer.innerHTML = `
-        <img src="/img/list/p-5.png" alt="${departamento.nombre}">
+        <img src="data:image/jpeg;base64,${departamento.imagen}" alt="${departamento.nombre}">
         <h3>${departamento.nombre}</h3>
         <p><strong>Descripción:</strong> ${departamento.descripcion}</p>
         <p><strong>Precio:</strong> $${departamento.precio.toLocaleString()}</p>

@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -50,6 +51,8 @@ public class ReservaService {
                         reserva -> ReservaResponse.builder()
                                 .id(reserva.getId())
                                 .name(reserva.getUser().getUsername())
+                                .imagen(reserva.getDepartamento().getImagen() != null ?
+                                        Base64.getEncoder().encodeToString(reserva.getDepartamento().getImagen()) : null)
                                 .alojamiento(reserva.getDepartamento().getNombre())
                                 .fechaInicio(reserva.getFecha_inicio())
                                 .fechaFin(reserva.getFecha_final())

@@ -13,7 +13,12 @@ function crearTarjetaReserva(reserva) {
   card.className = 'reserva-card';
 
   const img = document.createElement('img');
-  img.src = "/img/list/p-5.png";
+  if (reserva.imagen) {
+    // Si la imagen viene en base64, arma la URL data
+    img.src = `data:image/jpeg;base64,${reserva.imagen}`;
+  } else {
+    img.src = "/img/list/p-5.png";
+  }
   img.alt = reserva.alojamiento;
 
   const nombreAlojamiento = document.createElement('h3');

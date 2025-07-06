@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -14,6 +15,7 @@ public class DepartamentoResponse {
     private String nombre;
     private String dueno;
     private String descripcion;
+    private String imagen;
     private float precio;
     private int numHabitaciones;
 }

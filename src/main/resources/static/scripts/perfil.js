@@ -6,18 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        const departamento = {
-            nombre: document.getElementById('nombre').value,
-            descripcion: document.getElementById('descripcion').value,
-            precio: parseFloat(document.getElementById('precio').value),
-            numHabitaciones: parseInt(document.getElementById('numHabitaciones').value)
-        };
+        const formData = new FormData(form);
 
         try {
             const respuesta = await fetch('/departamentos/crear', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(departamento)
+                body: formData
             });
 
             if (respuesta.ok) {

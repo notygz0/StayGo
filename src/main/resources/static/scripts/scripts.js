@@ -10,7 +10,12 @@ function crearTarjetaAlojamiento(alojamiento) {
   const card = document.createElement('div');
   card.className = 'alojamiento-card';
   const img = document.createElement('img');
-  img.src = alojamiento.imagen || '/img/list/p-5.png';
+  if (reserva.imagen) {
+    // Si la imagen viene en base64, arma la URL data
+    img.src = `data:image/jpeg;base64,${reserva.imagen}`;
+  } else {
+    img.src = "/img/list/p-5.png";
+  }
   img.alt = alojamiento.nombre;
   const info = document.createElement('div');
   info.className = 'alojamiento-info';

@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -32,32 +33,33 @@ public class DepartamentoServicio {
                         .descripcion(departamento.getDescripcion())
                         .precio(departamento.getPrecio())
                         .numHabitaciones(departamento.getNumHabitaciones())
+                        .imagen(departamento.getImagen() != null ?
+                                Base64.getEncoder().encodeToString(departamento.getImagen()) : null)
                         .build())
                 .toList();
         return ResponseEntity.ok().body(response);
     }
 
-    public ResponseEntity<?> crearDepartamento(DepartamentoRequest departamento) {
+    public ResponseEntity<?> crearDepartamento(DepartamentoRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User dueno = userRepository.findByUsername("Cuervas")
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        Departamento.DepartamentoBuilder builder = Departamento.builder()
-                .dueno(dueno)
-                .nombre(departamento.getNombre())
-                .descripcion(departamento.getDescripcion())
-                .precio(departamento.getPrecio())
-                .numHabitaciones(departamento.getNumHabitaciones());
-
-        if (departamento.getImagen() != null && !departamento.getImagen().isEmpty()) {
+        Departamento departamento = Departamento.builder()
+                .nombre(request.getNombre())
+                .descripcion(request.getDescripcion())
+                .precio(request.getPrecio())
+                .numHabitaciones(request.getNumHabitaciones())
+                .build();
+        if (request.getImagen() != null && !request.getImagen().isEmpty()) {
             try {
-                builder.imagen(departamento.getImagen().getBytes());
+                departamento.setImagen(request.getImagen().getBytes());
             } catch (IOException e) {
                 return ResponseEntity.badRequest().body("Error al procesar la imagen");
             }
         }
 
-        departamentoRepository.save(builder.build());
+        departamentoRepository.save(departamento);
         return ResponseEntity.ok("Departamento creado exitosamente");
     }
 }

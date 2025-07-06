@@ -42,7 +42,7 @@ public class User implements UserDetails, Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resena> resenas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "dueno", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "dueno", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Departamento> departamentos = new ArrayList<>();
 
     @Override
