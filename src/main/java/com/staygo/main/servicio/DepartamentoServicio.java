@@ -50,22 +50,14 @@ public class DepartamentoServicio {
         User dueno = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         List<Departamento> departamentos = dueno.getDepartamentos();
-        List<DepartamentoResponse> response = departamentos.stream()
-                .map(departamento -> DepartamentoResponse.builder()
-                        .id(departamento.getId())
-                        .nombre(departamento.getNombre())
-                        .dueno(departamento.getDueno().getUsername())
-                        .descripcion(departamento.getDescripcion())
-                        .precio(departamento.getPrecio())
-                        .numHabitaciones(departamento.getNumHabitaciones())
-                        .imagen(departamento.getImagen() != null ?
-                                Base64.getEncoder().encodeToString(departamento.getImagen()) : null)
-                        .build())
-                .toList();
-        return ResponseEntity.ok().body(response);
+        return getListDepartamento(departamentos);
     }
     public ResponseEntity<?> listarDepartamentos() {
         List<Departamento> departamentos = departamentoRepository.findAll();
+         return getListDepartamento(departamentos);
+    }
+
+    private ResponseEntity<?> getListDepartamento(List<Departamento> departamentos) {
         List<DepartamentoResponse> response = departamentos.stream()
                 .map(departamento -> DepartamentoResponse.builder()
                         .id(departamento.getId())
