@@ -23,23 +23,6 @@ public class DepartamentoServicio {
     private final DepartamentoRepository departamentoRepository;
     private final UserRepository userRepository;
 
-    public ResponseEntity<?> listarDepartamentos() {
-        List<Departamento> departamentos = departamentoRepository.findAll();
-        List<DepartamentoResponse> response = departamentos.stream()
-                .map(departamento -> DepartamentoResponse.builder()
-                        .id(departamento.getId())
-                        .nombre(departamento.getNombre())
-                        .dueno(departamento.getDueno().getUsername())
-                        .descripcion(departamento.getDescripcion())
-                        .precio(departamento.getPrecio())
-                        .numHabitaciones(departamento.getNumHabitaciones())
-                        .imagen(departamento.getImagen() != null ?
-                                Base64.getEncoder().encodeToString(departamento.getImagen()) : null)
-                        .build())
-                .toList();
-        return ResponseEntity.ok().body(response);
-    }
-
     public ResponseEntity<?> crearDepartamento(DepartamentoRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User dueno = userRepository.findByUsername(authentication.getName())
@@ -61,5 +44,40 @@ public class DepartamentoServicio {
 
         departamentoRepository.save(departamento);
         return ResponseEntity.ok("Departamento creado exitosamente");
+    }
+    public ResponseEntity<?> listarDepartamentosDeUsuario() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User dueno = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        List<Departamento> departamentos = dueno.getDepartamentos();
+        List<DepartamentoResponse> response = departamentos.stream()
+                .map(departamento -> DepartamentoResponse.builder()
+                        .id(departamento.getId())
+                        .nombre(departamento.getNombre())
+                        .dueno(departamento.getDueno().getUsername())
+                        .descripcion(departamento.getDescripcion())
+                        .precio(departamento.getPrecio())
+                        .numHabitaciones(departamento.getNumHabitaciones())
+                        .imagen(departamento.getImagen() != null ?
+                                Base64.getEncoder().encodeToString(departamento.getImagen()) : null)
+                        .build())
+                .toList();
+        return ResponseEntity.ok().body(response);
+    }
+    public ResponseEntity<?> listarDepartamentos() {
+        List<Departamento> departamentos = departamentoRepository.findAll();
+        List<DepartamentoResponse> response = departamentos.stream()
+                .map(departamento -> DepartamentoResponse.builder()
+                        .id(departamento.getId())
+                        .nombre(departamento.getNombre())
+                        .dueno(departamento.getDueno().getUsername())
+                        .descripcion(departamento.getDescripcion())
+                        .precio(departamento.getPrecio())
+                        .numHabitaciones(departamento.getNumHabitaciones())
+                        .imagen(departamento.getImagen() != null ?
+                                Base64.getEncoder().encodeToString(departamento.getImagen()) : null)
+                        .build())
+                .toList();
+        return ResponseEntity.ok().body(response);
     }
 }
