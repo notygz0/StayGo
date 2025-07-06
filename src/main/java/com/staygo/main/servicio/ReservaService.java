@@ -27,7 +27,7 @@ public class ReservaService {
     public ResponseEntity<?> crearReservaDepartamento(ReservaRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(request.getIdAlojamiento());
-        User user = userRepository.findByUsername("Cuervas")
+         User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Departamento departamento = departamentoRepository.findById(request.getIdAlojamiento())
                 .orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
@@ -39,11 +39,11 @@ public class ReservaService {
                 .estadoReserva(EstadoReserva.PENDIENTE)
                 .build();
         reservaRepository.save(reserva);
-        return ResponseEntity.ok("Reserva generado exitosamente");
+        return ResponseEntity.ok(reserva);
     }
     public ResponseEntity <?> listarReservas() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername("Cuervas")
+        User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         List<Reserva> reservas = reservaRepository.findAllByUsuarioId(user.getId());
         List<ReservaResponse> responses = reservas.stream()

@@ -29,4 +29,10 @@ public class HomeController {
         return "register";
     }
 
+    @GetMapping("/reservas")
+    public String listarReservas() {
+        return "reservas";
+    }
+
+
 }

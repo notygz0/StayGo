@@ -42,7 +42,7 @@ public class DepartamentoServicio {
 
     public ResponseEntity<?> crearDepartamento(DepartamentoRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User dueno = userRepository.findByUsername("Cuervas")
+        User dueno = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Departamento departamento = Departamento.builder()

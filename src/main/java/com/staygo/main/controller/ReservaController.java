@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/reservas")
 @RequiredArgsConstructor
 public class ReservaController {
@@ -24,8 +24,4 @@ public class ReservaController {
         return reservaService.listarReservas();
     }
 
-    @GetMapping
-    public String listarReservas() {
-        return "reservas";
-    }
 }

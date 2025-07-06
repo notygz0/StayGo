@@ -71,3 +71,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('reserva-form');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      try {
+        await fetch('/reservas/crear', {
+          method: 'POST',
+          body: formData
+        });
+        // Recarga la página para reflejar cambios (o puedes actualizar solo la parte necesaria)
+        window.location.reload();
+      } catch (error) {
+        // Opcional: manejar errores
+        console.error('Error al reservar:', error);
+      }
+    });
+  }
+});
