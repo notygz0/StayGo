@@ -11,6 +11,40 @@ h3 {
     text-align: center;
 }
 
+header {
+    display: flex;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #161616;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+}
+
+.nav {
+    display: flex;
+    gap: 25px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    font-size: 18px;
+}
+
+.nav a:hover {
+    color: #00aaff;
+}
+
 form#formDepartamento {
     background: #fff;
     padding: 24px;
