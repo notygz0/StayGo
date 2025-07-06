@@ -1,8 +1,9 @@
 package com.staygo.main.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/hoteles")
 public class HotelController {
 
@@ -10,4 +11,5 @@ public class HotelController {
     public String listarHoteles() {
         return "hoteles";
     }
+    
 }

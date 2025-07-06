@@ -6,10 +6,27 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReservaRepository extends JpaRepository<Reserva, Long> {
-    @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId AND r.alojamiento.id = :alojamientoId")
-    Optional<Reserva> findByUsuarioIdAndAlojamientoId(@Param("userId") Long userId, @Param("alojamientoId") Long alojamientoId);
+public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
+    // Para buscar todas las reservas de un usuario
+    @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId")
+    List<Reserva> findAllByUsuarioId(@Param("userId") Integer userId);
+    // Para reservas de departamento
+    @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId AND r.departamento.id = :departamentoId")
+    Optional<Reserva> findByUsuarioIdAndDepartamentoId(@Param("userId") Integer userId, @Param("departamentoId") Integer departamentoId);
+
+    // Para reservas de hotel
+    @Query("SELECT r FROM Reserva r WHERE r.user.id = :userId AND r.hotel.id = :hotelId")
+    Optional<Reserva> findByUsuarioIdAndHotelId(@Param("userId") Integer userId, @Param("hotelId") Integer hotelId);
+
+    // Para reservas de departamento
+    @Query("SELECT r FROM Reserva r WHERE r.departamento.id = :departamentoId")
+    List<Reserva> findAllByDepartamentoId(@Param("departamentoId") Integer departamentoId);
+
+    // Para reservas de hotel
+    @Query("SELECT r FROM Reserva r WHERE r.hotel.id = :hotelId")
+    List<Reserva> findAllByHotelId(@Param("hotelId") Integer hotelId);
 }

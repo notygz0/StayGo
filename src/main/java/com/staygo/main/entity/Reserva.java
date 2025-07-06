@@ -25,8 +25,12 @@ public class Reserva {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "alojamiento_id", nullable = false)
-    private Alojamiento alojamiento;
+    @JoinColumn(name = "departamento_id")
+    private Departamento departamento;
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 
     @Column(name = "fecha_inicio")
     private LocalDate fecha_inicio;
@@ -36,4 +40,18 @@ public class Reserva {
 
     @Enumerated(EnumType.STRING)
     private EstadoReserva estadoReserva = EstadoReserva.PENDIENTE;
+
+    public boolean esHotel() {
+        return hotel != null;
+    }
+
+    public boolean esDepartamento() {
+        return departamento != null;
+    }
+
+    public Object getAlojamiento() {
+        if (hotel != null) return hotel;
+        if (departamento != null) return departamento;
+        return null;
+    }
 }

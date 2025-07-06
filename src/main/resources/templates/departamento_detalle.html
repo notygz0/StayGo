@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Departamento</title>
+    <link rel="stylesheet" href="/css/departamento.css">
+</head>
+<body>
+
+    <!-- cabecera -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/">Inicio</a>
+            <a href="/hoteles">Hoteles</a>
+            <a href="/departamentos" class="active">Departamentos</a>
+        </nav>
+    </header>
+
+    <!-- contenido principal -->
+    <main class="detalle-main">
+         <div id="departamento-detalle" class="departamento-detalle-card" ></div> <!-- Contenedor de detalles -->
+        <form th:if="${isLoggedIn} and ${estado}" id="reserva-form" class="Reserva" action="/reservas/crear" method="post">
+            <label for="fecha inicio">Fecha inicio:</label>
+            <input type="date" id="fecha inicio" name="fechaInicio" required />
+
+            <label for="fecha fin">Fecha final:</label>
+            <input type="date" id="fecha fin" name="fechaFin" required />
+
+            <button type="submit">Reservar</button>
+        </form>
+        <div>
+            <p th:if="${!isLoggedIn}" class="Reserva">Por favor, inicia sesión para reservar este departamento.</p>
+            <p th:if="${isLoggedIn and !estado}" class="Reserva">Este departamento no está disponible</p>
+        </div>
+    </main>
+
+    <div id="mensaje-reserva"></div>
+    <!-- pie de pagina -->
+    <footer class="footer">
+        <p>&copy; 2025 StayGo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="/scripts/departamento_detalle.js" defer></script> 
+</body>
+</html>
