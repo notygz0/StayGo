@@ -29,6 +29,11 @@ public class DepartamentoController {
         return departamentoServicio.crearDepartamento(request);
     }
 
+     @GetMapping("/lista/user")
+    public ResponseEntity<?> listarDepartamentosDeUsuario() {
+        return departamentoServicio.listarDepartamentosDeUsuario();
+    }
+    
     @GetMapping("/lista")
     public ResponseEntity<?> listarDepartamentos() {
         return departamentoServicio.listarDepartamentos();

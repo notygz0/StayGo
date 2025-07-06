@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function cargarDepartamentos() {
         try {
-            const respuesta = await fetch('/departamentos/lista');
+            const respuesta = await fetch('/departamentos/lista/user');
             const departamentos = await respuesta.json();
 
             lista.innerHTML = '';
