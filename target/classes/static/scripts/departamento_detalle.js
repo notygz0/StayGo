@@ -19,11 +19,11 @@ async function mostrarDetalleDepartamento() {
     const detalleContainer = document.getElementById('departamento-detalle');
     if (departamento) {
       detalleContainer.innerHTML = `
-        <img src="/img/list/p-5.png" alt="${departamento.nombre}">
+        <img src="data:image/jpeg;base64,${departamento.imagen}" alt="${departamento.nombre}">
         <h3>${departamento.nombre}</h3>
         <p><strong>Descripción:</strong> ${departamento.descripcion}</p>
         <p><strong>Precio:</strong> $${departamento.precio.toLocaleString()}</p>
-        <p><strong>Dirección:</strong> aquí va dirección</p>
+        <p><strong>Dirección:</strong> ${departamento.direccion}</p>
       `;
     } else {
       detalleContainer.innerHTML = "<p>Departamento no encontrado.</p>";
@@ -35,3 +35,61 @@ async function mostrarDetalleDepartamento() {
 }
 
 window.onload = mostrarDetalleDepartamento;
+// scripts/departamento_detalle.js
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (id) {
+    // Elimina el select si existe
+    const select = document.getElementById('alojamiento');
+    if (select) select.remove();
+
+    // Crea el input oculto
+    const form = document.getElementById('reserva-form');
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.id = 'idAlojamiento';
+    hidden.name = 'idAlojamiento';
+    hidden.value = id;
+    form.insertBefore(hidden, form.firstChild);
+
+
+    const fechaHoy = new Date().toISOString().split('T')[0];
+    const fechaFinalMin = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+    const inputInicio = document.getElementById('fecha inicio');
+    const inputFinal = document.getElementById('fecha fin');
+
+    inputInicio.setAttribute('min', fechaHoy);
+    inputFinal.setAttribute('min', fechaFinalMin);
+
+    inputInicio.addEventListener('change', function() {
+      const seleccionada = new Date(this.value);
+      // Suma un día a la fecha de inicio seleccionada
+      const siguienteDia = new Date(seleccionada.getTime() + 24 * 60 * 60 * 1000)
+          .toISOString().split('T')[0];
+      inputFinal.value = ''; // Limpia la fecha final si ya estaba seleccionada
+      inputFinal.setAttribute('min', siguienteDia);
+    });
+  }
+});
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('reserva-form');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      try {
+        await fetch('/reservas/crear', {
+          method: 'POST',
+          body: formData
+        });
+        // Recarga la página para reflejar cambios (o puedes actualizar solo la parte necesaria)
+        window.location.reload();
+      } catch (error) {
+        // Opcional: manejar errores
+        console.error('Error al reservar:', error);
+      }
+    });
+  }
+});

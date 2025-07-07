@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Perfil del Arrendador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+</head>
+<header>
+    <nav class="nav">
+        <a th:href="@{/}">Inicio</a>
+    </nav>
+</header>
+<body>
+<main>
+    <!-- Sección de perfil de usuario -->
+    <section class="perfil-usuario">
+        <h2>Mi Perfil</h2>
+        <div class="perfil-datos" id="perfilDatos">
+            <p><strong>Usuario:</strong> <span id="username">...</span></p>
+            <p><strong>Nombre:</strong> <span id="firstname">...</span></p>
+            <p><strong>Apellido:</strong> <span id="lastname">...</span></p>
+            <p><strong>Celular:</strong> <span id="celular">...</span></p>
+            <p><strong>Correo:</strong> <span id="correo">...</span></p>
+        </div>
+    </section>
+
+    <h3>Crear nuevo Departamento</h3>
+    <form id="formDepartamento" enctype="multipart/form-data" method="post" action="/departamentos/crear">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required />
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" required />
+
+        <label for="numHabitaciones">Habitaciones:</label>
+        <input type="number" id="numHabitaciones" name="numHabitaciones" required />
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" />
+
+        <button type="submit">Crear Departamento</button>
+
+        <p class="mensaje" id="mensajeConfirmacion"></p>
+    </form>
+    <h3 style="text-align: center;">Mis Departamentos</h3>
+</main>
+
+<div id="listaDepartamentos"> </div>
+<script src="/scripts/perfil.js"></script>
+</body>
+</html>

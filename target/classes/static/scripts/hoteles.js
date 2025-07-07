@@ -13,7 +13,7 @@ const hoteles = [
   }
 ];
 
-// funcion para crear tarjeta de hotel
+// Función para crear tarjeta de hotel
 function crearTarjetaHotel(hotel) {
   const card = document.createElement('div');
   card.className = 'hotel-card';

@@ -4,6 +4,7 @@ import com.staygo.main.entity.Departamento;
 import com.staygo.main.entity.Reserva;
 import com.staygo.main.entity.User;
 import com.staygo.main.entity.EstadoReserva;
+import com.staygo.main.dto.ReservaRequest;
 import com.staygo.main.repository.DepartamentoRepository;
 import com.staygo.main.repository.ReservaRepository;
 import com.staygo.main.repository.UserRepository;
@@ -58,7 +59,9 @@ class ReservaServiceTest {
         Departamento depto = new Departamento();
         when(departamentoRepository.findById(1)).thenReturn(Optional.of(depto));
 
-        ResponseEntity<?> response = reservaService.crearReservaDepartamento(1);
+        ReservaRequest reservaRequest = new ReservaRequest();
+        reservaRequest.setDepartamentoId(1);
+        ResponseEntity<?> response = reservaService.crearReservaDepartamento(reservaRequest);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Reserva generado exitosamente", response.getBody());
@@ -68,11 +71,11 @@ class ReservaServiceTest {
         Reserva guardada = captor.getValue();
 
         assertAll("verificar campos de la reserva",
-            () -> assertSame(usuario, guardada.getUser()),
-            () -> assertSame(depto, guardada.getDepartamento()),
-            () -> assertEquals(LocalDate.now(), guardada.getFechaInicio()),
-            () -> assertEquals(LocalDate.now().plusDays(2), guardada.getFechaFinal()),
-            () -> assertEquals(EstadoReserva.PENDIENTE, guardada.getEstadoReserva())
+                () -> assertSame(usuario, guardada.getUser()),
+                () -> assertSame(depto, guardada.getDepartamento()),
+                () -> assertEquals(LocalDate.now(), guardada.getFechaInicio()),
+                () -> assertEquals(LocalDate.now().plusDays(2), guardada.getFechaFinal()),
+                () -> assertEquals(EstadoReserva.PENDIENTE, guardada.getEstadoReserva())
         );
     }
 
@@ -81,8 +84,10 @@ class ReservaServiceTest {
         when(authentication.getName()).thenReturn("testUser");
         when(userRepository.findByUsername("testUser")).thenReturn(Optional.empty());
 
+        ReservaRequest reservaRequest = new ReservaRequest();
+        reservaRequest.setDepartamentoId(1);
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                reservaService.crearReservaDepartamento(1)
+                reservaService.crearReservaDepartamento(reservaRequest)
         );
 
         assertEquals("Usuario no encontrado con el nombre: testUser", ex.getMessage());
@@ -97,14 +102,14 @@ class ReservaServiceTest {
         when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(usuario));
         when(departamentoRepository.findById(999)).thenReturn(Optional.empty());
 
+        ReservaRequest reservaRequest = new ReservaRequest();
+        reservaRequest.setDepartamentoId(999);
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                reservaService.crearReservaDepartamento(999)
+                reservaService.crearReservaDepartamento(reservaRequest)
         );
 
         assertEquals("Departamento no encontrado con id: 999", ex.getMessage());
 
         verify(reservaRepository, never()).save(any());
     }
-
-
 }
