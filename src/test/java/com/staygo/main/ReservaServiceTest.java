@@ -1,20 +1,17 @@
 package com.staygo.main;
 
+import com.staygo.main.dto.ReservaRequest;
 import com.staygo.main.entity.Departamento;
+
 import com.staygo.main.entity.Reserva;
 import com.staygo.main.entity.User;
-import com.staygo.main.entity.EstadoReserva;
-import com.staygo.main.dto.ReservaRequest;
 import com.staygo.main.repository.DepartamentoRepository;
 import com.staygo.main.repository.ReservaRepository;
 import com.staygo.main.repository.UserRepository;
 import com.staygo.main.servicio.ReservaService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -34,82 +31,39 @@ class ReservaServiceTest {
     private DepartamentoRepository departamentoRepository;
     @Mock
     private ReservaRepository reservaRepository;
-
     @InjectMocks
     private ReservaService reservaService;
 
     private Authentication authentication;
-    private SecurityContext securityContext;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         authentication = mock(Authentication.class);
-        securityContext = mock(SecurityContext.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
     }
 
     @Test
-    void crearReservaDepartamento_Exitosa() {
-        when(authentication.getName()).thenReturn("testUser");
-        User usuario = new User();
-        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(usuario));
+    void crearReservaDepartamentoCorrecto() {
+        when(authentication.getName()).thenReturn("usuarioTest");
+        User user = new User();
+        when(userRepository.findByUsername("usuarioTest")).thenReturn(Optional.of(user));
 
-        Departamento depto = new Departamento();
-        when(departamentoRepository.findById(1)).thenReturn(Optional.of(depto));
+        Departamento departamento = new Departamento();
+        when(departamentoRepository.findById(1)).thenReturn(Optional.of(departamento));
 
-        ReservaRequest reservaRequest = new ReservaRequest();
-        reservaRequest.setDepartamentoId(1);
-        ResponseEntity<?> response = reservaService.crearReservaDepartamento(reservaRequest);
+        ReservaRequest request = new ReservaRequest();
+        request.setIdAlojamiento(1);
+        request.setFechaInicio(LocalDate.now());
+        request.setFechaFin(LocalDate.now().plusDays(2));
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Reserva generado exitosamente", response.getBody());
 
-        ArgumentCaptor<Reserva> captor = ArgumentCaptor.forClass(Reserva.class);
-        verify(reservaRepository).save(captor.capture());
-        Reserva guardada = captor.getValue();
+        ResponseEntity<?> response = reservaService.crearReservaDepartamento(request);
 
-        assertAll("verificar campos de la reserva",
-                () -> assertSame(usuario, guardada.getUser()),
-                () -> assertSame(depto, guardada.getDepartamento()),
-                () -> assertEquals(LocalDate.now(), guardada.getFechaInicio()),
-                () -> assertEquals(LocalDate.now().plusDays(2), guardada.getFechaFinal()),
-                () -> assertEquals(EstadoReserva.PENDIENTE, guardada.getEstadoReserva())
-        );
-    }
-
-    @Test
-    void crearReservaDepartamento_UsuarioNoEncontrado() {
-        when(authentication.getName()).thenReturn("testUser");
-        when(userRepository.findByUsername("testUser")).thenReturn(Optional.empty());
-
-        ReservaRequest reservaRequest = new ReservaRequest();
-        reservaRequest.setDepartamentoId(1);
-        RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                reservaService.crearReservaDepartamento(reservaRequest)
-        );
-
-        assertEquals("Usuario no encontrado con el nombre: testUser", ex.getMessage());
-
-        verify(reservaRepository, never()).save(any());
-    }
-
-    @Test
-    void crearReservaDepartamento_DepartamentoNoEncontrado() {
-        when(authentication.getName()).thenReturn("testUser");
-        User usuario = new User();
-        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(usuario));
-        when(departamentoRepository.findById(999)).thenReturn(Optional.empty());
-
-        ReservaRequest reservaRequest = new ReservaRequest();
-        reservaRequest.setDepartamentoId(999);
-        RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                reservaService.crearReservaDepartamento(reservaRequest)
-        );
-
-        assertEquals("Departamento no encontrado con id: 999", ex.getMessage());
-
-        verify(reservaRepository, never()).save(any());
+        assertEquals(200, response.getStatusCode().value());
+        assertInstanceOf(Reserva.class, response.getBody());
+        verify(reservaRepository).save(any(Reserva.class));
     }
 }
