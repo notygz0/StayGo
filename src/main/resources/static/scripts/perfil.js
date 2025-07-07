@@ -3,6 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const mensaje = document.getElementById('mensajeConfirmacion');
     const lista = document.getElementById('listaDepartamentos');
 
+    async function cargarPerfilUsuario() {
+        try {
+            const respuesta = await fetch('/perfil/info');
+            if (!respuesta.ok) throw new Error();
+            const usuario = await respuesta.json();
+            document.getElementById('username').textContent = usuario.username || '';
+            document.getElementById('firstname').textContent = usuario.firstname || '';
+            document.getElementById('lastname').textContent = usuario.lastname || '';
+            document.getElementById('celular').textContent = usuario.celular || '';
+            document.getElementById('correo').textContent = usuario.correo || '';
+        } catch (error) {
+            document.getElementById('perfilDatos').innerHTML = '<p style="color:red">No se pudo cargar el perfil.</p>';
+        }
+    }
+
     form.addEventListener('submit', async function(event) {
         event.preventDefault();
 
@@ -50,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    cargarPerfilUsuario();
     cargarDepartamentos().then(() => {
         console.log("Departamentos recargados.");
     });

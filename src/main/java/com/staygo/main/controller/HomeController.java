@@ -36,6 +36,12 @@ public class HomeController {
 
     @GetMapping("/perfil")
     public String verPerfil() {
-        return "perfil";
+        String rol = userServicio.FindRole();
+        System.out.println(rol);
+        if (rol.equals("[ARRENDATARIO]")) {
+            return "perfil_arrendatario";
+        } else{
+            return "perfil_user";
+        }
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Perfil del Arrendador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+</head>
+<header>
+    <nav class="nav">
+        <a th:href="@{/}">Inicio</a>
+    </nav>
+</header>
+<body>
+<main>
+    <!-- Sección de perfil de usuario -->
+    <section class="perfil-usuario">
+        <h2>Mi Perfil</h2>
+        <div class="perfil-datos" id="perfilDatos">
+            <p><strong>Usuario:</strong> <span id="username">...</span></p>
+            <p><strong>Nombre:</strong> <span id="firstname">...</span></p>
+            <p><strong>Apellido:</strong> <span id="lastname">...</span></p>
+            <p><strong>Celular:</strong> <span id="celular">...</span></p>
+            <p><strong>Correo:</strong> <span id="correo">...</span></p>
+        </div>
+    </section>
+</main>
+<script src="/scripts/perfil_user.js"></script>
+</body>
+</html>
