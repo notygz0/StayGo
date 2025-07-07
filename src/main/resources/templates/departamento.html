@@ -1,46 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Departamentos</title>
-    <link rel="stylesheet" href="/css/departamento.css"> 
+    <link rel="stylesheet" href="/css/departamento.css">
 </head>
 <body>
-    <!-- header -->
-    <header class="header">
-        <nav class="nav">
-            <a href="/">Inicio</a>
-            <a href="/hoteles">Hoteles</a>
-            <a href="/departamentos" class="active">Departamentos</a>
-        </nav>
-    </header>
+<!-- Cabecera -->
+<header class="header">
+    <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="/hoteles">Hoteles</a>
+        <a href="/departamentos" class="active">Departamentos</a>
+    </nav>
+</header>
 
-    <!-- Contenido principal -->
-    <main>
-        <h1>Bienvenido a la sección de Departamentos</h1>
-        <p>Aquí puedes ver los departamentos disponibles para arrendar.</p>
+<!-- Contenido principal -->
+<main>
+    <h1>Bienvenido a la sección de Departamentos</h1>
+    <p>Aquí puedes ver los departamentos disponibles para arrendar.</p>
 
-        <!-- filtros de búsqueda -->
-        <div class="filters">
-            <input type="text" id="search-name" placeholder="Buscar por nombre..." onkeyup="filtrarDepartamentos()">
-        </div>
+    <!-- filtros de búsqueda -->
+    <div class="filters">
+        <input type="text" id="search-name" placeholder="Buscar por nombre...">
+    </div>
 
-        <!-- filtro de precio por rango -->
-        <div class="filters">
-            <label for="price-range">Filtrar por precio (hasta $<span id="price-range-value">500000</span>)</label>
-            <input type="range" id="price-range" min="100000" max="1000000" step="10000" value="500000" oninput="filtrarDepartamentos()">
-        </div>
+    <!-- filtro de precio por rango -->
+    <div class="filters">
+        <label for="price-range">Filtrar por precio (hasta $<span id="price-range-value">500000</span>)</label>
+        <input type="range" id="price-range" min="100000" max="3000000" step="10000" value="500000">
+    </div>
 
-        <!-- Contenedor de los departamentos -->
-        <div id="departamentos-container" class="departamentos"></div>
-    </main>
+    <!-- Contenedor de los departamentos (vacío inicialmente) -->
+    <div id="departamentos-container" class="departamentos"></div>
+</main>
 
-    <!-- footer -->
-    <footer class="footer">
-        <p>&copy; 2025 StayGo. Todos los derechos reservados.</p>
-    </footer>
+<!-- Pie de página -->
+<footer class="footer">
+    <p>&copy; 2025 StayGo. Todos los derechos reservados.</p>
+</footer>
 
-    <script src="/scripts/departamentos.js" defer></script>
+<script src="/scripts/departamentos.js" defer></script>
 </body>
 </html>

@@ -3,7 +3,12 @@ async function obtenerDepartamentos() {
   if (!response.ok) {
     throw new Error('Error al obtener los departamentos');
   }
-  return await response.json();
+  const data = await response.json();
+  // Convierte el precio a número si viene como string
+  return data.map(dep => ({
+    ...dep,
+    precio: typeof dep.precio === 'string' ? parseFloat(dep.precio) : dep.precio
+  }));
 }
 
 let departamentos = [];
@@ -35,8 +40,8 @@ function crearTarjetaDepartamento(departamento) {
 
   // redirige la pagina para ver los detalles del departamento
   const link = document.createElement('a');
-  link.href = `/departamentos/detalle?id=${departamento.id}`; 
-  link.classList.add('departamento-card-link'); 
+  link.href = `/departamentos/detalle?id=${departamento.id}`;
+  link.classList.add('departamento-card-link');
 
   card.appendChild(img);
   card.appendChild(info);
@@ -62,12 +67,17 @@ function filtrarDepartamentos() {
   const searchName = document.getElementById('search-name').value.toLowerCase();
   const searchPrice = parseFloat(document.getElementById('price-range').value);
 
+  // Actualiza el valor visual del rango SIEMPRE que se filtra
+  document.getElementById('price-range-value').textContent = searchPrice.toLocaleString();
+
   const container = document.getElementById('departamentos-container');
   container.innerHTML = '';
 
   const filteredDepartamentos = departamentos.filter(departamento => {
-    const matchesName = departamento.nombre.toLowerCase().includes(searchName);
-    const matchesPrice = departamento.precio <= searchPrice;
+    const nombre = departamento.nombre ? departamento.nombre.toLowerCase() : '';
+    const matchesName = nombre.includes(searchName);
+    const precioDepartamento = parseFloat(departamento.precio);
+    const matchesPrice = precioDepartamento <= searchPrice;
     return matchesName && matchesPrice;
   });
 
@@ -81,18 +91,38 @@ function filtrarDepartamentos() {
     noResultsMessage.textContent = "No se encontraron departamentos que coincidan con los filtros";
     container.appendChild(noResultsMessage);
   }
-  document.getElementById('price-range-value').textContent = searchPrice.toLocaleString();
 }
 
 window.onload = async function () {
   try {
     departamentos = await obtenerDepartamentos();
-    cargarDepartamentos();
 
-    document.getElementById('search-name').addEventListener('keyup', filtrarDepartamentos);
-    document.getElementById('price-range').addEventListener('input', filtrarDepartamentos);
+    // Verifica que departamentos sea un array válido
+    if (!Array.isArray(departamentos)) {
+      throw new Error('La respuesta del servidor no es un array de departamentos');
+    }
+
+    // Inicializa el valor visual del rango
+    const priceRange = document.getElementById('price-range');
+    const priceRangeValue = document.getElementById('price-range-value');
+    const searchName = document.getElementById('search-name');
+    const container = document.getElementById('departamentos-container');
+
+    if (!priceRange || !priceRangeValue || !searchName || !container) {
+      throw new Error('No se encontraron elementos del DOM necesarios');
+    }
+
+    priceRangeValue.textContent = priceRange.value.toLocaleString();
+
+    searchName.addEventListener('input', filtrarDepartamentos);
+    priceRange.addEventListener('input', filtrarDepartamentos);
+
+    filtrarDepartamentos();
   } catch (error) {
     console.error(error);
-    document.getElementById('departamentos-container').innerHTML = '<p>Error al cargar los departamentos</p>';
+    const container = document.getElementById('departamentos-container');
+    if (container) {
+      container.innerHTML = `<p>Error al cargar los departamentos: ${error.message}</p>`;
+    }
   }
 };
