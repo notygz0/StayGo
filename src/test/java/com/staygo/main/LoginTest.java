@@ -39,7 +39,7 @@ class LoginTest {
     }
 
     @Test
-    void EstadoUsuario() {
+    void estadoUsuario() {
         var auth = new UsernamePasswordAuthenticationToken(username, password);
         SecurityContextHolder.getContext().setAuthentication(auth);
 

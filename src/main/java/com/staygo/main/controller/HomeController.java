@@ -14,7 +14,7 @@ public class HomeController {
     private final UserServicio userServicio;
     @GetMapping()
     public String home(Model model) {
-        userServicio.estadoUsuario(model);
+        userServicio.EstadoUsuario(model);
         return "index";
     }
 
@@ -34,5 +34,8 @@ public class HomeController {
         return "reservas";
     }
 
-
+    @GetMapping("/perfil")
+    public String verPerfil() {
+        return "perfil";
+    }
 }
