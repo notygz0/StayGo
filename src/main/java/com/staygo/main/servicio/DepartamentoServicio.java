@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
@@ -19,7 +20,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DepartamentoServicio {
-
     private final DepartamentoRepository departamentoRepository;
     private final UserRepository userRepository;
 
@@ -27,9 +27,10 @@ public class DepartamentoServicio {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User dueno = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
         Departamento departamento = Departamento.builder()
+                .dueno(dueno)
                 .nombre(request.getNombre())
+                .direccion(request.getDireccion())
                 .descripcion(request.getDescripcion())
                 .precio(request.getPrecio())
                 .numHabitaciones(request.getNumHabitaciones())
@@ -41,7 +42,6 @@ public class DepartamentoServicio {
                 return ResponseEntity.badRequest().body("Error al procesar la imagen");
             }
         }
-
         departamentoRepository.save(departamento);
         return ResponseEntity.ok("Departamento creado exitosamente");
     }
@@ -54,7 +54,7 @@ public class DepartamentoServicio {
     }
     public ResponseEntity<?> listarDepartamentos() {
         List<Departamento> departamentos = departamentoRepository.findAll();
-         return getListDepartamento(departamentos);
+        return getListDepartamento(departamentos);
     }
 
     private ResponseEntity<?> getListDepartamento(List<Departamento> departamentos) {
@@ -63,6 +63,7 @@ public class DepartamentoServicio {
                         .id(departamento.getId())
                         .nombre(departamento.getNombre())
                         .dueno(departamento.getDueno().getUsername())
+                        .direccion(departamento.getDireccion())
                         .descripcion(departamento.getDescripcion())
                         .precio(departamento.getPrecio())
                         .numHabitaciones(departamento.getNumHabitaciones())

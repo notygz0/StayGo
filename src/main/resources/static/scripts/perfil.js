@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mensaje = document.getElementById('mensajeConfirmacion');
     const lista = document.getElementById('listaDepartamentos');
 
+    // Cargar datos del usuario
     async function cargarPerfilUsuario() {
         try {
             const respuesta = await fetch('/perfil/info');
@@ -53,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
             departamentos.forEach(dep => {
                 const div = document.createElement('div');
                 div.innerHTML = `
-                    <strong>${dep.nombre}</strong><br>
-                    ${dep.descripcion}<br>
+                    <strong>${dep.nombre}</strong>
+                    <br>Dirección: ${dep.direccion}<br> Descripcion: ${dep.descripcion}<br>
                     Precio: $${dep.precio.toLocaleString()}<br>
                     Habitaciones: ${dep.numHabitaciones}<br><hr>
                 `;

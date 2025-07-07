@@ -14,6 +14,7 @@ import java.nio.channels.MulticastChannel;
 @AllArgsConstructor
 public class DepartamentoRequest {
     private String nombre;
+    private String direccion;
     private String descripcion;
     private float precio;
     private int numHabitaciones;

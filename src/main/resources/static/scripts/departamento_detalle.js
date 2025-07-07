@@ -9,6 +9,7 @@ async function obtenerDepartamentos() {
   return await response.json();
 }
 
+
 // Busca y muestra el detalle del departamento
 async function mostrarDetalleDepartamento() {
   try {
@@ -22,7 +23,7 @@ async function mostrarDetalleDepartamento() {
         <h3>${departamento.nombre}</h3>
         <p><strong>Descripción:</strong> ${departamento.descripcion}</p>
         <p><strong>Precio:</strong> $${departamento.precio.toLocaleString()}</p>
-        <p><strong>Dirección:</strong> aquí va dirección</p>
+        <p><strong>Dirección:</strong> ${departamento.direccion}</p>
       `;
     } else {
       detalleContainer.innerHTML = "<p>Departamento no encontrado.</p>";
@@ -34,7 +35,6 @@ async function mostrarDetalleDepartamento() {
 }
 
 window.onload = mostrarDetalleDepartamento;
-
 // scripts/departamento_detalle.js
 document.addEventListener('DOMContentLoaded', function() {
   const params = new URLSearchParams(window.location.search);
@@ -52,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
     hidden.name = 'idAlojamiento';
     hidden.value = id;
     form.insertBefore(hidden, form.firstChild);
+
+
     const fechaHoy = new Date().toISOString().split('T')[0];
     const fechaFinalMin = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 

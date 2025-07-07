@@ -6,7 +6,6 @@
 
 body {
   font-family: 'Poppins', Arial, sans-serif;
-  font-size: 18px;
   background-color: #f4f7fa;
   color: #222;
 }
@@ -39,6 +38,7 @@ header {
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
+  font-size: 18px;
 }
 
 .nav a:hover {
@@ -52,8 +52,8 @@ header {
 
 .user-menu-toggle,
 .user-icon {
-  width: 32px;
-  height: 32px;
+  width: 50px;
+  height: auto;
 }
 
 .user-menu-toggle {
@@ -66,8 +66,6 @@ header {
 .user-icon {
   object-fit: contain;
   display: block;
-  width: 50px;
-  height: auto;
 }
 
 .user-dropdown {
@@ -295,6 +293,10 @@ header {
   padding: 18px 0;
   font-size: 14px;
   margin-top: 40px;
+}
+.footer a {
+  color: #bbbbbb;
+  text-decoration: none;
 }
 
 .btn-group {

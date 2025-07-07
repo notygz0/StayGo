@@ -32,6 +32,9 @@ function crearTarjetaDepartamento(departamento) {
   const nombre = document.createElement('h3');
   nombre.textContent = departamento.nombre;
 
+  const direccion = document.createElement('p');
+  direccion.textContent = `Dirección: ${departamento.direccion}`;
+
   const descripcion = document.createElement('p');
   descripcion.textContent = departamento.descripcion;
 
@@ -46,6 +49,7 @@ function crearTarjetaDepartamento(departamento) {
   card.appendChild(img);
   card.appendChild(info);
   info.appendChild(nombre);
+  info.appendChild(direccion);
   info.appendChild(descripcion);
   info.appendChild(precio);
   link.appendChild(card);

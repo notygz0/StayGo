@@ -14,6 +14,7 @@ public class DepartamentoResponse {
     private Integer id;
     private String nombre;
     private String dueno;
+    private String direccion;
     private String descripcion;
     private String imagen;
     private float precio;

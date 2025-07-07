@@ -23,6 +23,7 @@ public class Departamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
+    private String direccion;
     private float precio;
     private String descripcion;
     @Lob

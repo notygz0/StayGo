@@ -10,9 +10,9 @@ function crearTarjetaAlojamiento(alojamiento) {
   const card = document.createElement('div');
   card.className = 'alojamiento-card';
   const img = document.createElement('img');
-  if (reserva.imagen) {
+  if (alojamiento.imagen) {
     // Si la imagen viene en base64, arma la URL data
-    img.src = `data:image/jpeg;base64,${reserva.imagen}`;
+    img.src = `data:image/jpeg;base64,${alojamiento.imagen}`;
   } else {
     img.src = "/img/list/p-5.png";
   }
@@ -24,9 +24,14 @@ function crearTarjetaAlojamiento(alojamiento) {
   const precio = document.createElement('p');
   precio.textContent = `Precio por noche: $${alojamiento.precio.toLocaleString()}`;
 
+  const link = document.createElement('a');
+  link.href = `/departamentos/detalle?id=${alojamiento.id}`;
+  link.classList.add('alojamiento-card');
+
   info.append(nombre, precio);
   card.append(img, info);
-  return card;
+  link.appendChild(card);
+  return link;
 }
 async function cargarAlojamientos() {
   const container = document.getElementById('alojamientos-container');
