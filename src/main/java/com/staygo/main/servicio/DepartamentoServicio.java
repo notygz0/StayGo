@@ -3,6 +3,8 @@ package com.staygo.main.servicio;
 import com.staygo.main.dto.DepartamentoRequest;
 import com.staygo.main.dto.DepartamentoResponse;
 import com.staygo.main.entity.Departamento;
+import com.staygo.main.entity.EstadoReserva;
+import com.staygo.main.entity.Reserva;
 import com.staygo.main.entity.User;
 import com.staygo.main.repository.DepartamentoRepository;
 import com.staygo.main.repository.UserRepository;
@@ -22,6 +24,7 @@ import java.util.List;
 public class DepartamentoServicio {
     private final DepartamentoRepository departamentoRepository;
     private final UserRepository userRepository;
+    private final ReservaService reservaService;
 
     public ResponseEntity<?> crearDepartamento(DepartamentoRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -72,5 +75,14 @@ public class DepartamentoServicio {
                         .build())
                 .toList();
         return ResponseEntity.ok().body(response);
+    }
+    public ResponseEntity<?> borrarDepartamento(Integer id) {
+        Departamento departamento = departamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
+        if (!departamento.getReservas().isEmpty()) {
+            reservaService.borrarReservaPorDepartamento(id);
+        }
+        departamentoRepository.delete(departamento);
+        return ResponseEntity.ok("Departamento eliminado exitosamente");
     }
 }

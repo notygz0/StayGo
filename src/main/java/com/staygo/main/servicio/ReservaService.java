@@ -27,7 +27,7 @@ public class ReservaService {
     public ResponseEntity<?> crearReservaDepartamento(ReservaRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(request.getIdAlojamiento());
-         User user = userRepository.findByUsername(authentication.getName())
+        User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Departamento departamento = departamentoRepository.findById(request.getIdAlojamiento())
                 .orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
@@ -72,5 +72,36 @@ public class ReservaService {
         }else {
             throw new IllegalArgumentException("Tipo de alojamiento no válido");
         }
+    }
+
+
+    public ResponseEntity<?> obtenerReservaDepartamento(Integer id) {
+        Reserva reserva = reservaRepository.findReservaByDepartamentoId(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        ReservaResponse response = ReservaResponse.builder()
+                .id(reserva.getId())
+                .name(reserva.getUser().getUsername())
+                .imagen(reserva.getDepartamento().getImagen() != null ?
+                        Base64.getEncoder().encodeToString(reserva.getDepartamento().getImagen()) : null)
+                .alojamiento(reserva.getDepartamento().getNombre())
+                .fechaInicio(reserva.getFecha_inicio())
+                .fechaFin(reserva.getFecha_final())
+                .estado(String.valueOf(reserva.getEstadoReserva()))
+                .build();
+        return ResponseEntity.ok().body(response);
+    }
+    public ResponseEntity<?> CambiarEstadoReserva(Integer id, String estado) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        reserva.setEstadoReserva(EstadoReserva.valueOf(estado));
+        reservaRepository.save(reserva);
+        return ResponseEntity.ok("Estado de la reserva actualizado exitosamente");
+
+    }
+    public ResponseEntity<?> borrarReservaPorDepartamento(Integer id) {
+        Reserva reserva = reservaRepository.findReservaByDepartamentoId(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        reservaRepository.delete(reserva);
+        return ResponseEntity.ok("Reserva eliminada exitosamente");
     }
 }

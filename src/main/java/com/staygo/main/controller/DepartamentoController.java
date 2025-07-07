@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/departamentos")
 @RequiredArgsConstructor
 public class DepartamentoController {
-
     private final UserServicio userServicio;
     private final DepartamentoServicio departamentoServicio;
     private final ReservaService reservaService;
@@ -23,17 +22,15 @@ public class DepartamentoController {
     public String Departamentos() {
         return "departamento";
     }
-
     @PostMapping("/crear")
     public ResponseEntity<?> crearDepartamento(@ModelAttribute DepartamentoRequest request) {
         return departamentoServicio.crearDepartamento(request);
     }
 
-     @GetMapping("/lista/user")
+    @GetMapping("/lista/user")
     public ResponseEntity<?> listarDepartamentosDeUsuario() {
         return departamentoServicio.listarDepartamentosDeUsuario();
     }
-    
     @GetMapping("/lista")
     public ResponseEntity<?> listarDepartamentos() {
         return departamentoServicio.listarDepartamentos();
@@ -42,8 +39,12 @@ public class DepartamentoController {
     @GetMapping("/detalle")
     public String mostrarDetalleDepartamento(Model model,@RequestParam("id") Integer idAlojamiento) {
         boolean estado = reservaService.AlojamientoReservado(idAlojamiento, 1);
-        userServicio.estadoUsuario(model);
+        userServicio.EstadoUsuario(model);
         model.addAttribute("estado", estado);
         return "departamento_detalle";
+    }
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<?> borrarDepartamento(@PathVariable Integer id) {
+        return departamentoServicio.borrarDepartamento(id);
     }
 }

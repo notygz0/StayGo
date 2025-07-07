@@ -5,12 +5,30 @@ body {
     padding: 0;
 }
 
-h3 {
-    color: #333;
-    margin-top: 30px;
+/* Perfil usuario */
+.perfil-usuario {
+    background: #fff;
+    max-width: 400px;
+    margin: 30px auto 10px auto;
+    padding: 18px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: left;
+}
+.perfil-usuario h2 {
     text-align: center;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+.perfil-datos p {
+    margin: 6px 0;
+    font-size: 16px;
+}
+.perfil-datos strong {
+    color: #333;
 }
 
+/* Header */
 header {
     display: flex;
     align-items: center;
@@ -45,26 +63,11 @@ header {
     color: #00aaff;
 }
 
-.perfil-usuario {
-    background: #fff;
-    max-width: 400px;
-    margin: 30px auto 10px auto;
-    padding: 18px 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    text-align: left;
-}
-.perfil-usuario h2 {
-    text-align: center;
-    margin-bottom: 10px;
-    color: #007bff;
-}
-.perfil-datos p {
-    margin: 6px 0;
-    font-size: 16px;
-}
-.perfil-datos strong {
+
+h3 {
     color: #333;
+    margin-top: 30px;
+    text-align: center;
 }
 
 form#formDepartamento {
@@ -115,4 +118,126 @@ form button:hover {
     background: #fff;
     border-radius: 8px;
     padding: 16px;
+}
+
+/* Modal para reservas y detalle */
+.modal-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-contenido {
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    min-width: 320px;
+    max-width: 90vw;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.modal-contenido h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #007bff;
+    font-size: 22px;
+    text-align: center;
+}
+.modal-contenido p {
+    margin: 4px 0 4px 0;
+    font-size: 16px;
+    text-align: center;
+}
+.modal-contenido img {
+    display: block;
+    max-width: 220px;
+    max-height: 160px;
+    width: auto;
+    height: auto;
+    margin: 10px auto;
+    border-radius: 6px;
+}
+.ver-reserva-btn, .cerrar-modal-btn, .modal-contenido button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.2s;
+    align-self: center;
+}
+.ver-reserva-btn:hover, .cerrar-modal-btn:hover, .modal-contenido button:hover {
+    background: #0056b3;
+}
+.modal-contenido select {
+    margin-top: 6px;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+}
+.modal-contenido label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+    text-align: center;
+}
+#mensaje-estado {
+    min-height: 18px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Botones de acciones en departamentos */
+.departamento-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 20px;
+}
+.departamento-boton {
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+.departamento-boton.reservas {
+    background: #007bff;
+    color: #fff;
+}
+.departamento-boton.reservas:hover {
+    background: #0056b3;
+}
+.departamento-boton.eliminar {
+    background: #dc3545;
+    color: #fff;
+}
+.departamento-boton.eliminar:hover {
+    background: #a71d2a;
+}
+
+/* Contenedor de departamento en lista */
+.departamento-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
 }

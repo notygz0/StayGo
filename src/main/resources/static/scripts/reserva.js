@@ -21,15 +21,14 @@ function crearTarjetaReserva(reserva) {
   }
   img.alt = reserva.alojamiento;
 
+  const info = document.createElement('div');
+  info.className = 'reserva-info';
+
   const nombreAlojamiento = document.createElement('h3');
   nombreAlojamiento.textContent = reserva.alojamiento;
 
-  const nombre = document.createElement('h3');
-  nombre.textContent = reserva.name;
-
   const boton = document.createElement('button');
   boton.textContent = 'Ver reserva';
-
   boton.onclick = () => mostrarPopupReserva(reserva);
 
   card.appendChild(img);
@@ -44,8 +43,8 @@ function cargarReservas() {
   const container = document.getElementById('reservas-container');
   container.innerHTML = '';
 
-  reservas.forEach(departamento => {
-    const card = crearTarjetaReservas(reservas);
+  reservas.forEach(reserva => {
+    const card = crearTarjetaReserva(reserva);
     container.appendChild(card);
   });
 }
@@ -58,7 +57,6 @@ window.onload = async function () {
     console.error(error);
     document.getElementById('reservas-container').innerHTML = '<p>Error al cargar los reservas</p>';
   }
-
 };
 
 function mostrarPopupReserva(reserva) {
@@ -70,11 +68,10 @@ function mostrarPopupReserva(reserva) {
   modal.className = 'modal-contenido';
   modal.innerHTML = `
     <h2>${reserva.alojamiento}</h2>
-    <p>ID: ${reserva.id}</p>
+    ${reserva.imagen ? `<img src="data:image/jpeg;base64,${reserva.imagen}" alt="Imagen reserva">` : ''}
     <p>Fecha de inicio: ${reserva.fechaInicio}</p>
     <p>Fecha de fin: ${reserva.fechaFin}</p>
     <p>Estado: ${reserva.estado}</p>
-    <!-- Agrega aquí más detalles si tienes -->
     <button id="cerrar-modal">Cerrar</button>
   `;
 

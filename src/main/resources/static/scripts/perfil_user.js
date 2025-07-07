@@ -14,6 +14,5 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('perfilDatos').innerHTML = '<p style="color:red">No se pudo cargar el perfil.</p>';
         }
     }
-
     cargarPerfilUsuario();
 });
