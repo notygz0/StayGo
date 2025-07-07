@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 @Repository
-public interface HotelRepository extends JpaRepository<Hotel, Long> {
+public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
     @Query("SELECT h FROM Hotel h WHERE (:nombre IS NULL OR h.nombre LIKE %:nombre%) AND (:ocupado IS NULL OR h.ocupado = :ocupado) AND (:numEstrellas IS NULL OR h.numEstrellas = :numEstrellas) AND (:numHabitaciones IS NULL OR h.numHabitaciones = :numHabitaciones)")
     List<Hotel> findByFiltros(
