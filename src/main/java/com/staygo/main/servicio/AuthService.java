@@ -40,26 +40,24 @@ public class AuthService {
     }
 
     public boolean register(RegisterRequest registerRequest) {
-        if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
-            log.warn("Registro fallido: el nombre de usuario '{}' ya existe.", registerRequest.getUsername());
+        if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()){
             return false;
         }
-
-        if (!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {
-            log.warn("Registro fallido: las contraseñas no coinciden para el usuario '{}'.", registerRequest.getUsername());
+        if (registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {
+            User user = User.builder()
+                    .username(registerRequest.getUsername())
+                    .firstname(registerRequest.getFirstname())
+                    .lastname(registerRequest.getLastname())
+                    .celular(registerRequest.getCelular())
+                    .correo(registerRequest.getEmail())
+                    .password(passwordEncoder.encode(registerRequest.getPassword()))
+                    .role(registerRequest.getRole())
+                    .build();
+            userRepository.save(user);
+            return true;
+        }else{
             return false;
         }
-
-        User user = User.builder()
-                .username(registerRequest.getUsername())
-                .correo(registerRequest.getEmail())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(Role.USER)
-                .build();
-
-        userRepository.save(user);
-        log.info("Usuario registrado exitosamente: {}", registerRequest.getUsername());
-        return true;
     }
 }
 
