@@ -50,7 +50,7 @@ class DepartamentoTest {
         request.setNumHabitaciones(2);
 
         MultipartFile imagenMock = mock(MultipartFile.class);
-        when(imagenMock.isEmpty()).thenReturn(true); // O false y simular getBytes()
+        when(imagenMock.isEmpty()).thenReturn(true);
         request.setImagen(imagenMock);
 
         User user = new User();
@@ -69,7 +69,7 @@ class DepartamentoTest {
 
         ResponseEntity<?> response = departamentoServicio.crearDepartamento(request);
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
         verify(departamentoRepository).save(any(Departamento.class));
     }
 
@@ -95,7 +95,7 @@ class DepartamentoTest {
         when(authentication.getName()).thenReturn("Cuervas");
         when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.of(user));
         ResponseEntity<?> response = departamentoServicio.crearDepartamento(request);
-        assertEquals(400, response.getStatusCodeValue());
+        assertEquals(400, response.getStatusCode().value());
         assertEquals("Error al procesar la imagen", response.getBody());
     }
 
@@ -108,7 +108,7 @@ class DepartamentoTest {
         when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.of(user));
         when(departamentoRepository.save(any(Departamento.class))).thenReturn(new Departamento());
         ResponseEntity<?> response = departamentoServicio.crearDepartamento(request);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
@@ -120,7 +120,7 @@ class DepartamentoTest {
         when(authentication.getName()).thenReturn("Cuervas");
         when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.of(user));
         ResponseEntity<?> response = departamentoServicio.listarDepartamentosDeUsuario();
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
@@ -130,7 +130,7 @@ class DepartamentoTest {
         when(authentication.getName()).thenReturn("Cuervas");
         when(userRepository.findByUsername("Cuervas")).thenReturn(Optional.of(user));
         ResponseEntity<?> response = departamentoServicio.listarDepartamentosDeUsuario();
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
@@ -151,14 +151,14 @@ class DepartamentoTest {
         dep.setDueno(dueno);
         when(departamentoRepository.findAll()).thenReturn(java.util.List.of(dep));
         ResponseEntity<?> response = departamentoServicio.listarDepartamentos();
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
     void testListarDepartamentos_noExistenDepartamentos() {
         when(departamentoRepository.findAll()).thenReturn(java.util.List.of());
         ResponseEntity<?> response = departamentoServicio.listarDepartamentos();
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
@@ -168,7 +168,7 @@ class DepartamentoTest {
         when(departamentoRepository.findById(1)).thenReturn(Optional.of(dep));
         ResponseEntity<?> response = departamentoServicio.borrarDepartamento(1);
         verify(departamentoRepository).delete(dep);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
@@ -179,7 +179,7 @@ class DepartamentoTest {
         ResponseEntity<?> response = departamentoServicio.borrarDepartamento(1);
         verify(reservaService).borrarReservaPorDepartamento(1);
         verify(departamentoRepository).delete(dep);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
