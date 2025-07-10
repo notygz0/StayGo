@@ -1,7 +1,6 @@
 package com.staygo.main.servicio;
 
 import com.staygo.main.dto.RegisterRequest;
-import com.staygo.main.entity.Role;
 import com.staygo.main.entity.User;
 import com.staygo.main.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
