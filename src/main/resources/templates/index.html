@@ -20,6 +20,7 @@
       <a th:href="@{/}">Inicio</a>
       <a href="#alojamientos">Alojamientos</a>
       <a th:if="${isLoggedIn}" th:href="@{/reservas}">Reservas</a>
+      <a th:if="${isLoggedIn}" th:href="@{/perfil}">Perfil</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
