@@ -1,10 +1,7 @@
 package com.staygo.main.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.io.Serializable;
 import java.util.List;
 /**
  * Entidad que representa un hotel en el sistema
@@ -20,13 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="hotel")
-public class Hotel implements Serializable {
+public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    private String direccion;
     private float precio;
+    private String direccion;
     private String descripcion;
     @Lob
     private byte[] imagen;
