@@ -21,8 +21,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public boolean login(String username, String password, HttpServletRequest request) {
-<span class="fc" id="L24">        log.info(&quot;Intentando autenticar usuario: {}&quot;, username);</span>
-<span class="fc" id="L25">        log.debug(&quot;Password proporcionada&quot; ); //password no especificada por seguridad</span>
+<span class="nc" id="L24">        log.info(&quot;Intentando autenticar usuario: {}&quot;, username);</span>
+<span class="nc" id="L25">        log.debug(&quot;Password proporcionada&quot; ); //password no especificada por seguridad</span>
 
         try {
 <span class="nc" id="L28">            Authentication authentication = authenticationManager.authenticate(</span>
@@ -32,9 +32,9 @@ public class AuthService {
 <span class="nc" id="L32">            request.getSession(true).setAttribute(&quot;SPRING_SECURITY_CONTEXT&quot;, SecurityContextHolder.getContext());</span>
 <span class="nc" id="L33">            log.info(&quot;Autenticación exitosa para el usuario: {}&quot;, username);</span>
 <span class="nc" id="L34">            return true;</span>
-<span class="fc" id="L35">        } catch (Exception e) {</span>
-<span class="fc" id="L36">            log.warn(&quot;Fallo de autenticación para el usuario {}: {}&quot;, username, e.getMessage());</span>
-<span class="fc" id="L37">            return false;</span>
+<span class="nc" id="L35">        } catch (Exception e) {</span>
+<span class="nc" id="L36">            log.warn(&quot;Fallo de autenticación para el usuario {}: {}&quot;, username, e.getMessage());</span>
+<span class="nc" id="L37">            return false;</span>
         }
     }
 
@@ -42,7 +42,7 @@ public class AuthService {
 <span class="fc bfc" id="L42" title="All 2 branches covered.">        if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()){</span>
 <span class="fc" id="L43">            return false;</span>
         }
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {</span>
 <span class="fc" id="L46">            User user = User.builder()</span>
 <span class="fc" id="L47">                    .username(registerRequest.getUsername())</span>
 <span class="fc" id="L48">                    .firstname(registerRequest.getFirstname())</span>
@@ -55,7 +55,7 @@ public class AuthService {
 <span class="fc" id="L55">            userRepository.save(user);</span>
 <span class="fc" id="L56">            return true;</span>
         }else{
-<span class="fc" id="L58">            return false;</span>
+<span class="nc" id="L58">            return false;</span>
         }
     }
 }

@@ -1,8 +1,5 @@
-com\staygo\main\LoginTest.class
-com\staygo\main\AuthServiceTest.class
-com\staygo\main\RegisterTest.class
-com\staygo\main\StayGoApplicationTests.class
-com\staygo\main\UserServicioTest.class
 com\staygo\main\DepartamentoTest.class
+com\staygo\main\AuthServiceTest.class
 com\staygo\main\HotelServicioTest.class
 com\staygo\main\ReservaServiceTest.class
+com\staygo\main\UserServicioTest.class

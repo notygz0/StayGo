@@ -6,16 +6,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @Configuration
-<span class="fc" id="L9">public class SecurityConfig {</span>
+<span class="nc" id="L9">public class SecurityConfig {</span>
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-<span class="fc" id="L13">        http</span>
-<span class="fc" id="L14">                .csrf(csrf -&gt; csrf.disable()) // desactiva protección CSRF</span>
-<span class="fc" id="L15">                .authorizeHttpRequests(auth -&gt; auth</span>
-<span class="fc" id="L16">                        .anyRequest().permitAll() // permite todo</span>
+<span class="nc" id="L13">        http</span>
+<span class="nc" id="L14">                .csrf(csrf -&gt; csrf.disable()) // desactiva protección CSRF</span>
+<span class="nc" id="L15">                .authorizeHttpRequests(auth -&gt; auth</span>
+<span class="nc" id="L16">                        .anyRequest().permitAll() // permite todo</span>
                 );
-<span class="fc" id="L18">        return http.build();</span>
+<span class="nc" id="L18">        return http.build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

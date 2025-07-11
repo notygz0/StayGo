@@ -22,23 +22,23 @@ public class ApplicationConfig {
     private final UserRepository userRepository;
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-<span class="fc" id="L25">        return config.getAuthenticationManager();</span>
+<span class="nc" id="L25">        return config.getAuthenticationManager();</span>
     }
     @Bean
     public AuthenticationProvider authenticationProvider() {
-<span class="fc" id="L29">        DaoAuthenticationProvider authenticationProvider= new DaoAuthenticationProvider();</span>
-<span class="fc" id="L30">        authenticationProvider.setUserDetailsService(userDetailService());</span>
-<span class="fc" id="L31">        authenticationProvider.setPasswordEncoder(passwordEncoder());</span>
-<span class="fc" id="L32">        return authenticationProvider;</span>
+<span class="nc" id="L29">        DaoAuthenticationProvider authenticationProvider= new DaoAuthenticationProvider();</span>
+<span class="nc" id="L30">        authenticationProvider.setUserDetailsService(userDetailService());</span>
+<span class="nc" id="L31">        authenticationProvider.setPasswordEncoder(passwordEncoder());</span>
+<span class="nc" id="L32">        return authenticationProvider;</span>
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
-<span class="fc" id="L36">        return new BCryptPasswordEncoder();</span>
+<span class="nc" id="L36">        return new BCryptPasswordEncoder();</span>
     }
     @Bean
     public UserDetailsService userDetailService() {
-<span class="fc" id="L40">        return username -&gt; userRepository.findByUsername(username)</span>
-<span class="pc" id="L41">                .orElseThrow(()-&gt; new UsernameNotFoundException(&quot;Usuario no encontrado&quot;));</span>
+<span class="nc" id="L40">        return username -&gt; userRepository.findByUsername(username)</span>
+<span class="nc" id="L41">                .orElseThrow(()-&gt; new UsernameNotFoundException(&quot;Usuario no encontrado&quot;));</span>
     }
 
 }
