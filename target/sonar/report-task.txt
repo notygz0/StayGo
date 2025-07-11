@@ -1,6 +1,0 @@
-projectKey=StayGo-spring
-serverUrl=http://localhost:9000
-serverVersion=25.4.0.105899
-dashboardUrl=http://localhost:9000/dashboard?id=StayGo-spring
-ceTaskId=48a8269c-12d5-40cb-916c-a6296a067b9b
-ceTaskUrl=http://localhost:9000/api/ce/task?id=48a8269c-12d5-40cb-916c-a6296a067b9b
