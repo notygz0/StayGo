@@ -46,7 +46,12 @@ class LoginTest {
         var model = new ConcurrentModel();
         userServicio.EstadoUsuario(model);
 
-        assertTrue((Boolean) model.getAttribute("isLoggedIn"));
-        assertEquals(username, model.getAttribute("username"));
+        Object isLoggedIn = model.getAttribute("isLoggedIn");
+        Object retrievedUsername = model.getAttribute("username");
+
+        assertNotNull(isLoggedIn, "isLoggedIn attribute should not be null");
+        assertTrue(isLoggedIn instanceof Boolean && (Boolean) isLoggedIn, "isLoggedIn should be true");
+        assertNotNull(retrievedUsername, "username attribute should not be null");
+        assertEquals(username, retrievedUsername, "username should match the expected value");
     }
 }
