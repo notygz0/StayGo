@@ -23,14 +23,18 @@ header {
   top: 0;
   z-index: 100;
 }
-
-.nav ul {
-  display: flex;
-  gap: 25px;
-  list-style: none;
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  font-size: 18px;
+}
+.nav a:hover {
+  color: #a4a4a4;
 }
 
-nav ul {
+.nav ul {
   display: flex;
   gap: 25px;
   list-style: none;
@@ -136,17 +140,6 @@ p {
   height: 220px;
   object-fit: cover;
   border-radius: 8px;
-}
-
-.nav a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-  font-size: 18px;
-}
-.nav a:hover {
-  color: #a4a4a4;
 }
 
 .hotel-card h3 {

@@ -41,6 +41,7 @@ class AuthServiceTest {
         solicitud.setEmail("cuervas@staygo.cl");
         solicitud.setPassword("Pass1234");
         solicitud.setConfirmPassword("Pass1234");
+        solicitud.setRole(Role.USER);
 
         when(userRepository.findByUsername("cuervas")).thenReturn(Optional.empty());
         when(passwordEncoder.encode("Pass1234")).thenReturn("hashPass1234");

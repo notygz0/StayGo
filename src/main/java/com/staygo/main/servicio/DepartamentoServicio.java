@@ -3,8 +3,6 @@ package com.staygo.main.servicio;
 import com.staygo.main.dto.DepartamentoRequest;
 import com.staygo.main.dto.DepartamentoResponse;
 import com.staygo.main.entity.Departamento;
-import com.staygo.main.entity.EstadoReserva;
-import com.staygo.main.entity.Reserva;
 import com.staygo.main.entity.User;
 import com.staygo.main.repository.DepartamentoRepository;
 import com.staygo.main.repository.UserRepository;

@@ -1,6 +1,5 @@
 package com.staygo.main.controller;
 
-import com.staygo.main.repository.HotelRepository;
 import com.staygo.main.servicio.HotelServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

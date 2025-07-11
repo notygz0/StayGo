@@ -1,13 +1,9 @@
 package com.staygo.main.servicio;
 
-import com.staygo.main.dto.DepartamentoRequest;
-import com.staygo.main.dto.DepartamentoResponse;
 import com.staygo.main.dto.HotelRequest;
 import com.staygo.main.dto.HotelResponse;
-import com.staygo.main.entity.Departamento;
 import com.staygo.main.entity.Hotel;
 import com.staygo.main.entity.User;
-import com.staygo.main.repository.DepartamentoRepository;
 import com.staygo.main.repository.HotelRepository;
 import com.staygo.main.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
